@@ -748,6 +748,19 @@
 
     <!-- Message of the dialog used to disable messaging notifications [CHAR LIMIT=none] -->
     <string name="disable_notifications_dialog_message">Stop duplicate text message notifications from default Messaging app?</string>
+    
+    
+	<!-- ***************************************************************************************** -->
+	<!-- *****************************  NEW TRANQUILITY SETTINGS   ******************************* -->
+	<!-- ***************************************************************************************** -->    
+    
+    <string name="dialog_color_picker">Color Picker</string>
+    <string name="press_color_to_apply">Press on Color to apply</string>  
+    <string name="mms_led_on_ms">Led On Milliseconds</string>
+    <string name="mms_led_off_ms">Led Off Milliseconds</string>
+    
+	<!-- ***************************************************************************************** -->
+	<!-- ***************************************************************************************** -->
 
 </resources>
 
