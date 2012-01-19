@@ -539,8 +539,8 @@ public class MessagingNotification {
             
             // Tranq:  Custom Notification Options
             notification.ledARGB = sp.getInt(MessagingPreferenceActivity.MMS_LED_COLOR, 0xff00ff00);
-            notification.ledOffMS = sp.getInt(MessagingPreferenceActivity.MMS_LED_ON_MS, 100);
-            notification.ledOnMS = sp.getInt(MessagingPreferenceActivity.MMS_LED_OFF_MS, 100);
+            notification.ledOffMS = (sp.getInt(MessagingPreferenceActivity.MMS_LED_ON_MS, 10) * 100);
+            notification.ledOnMS = (sp.getInt(MessagingPreferenceActivity.MMS_LED_OFF_MS, 10) * 100);
         }
 
         notification.flags |= Notification.FLAG_SHOW_LIGHTS;

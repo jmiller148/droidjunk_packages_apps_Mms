@@ -17,6 +17,8 @@
 
 package com.android.mms.ui;
 
+import java.text.DecimalFormat;
+
 import com.android.mms.MmsApp;
 import com.android.mms.MmsConfig;
 import com.android.mms.R;
@@ -181,8 +183,8 @@ public class MessagingPreferenceActivity extends PreferenceActivity {
         setMmsDisplayLimit();
         
         MmsLedColor = sharedPreferences.getInt(MMS_LED_COLOR, 0xff00ff00);
-        MmsLedOnMs = sharedPreferences.getInt(MMS_LED_ON_MS, 100);
-        MmsLedOffMs = sharedPreferences.getInt(MMS_LED_OFF_MS, 100);
+        MmsLedOnMs = sharedPreferences.getInt(MMS_LED_ON_MS, 10);
+        MmsLedOffMs = sharedPreferences.getInt(MMS_LED_OFF_MS, 10);
     }
 
     private void setEnabledNotificationsPref() {
@@ -247,15 +249,15 @@ public class MessagingPreferenceActivity extends PreferenceActivity {
             new NumberPickerDialog(this,
                     mMmsLedOnListener,
                     MmsLedOnMs,
-                    10,
-                    500,
+                    1,
+                    50,
                     R.string.mms_led_on_ms).show();
         } else if (preference == mMmsLedOffMs) {
             new NumberPickerDialog(this,
                     mMmsLedOffListener,
                     MmsLedOffMs,
-                    10,
-                    500,
+                    1,
+                    50,
                     R.string.mms_led_off_ms).show();
         
             
@@ -304,7 +306,9 @@ public class MessagingPreferenceActivity extends PreferenceActivity {
                             PreferenceManager.getDefaultSharedPreferences(getBaseContext()).edit();
                     editor.putInt(MessagingPreferenceActivity.MMS_LED_ON_MS, limit);
                     editor.apply();
-
+                    DecimalFormat numf = new DecimalFormat("#.##");
+                    double mTime = ((double) (limit) / (double)(10));
+                    mMmsLedOnMs.setSummary(numf.format(mTime)+ " seconds");
                     MmsLedOnMs = limit;
                 }
         };
@@ -317,7 +321,9 @@ public class MessagingPreferenceActivity extends PreferenceActivity {
 
                         editor.putInt(MessagingPreferenceActivity.MMS_LED_OFF_MS, limit);
                         editor.apply();
-
+                        DecimalFormat numf = new DecimalFormat("#.##");
+                        double mTime = ((double) (limit) / (double)(10));
+                        mMmsLedOffMs.setSummary(numf.format(mTime) + " seconds");
                         MmsLedOffMs = limit;
                     }
             };
