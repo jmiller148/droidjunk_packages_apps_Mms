@@ -756,8 +756,8 @@
     
     <string name="dialog_color_picker">Color Picker</string>
     <string name="press_color_to_apply">Press on Color to apply</string>  
-    <string name="mms_led_on_ms">Led On Milliseconds</string>
-    <string name="mms_led_off_ms">Led Off Milliseconds</string>
+    <string name="mms_led_on_ms">Led On Seconds (10ths)</string>
+    <string name="mms_led_off_ms">Led Off Seconds (10ths)</string>
     
 	<!-- ***************************************************************************************** -->
 	<!-- ***************************************************************************************** -->
