@@ -758,6 +758,13 @@
     <string name="press_color_to_apply">Press on Color to apply</string>  
     <string name="mms_led_on_ms">Led On Seconds (10ths)</string>
     <string name="mms_led_off_ms">Led Off Seconds (10ths)</string>
+    <string name="hex">Hex:</string>
+    <string name="hex_hint">#FF000000</string>
+	<string name="ics_color">Stock</string>
+    <string name="arrow_right">→</string> 
+    <string name="arrow_down">↓</string>
+
+    
     
 	<!-- ***************************************************************************************** -->
 	<!-- ***************************************************************************************** -->
