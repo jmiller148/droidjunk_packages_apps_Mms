@@ -47,10 +47,10 @@
             <LinearLayout
                 android:id="@+id/message_block"
                 android:minHeight="@dimen/avatar_width_height"
-                android:layout_width="0dip"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@id/avatar"
-                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
                 android:background="@drawable/listitem_background"
                 android:orientation="vertical" >
 

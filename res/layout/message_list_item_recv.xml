@@ -50,7 +50,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/avatar"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentLeft="true"
                 android:background="@drawable/listitem_background"
                 android:orientation="vertical" >
 

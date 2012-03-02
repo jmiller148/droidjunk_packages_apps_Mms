@@ -73,6 +73,9 @@ import com.android.mms.util.SmileyParser;
 import com.google.android.mms.ContentType;
 import com.google.android.mms.pdu.PduHeaders;
 
+import droidjunk.colorfitermaker.ColorFilterMaker;
+
+
 /**
  * This class provides view of a message in the messages list.
  */
@@ -138,8 +141,18 @@ public class MessageListItem extends LinearLayout implements
         mDetailsIndicator = (ImageView) findViewById(R.id.details_indicator);
         mAvatar = (QuickContactDivot) findViewById(R.id.avatar);
         mMessageBlock = findViewById(R.id.message_block);
-    }
+        mMessageBlock.setBackgroundResource(R.drawable.in_100_white);
+       
+       
+        
 
+        
+        mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.adjustHue(0x800027b7));
+     
+    }
+    
+    
+    
     public void bind(MessageItem msgItem, boolean isLastItem) {
         mMessageItem = msgItem;
         mIsLastItemInList = isLastItem;
@@ -251,6 +264,7 @@ public class MessageListItem extends LinearLayout implements
             avatarDrawable = sDefaultContactImage;
         }
         mAvatar.setImageDrawable(avatarDrawable);
+        mAvatar.setVisibility(View.GONE);
     }
 
     private void bindCommonMessage(final MessageItem msgItem) {
@@ -305,6 +319,7 @@ public class MessageListItem extends LinearLayout implements
         drawRightStatusIndicator(msgItem);
 
         requestLayout();
+        Log.e("***********************************************","BIND COMMON");
     }
 
     private void hideMmsViewIfNeeded() {
@@ -726,6 +741,12 @@ public class MessageListItem extends LinearLayout implements
             float r = v.getX() + v.getWidth();
             float b = v.getY() + v.getHeight();
 
+            Log.e("***********************************************","L "+String.valueOf(l));
+            Log.e("***********************************************","T "+String.valueOf(t));
+            Log.e("***********************************************","R "+String.valueOf(r));
+            Log.e("***********************************************","B "+String.valueOf(b));
+            
+            
             Path path = mPath;
             path.reset();
 
@@ -747,24 +768,28 @@ public class MessageListItem extends LinearLayout implements
                 b -= 1;
             }
             if (mAvatar.getPosition() == Divot.RIGHT_UPPER) {
-                path.moveTo(l, t + mAvatar.getCloseOffset());
+                //path.moveTo(l, t + mAvatar.getCloseOffset());
+                path.moveTo(l, t);
                 path.lineTo(l, t);
                 path.lineTo(r, t);
                 path.lineTo(r, b);
                 path.lineTo(l, b);
-                path.lineTo(l, t + mAvatar.getFarOffset());
+                //path.lineTo(l, t + mAvatar.getFarOffset());
+                path.lineTo(l, t);
             } else if (mAvatar.getPosition() == Divot.LEFT_UPPER) {
-                path.moveTo(r, t + mAvatar.getCloseOffset());
+                //path.moveTo(r, t + mAvatar.getCloseOffset());
+            	path.moveTo(r, t);
                 path.lineTo(r, t);
                 path.lineTo(l, t);
                 path.lineTo(l, b);
                 path.lineTo(r, b);
-                path.lineTo(r, t + mAvatar.getFarOffset());
+                //path.lineTo(r, t + mAvatar.getFarOffset());
+                path.lineTo(r, t);
             }
 
             Paint paint = mPaint;
-//            paint.setColor(0xff00ff00);
-            paint.setColor(0xffcccccc);
+            paint.setColor(0xff00ff00);
+//            paint.setColor(0xffcccccc);
             paint.setStrokeWidth(1F);
             paint.setStyle(Paint.Style.STROKE);
             c.drawPath(path, paint);
