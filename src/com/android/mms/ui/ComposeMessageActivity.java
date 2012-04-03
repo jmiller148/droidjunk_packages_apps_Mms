@@ -3288,7 +3288,7 @@ public class ComposeMessageActivity extends Activity
 
         if (date >= 0) {
             body = getString(R.string.undelivered_msg_dialog_body,
-                    MessageUtils.formatTimeStampString(this, date));
+                    MessageUtils.formatTimeStampString(this, date, false));
         } else {
             // FIXME: we can not get sms retry time.
             body = getString(R.string.undelivered_sms_dialog_body);

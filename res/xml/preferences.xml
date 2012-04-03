@@ -18,6 +18,201 @@
  */
 -->
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <PreferenceCategory android:title="CUSTOMIZE"
+                      android:key="pref_key_customize_settings">
+
+    <PreferenceScreen
+ 
+        android:key="message_settings"
+        android:title="Message Settings" >
+  
+  	<PreferenceCategory android:title="MESSAGE LIST"
+                      android:key="key_bubbles">
+
+	<CheckBoxPreference 
+     	android:layout="?android:attr/preferenceLayoutChild"
+        android:key="msg_use_bubbles"
+        android:summary="Use bubbles for the message list"
+        android:title="Use Bubbles" 
+ 		android:defaultValue="false"
+ 		/>
+
+	<ListPreference
+		android:layout="?android:attr/preferenceLayoutChild"
+		android:dependency="msg_use_bubbles"
+		android:key="msg_bubble_type"
+		android:dialogTitle="Bubbles and Frames"
+		android:title="Choose a bubble or frame"
+		android:entries="@array/entries_bubble_type"
+		android:entryValues="@array/values_bubble_type"
+		android:defaultValue="Bubble - Glass"/>
+
+	<com.android.mms.ui.ColorPickerPreference 
+		android:layout="?android:attr/preferenceLayoutChild"
+		android:key="msg_list_bg_color"
+		android:title="List Background Color"
+		android:summary="Background color"
+		android:defaultValue="#ffffffff" 
+		alphaSlider="false" /> 
+        
+	<CheckBoxPreference 
+     	android:layout="?android:attr/preferenceLayoutChild"
+        android:key="msg_show_avatar"
+        android:title="Show The Avatar" 
+ 		android:defaultValue="false"
+ 		/>        
+ 		
+	<CheckBoxPreference 
+     	android:layout="?android:attr/preferenceLayoutChild"
+        android:key="msg_use_contact"
+        android:title="Show The Contact Name" 
+ 		android:defaultValue="false"
+ 		/> 		
+ 		
+ 		
+	<CheckBoxPreference 
+     	android:layout="?android:attr/preferenceLayoutChild"
+        android:key="msg_full_date"
+        android:title="Show The Full Date" 
+ 		android:defaultValue="true"
+ 		/> 		
+        
+    </PreferenceCategory>
+
+
+  	<PreferenceCategory android:title="IN MESSAGES"
+                      android:key="key_in_msgs">
+
+
+
+ 
+
+	<com.android.mms.ui.ColorPickerPreference 
+		android:dependency="msg_use_contact"         
+		android:layout="?android:attr/preferenceLayoutChild"
+		android:key="msg_in_contact_color"
+		android:title="Contact Name Color"
+		android:summary="Contact color for recieved messages"
+		android:defaultValue="#ffc4c4c4" 
+		alphaSlider="true" /> 
+
+	<com.android.mms.ui.ColorPickerPreference 
+		android:layout="?android:attr/preferenceLayoutChild"
+		android:key="msg_in_bg_color"
+		android:title="Background Color"
+		android:summary="Background color for recieved messages"
+		android:defaultValue="#ffc4c4c4" 
+		alphaSlider="true" /> 
+						
+	<com.android.mms.ui.ColorPickerPreference 
+		android:layout="?android:attr/preferenceLayoutChild"
+		android:key="msg_in_text_color"
+		android:title="Message Color"
+		android:summary="Message color for recieved messages"
+		android:defaultValue="#ffffffff" 
+		alphaSlider="true" /> 		
+		
+	<com.android.mms.ui.ColorPickerPreference 
+		android:layout="?android:attr/preferenceLayoutChild"
+		android:key="msg_in_date_color"
+		android:title="Date Color"
+		android:summary="Date color for recieved messages"
+		android:defaultValue="#ffffffff" 
+		alphaSlider="true" />
+
+	<com.android.mms.ui.ColorPickerPreference 
+		android:layout="?android:attr/preferenceLayoutChild"
+		android:key="msg_in_link_color"
+		android:title="Link Color"
+		android:summary="Link color for recieved messages"
+		android:defaultValue="#ffffffff" 
+		alphaSlider="true" /> 		
+
+	<com.android.mms.ui.ColorPickerPreference 
+		android:layout="?android:attr/preferenceLayoutChild"
+		android:key="msg_in_search_color"
+		android:title="Searched Text Color"
+		android:summary="Searched text color for recieved messages"
+		android:defaultValue="#ffffffff" 
+		alphaSlider="true" />
+		
+
+	</PreferenceCategory>
+
+
+
+
+	<PreferenceCategory android:title="OUT MESSAGES"
+                      android:key="key_out_msgs">
+
+	<com.android.mms.ui.ColorPickerPreference 
+		android:dependency="msg_use_contact"         
+		android:layout="?android:attr/preferenceLayoutChild"
+		android:key="msg_out_contact_color"
+		android:title="Contact Name Color"
+		android:summary="Contact color for sent messages"
+		android:defaultValue="#ffc4c4c4" 
+		alphaSlider="true" /> 
+
+	<com.android.mms.ui.ColorPickerPreference 
+		android:layout="?android:attr/preferenceLayoutChild"
+		android:key="msg_out_bg_color"
+		android:title="Background Color"
+		android:summary="Background color for sent messages"
+		android:defaultValue="#ff616161" 
+		alphaSlider="true" /> 						
+
+	<com.android.mms.ui.ColorPickerPreference 
+		android:layout="?android:attr/preferenceLayoutChild"
+		android:key="msg_out_text_color"
+		android:title="Message Color"
+		android:summary="Message color for sent messages"
+		android:defaultValue="#ffffffff" 
+		alphaSlider="true" /> 				
+
+	<com.android.mms.ui.ColorPickerPreference 
+		android:layout="?android:attr/preferenceLayoutChild"
+		android:key="msg_out_date_color"
+		android:title="Date Color"
+		android:summary="Date color for sent messages"
+		android:defaultValue="#ffffffff" 
+		alphaSlider="true" />
+
+	<com.android.mms.ui.ColorPickerPreference 
+		android:layout="?android:attr/preferenceLayoutChild"
+		android:key="msg_out_link_color"
+		android:title="Link Color"
+		android:summary="Link color for sent messages"
+		android:defaultValue="#ffffffff" 
+		alphaSlider="true" />
+
+	<com.android.mms.ui.ColorPickerPreference 
+		android:layout="?android:attr/preferenceLayoutChild"
+		android:key="msg_out_search_color"
+		android:title="Searched Text Color"
+		android:summary="Searched text color for sent messages"
+		android:defaultValue="#ffffffff" 
+		alphaSlider="true" />
+	
+	</PreferenceCategory>        
+        
+
+    </PreferenceScreen>
+    
+    
+    
+    
+    <PreferenceScreen
+        
+        android:key="conversation_settings"
+        android:title="Conversation Settings" >
+
+	</PreferenceScreen>
+
+  </PreferenceCategory>
+
+
   <PreferenceCategory android:title="@string/pref_sms_storage_title"
                       android:key="pref_key_storage_settings">
 <!--
@@ -82,6 +277,30 @@
                         android:title="@string/pref_title_notification_ringtone"
                         android:ringtoneType="notification"
                         android:defaultValue="content://settings/system/notification_sound" />
+                        
+	<com.android.mms.ui.ColorPickerPreference 
+						android:layout="?android:attr/preferenceLayoutChild"
+	    				android:dependency="pref_key_enable_notifications"
+						android:key="mms_led_color"
+						android:title="Led Notification Color"
+						android:summary="Color for notification led"
+						android:defaultValue="#ff00ff00" 
+						alphaSlider="false" /> 
+   				
+	<Preference 		android:layout="?android:attr/preferenceLayoutChild"
+    					android:dependency="pref_key_enable_notifications"
+						android:key="mms_led_on_ms"
+						android:title="Led On Seconds (in 10ths)"
+						android:summary="Number of seconds led is on"
+						android:defaultValue="10" />	
+		
+	<Preference 		android:layout="?android:attr/preferenceLayoutChild"
+    					android:dependency="pref_key_enable_notifications"
+						android:key="mms_led_off_ms"
+						android:title="Led Off Seconds (in 10ths)"
+						android:summary="Number of seconds led is off"
+						android:defaultValue="10" />	
+		                        
     <ListPreference     android:layout="?android:attr/preferenceLayoutChild"
                         android:dependency="pref_key_enable_notifications"
                         android:key="pref_key_vibrateWhen"

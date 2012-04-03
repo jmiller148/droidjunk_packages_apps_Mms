@@ -17,18 +17,27 @@
 package com.android.mms.ui;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.text.ClipboardManager;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.widget.ListView;
 
 public final class MessageListView extends ListView {
+	
+	SharedPreferences sp;
+	
+	
     public MessageListView(Context context) {
         super(context);
+        
     }
     
     public MessageListView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        sp = PreferenceManager.getDefaultSharedPreferences(context);
+        setBackgroundColor(sp.getInt(MessagingPreferenceActivity.MSG_LIST_BG_COLOR, 0xff000000));  // List background
     }
     
     @Override

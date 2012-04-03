@@ -536,10 +536,17 @@ public class MessagingNotification {
             String ringtoneStr = sp.getString(MessagingPreferenceActivity.NOTIFICATION_RINGTONE,
                     null);
             notification.sound = TextUtils.isEmpty(ringtoneStr) ? null : Uri.parse(ringtoneStr);
+            
+            // Tranq:  Custom Notification Options
+            notification.ledARGB = sp.getInt(MessagingPreferenceActivity.MMS_LED_COLOR, 0xff00ff00);
+            notification.ledOffMS = (sp.getInt(MessagingPreferenceActivity.MMS_LED_ON_MS, 10) * 100);
+            notification.ledOnMS = (sp.getInt(MessagingPreferenceActivity.MMS_LED_OFF_MS, 10) * 100);
         }
 
         notification.flags |= Notification.FLAG_SHOW_LIGHTS;
-        notification.defaults |= Notification.DEFAULT_LIGHTS;
+        //notification.defaults |= Notification.DEFAULT_LIGHTS;
+
+      
 
         // set up delete intent
         notification.deleteIntent = PendingIntent.getBroadcast(context, 0,

@@ -17,6 +17,8 @@
 
 package com.android.mms.ui;
 
+import java.text.DecimalFormat;
+
 import com.android.mms.MmsApp;
 import com.android.mms.MmsConfig;
 import com.android.mms.R;
@@ -32,6 +34,7 @@ import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
+import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceManager;
@@ -63,6 +66,29 @@ public class MessagingPreferenceActivity extends PreferenceActivity
     public static final String RETRIEVAL_DURING_ROAMING = "pref_key_mms_retrieval_during_roaming";
     public static final String AUTO_DELETE              = "pref_key_auto_delete";
 
+    // Tranq
+    public static final String MMS_LED_COLOR            = "mms_led_color";
+    public static final String MMS_LED_ON_MS            = "mms_led_on_ms";
+    public static final String MMS_LED_OFF_MS           = "mms_led_off_ms";
+    public static final String MSG_USE_BUBBLES		    = "msg_use_bubbles";
+    public static final String MSG_BUBBLE_TYPE		    = "msg_bubble_type";
+    public static final String MSG_USE_CONTACT		    = "msg_use_contact";
+    public static final String MSG_LIST_BG_COLOR	    = "msg_list_bg_color";
+    public static final String MSG_SHOW_AVATAR		    = "msg_show_avatar";
+    public static final String MSG_FULL_DATE		    = "msg_full_date";
+    public static final String MSG_IN_BG_COLOR		    = "msg_in_bg_color";
+    public static final String MSG_OUT_BG_COLOR		    = "msg_out_bg_color";
+    public static final String MSG_IN_CONTACT_COLOR	    = "msg_in_contact_color";
+    public static final String MSG_OUT_CONTACT_COLOR	= "msg_out_contact_color";
+    public static final String MSG_IN_TEXT_COLOR	    = "msg_in_text_color";
+    public static final String MSG_OUT_TEXT_COLOR	    = "msg_out_text_color";
+    public static final String MSG_IN_DATE_COLOR	    = "msg_in_date_color";
+    public static final String MSG_OUT_DATE_COLOR	    = "msg_out_date_color";
+    public static final String MSG_IN_LINK_COLOR	    = "msg_in_link_color";
+    public static final String MSG_OUT_LINK_COLOR	    = "msg_out_link_color";
+    public static final String MSG_IN_SEARCH_COLOR	    = "msg_in_search_color";
+    public static final String MSG_OUT_SEARCH_COLOR	    = "msg_out_search_color";    
+    
     // Menu entries
     private static final int MENU_RESTORE_DEFAULTS    = 1;
 
@@ -81,6 +107,29 @@ public class MessagingPreferenceActivity extends PreferenceActivity
     private CharSequence[] mVibrateEntries;
     private CharSequence[] mVibrateValues;
 
+    
+    // Tranq
+    private Preference mMmsLedColor;
+    private Preference mMmsLedOnMs;
+    private Preference mMmsLedOffMs;
+    private static int        MmsLedColor;
+    private static int        MmsLedOnMs;
+    private static int        MmsLedOffMs;
+/*    private Preference mMsgInBgColor;
+    private Preference mMsgOutBgColor;
+    private Preference mMsgInContactColor;
+    private Preference mMsgOutContactColor;   
+    private Preference mMsgInTextColor;
+    private Preference mMsgOutTextColor;
+    private Preference mMsgInDateColor;
+    private Preference mMsgOutDateColor;
+    private Preference mMsgInLinkColor;
+    private Preference mMsgOutLinkColor;
+    private Preference mMsgInSearchColor;
+    private Preference mMsgOutSearchColor;   */ 
+    
+    
+    
     @Override
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
@@ -95,10 +144,27 @@ public class MessagingPreferenceActivity extends PreferenceActivity
         mClearHistoryPref = findPreference("pref_key_mms_clear_history");
         mEnableNotificationsPref = (CheckBoxPreference) findPreference(NOTIFICATION_ENABLED);
         mVibrateWhenPref = (ListPreference) findPreference(NOTIFICATION_VIBRATE_WHEN);
-
         mVibrateEntries = getResources().getTextArray(R.array.prefEntries_vibrateWhen);
         mVibrateValues = getResources().getTextArray(R.array.prefValues_vibrateWhen);
 
+        
+        // Tranq
+        mMmsLedColor = (Preference) findPreference(MMS_LED_COLOR);
+        mMmsLedOnMs = (Preference) findPreference(MMS_LED_ON_MS);
+        mMmsLedOffMs = (Preference) findPreference(MMS_LED_OFF_MS);
+/*        mMsgInBgColor  = (Preference) findPreference(MSG_IN_BG_COLOR);
+        mMsgOutBgColor  = (Preference) findPreference(MSG_OUT_BG_COLOR);
+        mMsgInBgColor  = (Preference) findPreference(MSG_IN_TEXT_COLOR);
+        mMsgOutBgColor  = (Preference) findPreference(MSG_OUT_TEXT_COLOR);
+        mMsgInDateColor  = (Preference) findPreference(MSG_IN_DATE_COLOR);
+        mMsgOutDateColor  = (Preference) findPreference(MSG_OUT_DATE_COLOR);
+        mMsgInLinkColor  = (Preference) findPreference(MSG_IN_LINK_COLOR);
+        mMsgOutLinkColor  = (Preference) findPreference(MSG_OUT_LINK_COLOR);  
+        mMsgInSearchColor  = (Preference) findPreference(MSG_IN_SEARCH_COLOR);
+        mMsgOutSearchColor  = (Preference) findPreference(MSG_OUT_SEARCH_COLOR);  */
+        
+        
+        
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         setMessagePreferences();
@@ -171,8 +237,12 @@ public class MessagingPreferenceActivity extends PreferenceActivity
         // Fix up the recycler's summary with the correct values
         setSmsDisplayLimit();
         setMmsDisplayLimit();
-
         adjustVibrateSummary(mVibrateWhenPref.getValue());
+        
+        MmsLedColor = sharedPreferences.getInt(MMS_LED_COLOR, 0xff00ff00);
+        MmsLedOnMs = sharedPreferences.getInt(MMS_LED_ON_MS, 10);
+        MmsLedOffMs = sharedPreferences.getInt(MMS_LED_OFF_MS, 10);
+
     }
 
     private void setEnabledNotificationsPref() {
@@ -233,6 +303,22 @@ public class MessagingPreferenceActivity extends PreferenceActivity
                     mMmsRecycler.getMessageMinLimit(),
                     mMmsRecycler.getMessageMaxLimit(),
                     R.string.pref_title_mms_delete).show();
+        } else if (preference == mMmsLedOnMs) {
+            new NumberPickerDialog(this,
+                    mMmsLedOnListener,
+                    MmsLedOnMs,
+                    1,
+                    50,
+                    R.string.mms_led_on_ms).show();
+        } else if (preference == mMmsLedOffMs) {
+            new NumberPickerDialog(this,
+                    mMmsLedOffListener,
+                    MmsLedOffMs,
+                    1,
+                    50,
+                    R.string.mms_led_off_ms).show();
+        
+            
         } else if (preference == mManageSimPref) {
             startActivity(new Intent(this, ManageSimMessages.class));
         } else if (preference == mClearHistoryPref) {
@@ -271,6 +357,37 @@ public class MessagingPreferenceActivity extends PreferenceActivity
             }
     };
 
+    NumberPickerDialog.OnNumberSetListener mMmsLedOnListener =
+            new NumberPickerDialog.OnNumberSetListener() {
+                public void onNumberSet(int limit) {
+                    SharedPreferences.Editor editor =
+                            PreferenceManager.getDefaultSharedPreferences(getBaseContext()).edit();
+                    editor.putInt(MessagingPreferenceActivity.MMS_LED_ON_MS, limit);
+                    editor.apply();
+                    DecimalFormat numf = new DecimalFormat("#.##");
+                    double mTime = ((double) (limit) / (double)(10));
+                    mMmsLedOnMs.setSummary(numf.format(mTime)+ " seconds");
+                    MmsLedOnMs = limit;
+                }
+        };
+    
+        NumberPickerDialog.OnNumberSetListener mMmsLedOffListener =
+                new NumberPickerDialog.OnNumberSetListener() {
+                    public void onNumberSet(int limit) {
+                        SharedPreferences.Editor editor =
+                                PreferenceManager.getDefaultSharedPreferences(getBaseContext()).edit();
+
+                        editor.putInt(MessagingPreferenceActivity.MMS_LED_OFF_MS, limit);
+                        editor.apply();
+                        DecimalFormat numf = new DecimalFormat("#.##");
+                        double mTime = ((double) (limit) / (double)(10));
+                        mMmsLedOffMs.setSummary(numf.format(mTime) + " seconds");
+                        MmsLedOffMs = limit;
+                    }
+            };
+    
+    
+    
     @Override
     protected Dialog onCreateDialog(int id) {
         switch (id) {
@@ -312,6 +429,7 @@ public class MessagingPreferenceActivity extends PreferenceActivity
         editor.apply();
     }
 
+
     private void registerListeners() {
         mVibrateWhenPref.setOnPreferenceChangeListener(this);
     }
@@ -335,4 +453,7 @@ public class MessagingPreferenceActivity extends PreferenceActivity
         }
         mVibrateWhenPref.setSummary(null);
     }
+
+    
+
 }
