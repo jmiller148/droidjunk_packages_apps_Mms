@@ -64,11 +64,30 @@ public class MessagingPreferenceActivity extends PreferenceActivity {
     public static final String AUTO_RETRIEVAL           = "pref_key_mms_auto_retrieval";
     public static final String RETRIEVAL_DURING_ROAMING = "pref_key_mms_retrieval_during_roaming";
     public static final String AUTO_DELETE              = "pref_key_auto_delete";
+
+    // Tranq
     public static final String MMS_LED_COLOR            = "mms_led_color";
     public static final String MMS_LED_ON_MS            = "mms_led_on_ms";
     public static final String MMS_LED_OFF_MS           = "mms_led_off_ms";
-
-
+    public static final String MSG_USE_BUBBLES		    = "msg_use_bubbles";
+    public static final String MSG_BUBBLE_TYPE		    = "msg_bubble_type";
+    public static final String MSG_USE_CONTACT		    = "msg_use_contact";
+    public static final String MSG_LIST_BG_COLOR	    = "msg_list_bg_color";
+    public static final String MSG_SHOW_AVATAR		    = "msg_show_avatar";
+    public static final String MSG_FULL_DATE		    = "msg_full_date";
+    public static final String MSG_IN_BG_COLOR		    = "msg_in_bg_color";
+    public static final String MSG_OUT_BG_COLOR		    = "msg_out_bg_color";
+    public static final String MSG_IN_CONTACT_COLOR	    = "msg_in_contact_color";
+    public static final String MSG_OUT_CONTACT_COLOR	= "msg_out_contact_color";
+    public static final String MSG_IN_TEXT_COLOR	    = "msg_in_text_color";
+    public static final String MSG_OUT_TEXT_COLOR	    = "msg_out_text_color";
+    public static final String MSG_IN_DATE_COLOR	    = "msg_in_date_color";
+    public static final String MSG_OUT_DATE_COLOR	    = "msg_out_date_color";
+    public static final String MSG_IN_LINK_COLOR	    = "msg_in_link_color";
+    public static final String MSG_OUT_LINK_COLOR	    = "msg_out_link_color";
+    public static final String MSG_IN_SEARCH_COLOR	    = "msg_in_search_color";
+    public static final String MSG_OUT_SEARCH_COLOR	    = "msg_out_search_color";    
+    
     // Menu entries
     private static final int MENU_RESTORE_DEFAULTS    = 1;
 
@@ -80,17 +99,34 @@ public class MessagingPreferenceActivity extends PreferenceActivity {
     private Preference mManageSimPref;
     private Preference mClearHistoryPref;
     private ListPreference mVibrateWhenPref;
+    private CheckBoxPreference mEnableNotificationsPref;
+    private Recycler mSmsRecycler;
+    private Recycler mMmsRecycler;
+    private static final int CONFIRM_CLEAR_SEARCH_HISTORY_DIALOG = 3;
+
+    
+    // Tranq
     private Preference mMmsLedColor;
     private Preference mMmsLedOnMs;
     private Preference mMmsLedOffMs;
     private static int        MmsLedColor;
     private static int        MmsLedOnMs;
     private static int        MmsLedOffMs;
-    private CheckBoxPreference mEnableNotificationsPref;
-    private Recycler mSmsRecycler;
-    private Recycler mMmsRecycler;
-    private static final int CONFIRM_CLEAR_SEARCH_HISTORY_DIALOG = 3;
-
+/*    private Preference mMsgInBgColor;
+    private Preference mMsgOutBgColor;
+    private Preference mMsgInContactColor;
+    private Preference mMsgOutContactColor;   
+    private Preference mMsgInTextColor;
+    private Preference mMsgOutTextColor;
+    private Preference mMsgInDateColor;
+    private Preference mMsgOutDateColor;
+    private Preference mMsgInLinkColor;
+    private Preference mMsgOutLinkColor;
+    private Preference mMsgInSearchColor;
+    private Preference mMsgOutSearchColor;   */ 
+    
+    
+    
     @Override
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
@@ -105,11 +141,24 @@ public class MessagingPreferenceActivity extends PreferenceActivity {
         mClearHistoryPref = findPreference("pref_key_mms_clear_history");
         mEnableNotificationsPref = (CheckBoxPreference) findPreference(NOTIFICATION_ENABLED);
         mVibrateWhenPref = (ListPreference) findPreference(NOTIFICATION_VIBRATE_WHEN);
+        
+        // Tranq
         mMmsLedColor = (Preference) findPreference(MMS_LED_COLOR);
         mMmsLedOnMs = (Preference) findPreference(MMS_LED_ON_MS);
         mMmsLedOffMs = (Preference) findPreference(MMS_LED_OFF_MS);
+/*        mMsgInBgColor  = (Preference) findPreference(MSG_IN_BG_COLOR);
+        mMsgOutBgColor  = (Preference) findPreference(MSG_OUT_BG_COLOR);
+        mMsgInBgColor  = (Preference) findPreference(MSG_IN_TEXT_COLOR);
+        mMsgOutBgColor  = (Preference) findPreference(MSG_OUT_TEXT_COLOR);
+        mMsgInDateColor  = (Preference) findPreference(MSG_IN_DATE_COLOR);
+        mMsgOutDateColor  = (Preference) findPreference(MSG_OUT_DATE_COLOR);
+        mMsgInLinkColor  = (Preference) findPreference(MSG_IN_LINK_COLOR);
+        mMsgOutLinkColor  = (Preference) findPreference(MSG_OUT_LINK_COLOR);  
+        mMsgInSearchColor  = (Preference) findPreference(MSG_IN_SEARCH_COLOR);
+        mMsgOutSearchColor  = (Preference) findPreference(MSG_OUT_SEARCH_COLOR);  */
         
-
+        
+        
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         setMessagePreferences();

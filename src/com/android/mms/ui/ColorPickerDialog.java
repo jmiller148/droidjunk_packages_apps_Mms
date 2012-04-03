@@ -20,6 +20,8 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -27,15 +29,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import com.android.mms.R;
 
-
-public class ColorPickerDialog
-        extends
-        Dialog
-        implements
-        ColorPickerView.OnColorChangedListener,
-        View.OnClickListener {
+public class ColorPickerDialog extends Dialog implements ColorPickerView.OnColorChangedListener, 
+	View.OnClickListener {
 
     private ColorPickerView mColorPicker;
 
@@ -48,6 +46,23 @@ public class ColorPickerDialog
 
     private OnColorChangedListener mListener;
 
+
+    TextWatcher inputTextWatcher = new TextWatcher() {
+    	public void onTextChanged(CharSequence s, int start, int before, int count) {}
+		@Override
+		public void afterTextChanged(Editable s) {
+	        try {
+	        	int c = Color.parseColor(mHex.getText().toString()); 
+	        	mNewColor.setColor(c);
+	        } catch (Exception e) {
+	        }
+		}
+		@Override
+		public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+    };            
+    
+    
+    
     public interface OnColorChangedListener {
         public void onColorChanged(int color);
     }
@@ -97,27 +112,12 @@ public class ColorPickerDialog
         mOldColor.setColor(color);
         mColorPicker.setColor(color, true);
         mHex.setText(ColorPickerPreference.convertToARGB(color));
-        mHex.setOnKeyListener(new View.OnKeyListener() {
-			
-			@Override
-			public boolean onKey(View v, int keyCode, KeyEvent event) {
-		        try {
-		        	int c = Color.parseColor(mHex.getText().toString()); 
-		        	
-		        	mNewColor.setColor(c);
-		        } catch (Exception e) {
-		        	return false;
-		        }
-				
-		        
-				return false;
-			}
-		});
+        mHex.addTextChangedListener(inputTextWatcher);
         mSetButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                String text = mHex.getText().toString();
+                //String text = mHex.getText().toString();
                 try {
                     if (mListener != null) {
                         mListener.onColorChanged(mNewColor.getColor());

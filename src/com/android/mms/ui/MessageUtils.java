@@ -396,10 +396,14 @@ public class MessageUtils {
         return WorkingMessage.TEXT;
     }
 
-    public static String formatTimeStampString(Context context, long when) {
-        return formatTimeStampString(context, when, false);
-    }
-
+ 
+    // Tranq
+    // Remove this so we can use the method for full date or not
+    //public static String formatTimeStampString(Context context, long when) {
+    //	return formatTimeStampString(context, when);
+    //}
+    //
+    
     public static String formatTimeStampString(Context context, long when, boolean fullFormat) {
         Time then = new Time();
         then.set(when);
