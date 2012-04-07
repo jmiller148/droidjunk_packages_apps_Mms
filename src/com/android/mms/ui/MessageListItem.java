@@ -114,7 +114,7 @@ public class MessageListItem extends LinearLayout implements
     static private Drawable sDefaultContactImage;
     
     
-    // Tranq
+    // Junk
     SharedPreferences sp;
     private boolean mUseBubbles, mUseContact = false;
     private int mMsgInBgColor, mMsgOutBgColor;
@@ -236,7 +236,7 @@ public class MessageListItem extends LinearLayout implements
         mMessageItem = msgItem;
         mIsLastItemInList = isLastItem;
       
-        // Tranq
+        // Junk
         mMsgInBgColor = sp.getInt(MessagingPreferenceActivity.MSG_IN_BG_COLOR, 0xff00ff00);
         mMsgOutBgColor = sp.getInt(MessagingPreferenceActivity.MSG_OUT_BG_COLOR, 0xff00ff00);
 
@@ -300,7 +300,7 @@ public class MessageListItem extends LinearLayout implements
 
         mDateView.setText(msgSizeText + " " + msgItem.mTimestamp);
 
-        // Tranq
+        // Junk
         // Set the data color and background colors
         int mColor = 0;
         if (mMessageItem.getBoxId() == 1) {
@@ -370,7 +370,7 @@ public class MessageListItem extends LinearLayout implements
         }
         mAvatar.setImageDrawable(avatarDrawable);
         
-        // Tranq
+        // Junk
         // Show/Hide the avatar
         if (sp.getBoolean(MessagingPreferenceActivity.MSG_SHOW_AVATAR, false)) {
         	mAvatar.setVisibility(View.VISIBLE);
@@ -411,7 +411,7 @@ public class MessageListItem extends LinearLayout implements
                 mContext.getResources().getString(R.string.sending_message) :
                     msgItem.mTimestamp);
 
-        // Tranq
+        // Junk
         // Set date and background colors
         int mColor = 0;
         if (mMessageItem.getBoxId() == 1) {
@@ -525,7 +525,7 @@ public class MessageListItem extends LinearLayout implements
         SpannableStringBuilder buf = new SpannableStringBuilder();
 
 
-        // Tranq 
+        // Junk 
         // Show the contact if set and apply colors
 
         int mColor = 0;
@@ -574,7 +574,7 @@ public class MessageListItem extends LinearLayout implements
         }
 
         
-        // Tranq
+        // Junk
         // Set the color of the text for messages
         mColor = 0;
          if (mMessageItem.getBoxId() == 1) {
@@ -586,7 +586,7 @@ public class MessageListItem extends LinearLayout implements
         buf.setSpan(new ForegroundColorSpan(mColor), contactLength, buf.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);         
  
         
-        // Tranq  Search Highlight color
+        // Junk  Search Highlight color
         if (highlight != null) {
             if (mMessageItem.getBoxId() == 1) {
                 mColor = sp.getInt(MessagingPreferenceActivity.MSG_IN_SEARCH_COLOR, 0xffffffff);

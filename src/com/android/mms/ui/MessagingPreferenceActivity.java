@@ -66,7 +66,7 @@ public class MessagingPreferenceActivity extends PreferenceActivity
     public static final String RETRIEVAL_DURING_ROAMING = "pref_key_mms_retrieval_during_roaming";
     public static final String AUTO_DELETE              = "pref_key_auto_delete";
 
-    // Tranq
+    // Junk
     public static final String MMS_LED_COLOR            = "mms_led_color";
     public static final String MMS_LED_ON_MS            = "mms_led_on_ms";
     public static final String MMS_LED_OFF_MS           = "mms_led_off_ms";
@@ -108,7 +108,7 @@ public class MessagingPreferenceActivity extends PreferenceActivity
     private CharSequence[] mVibrateValues;
 
     
-    // Tranq
+    // Junk
     private Preference mMmsLedColor;
     private Preference mMmsLedOnMs;
     private Preference mMmsLedOffMs;
@@ -148,7 +148,7 @@ public class MessagingPreferenceActivity extends PreferenceActivity
         mVibrateValues = getResources().getTextArray(R.array.prefValues_vibrateWhen);
 
         
-        // Tranq
+        // Junk
         mMmsLedColor = (Preference) findPreference(MMS_LED_COLOR);
         mMmsLedOnMs = (Preference) findPreference(MMS_LED_ON_MS);
         mMmsLedOffMs = (Preference) findPreference(MMS_LED_OFF_MS);
