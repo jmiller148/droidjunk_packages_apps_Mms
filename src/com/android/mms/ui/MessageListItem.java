@@ -107,16 +107,14 @@ public class MessageListItem extends LinearLayout implements
     private String mDefaultCountryIso;
     private TextView mDateView;
     public View mMessageBlock;
-    private Path mPath = new Path();
-    private Paint mPaint = new Paint();
+    public View mMessageLayout;
     private QuickContactBadge mAvatar;
-    private boolean mIsLastItemInList;
     static private Drawable sDefaultContactImage;
     
     
     // Junk
     SharedPreferences sp;
-    private boolean mUseBubbles, mUseContact = false;
+    private boolean mMsgFillParent, mUseContact = false;
     private int mMsgInBgColor, mMsgOutBgColor;
 
     
@@ -144,9 +142,6 @@ public class MessageListItem extends LinearLayout implements
         }
 
         sp = PreferenceManager.getDefaultSharedPreferences(mContext);
-
-    
-    
     }
 
     @Override
@@ -160,19 +155,26 @@ public class MessageListItem extends LinearLayout implements
         mDetailsIndicator = (ImageView) findViewById(R.id.details_indicator);
         mAvatar = (QuickContactBadge) findViewById(R.id.avatar);
         mMessageBlock = findViewById(R.id.message_block);
+        mMessageLayout = findViewById(R.id.message_layout);
+        
     }
     
  
-    // DJ - changed name (drawLeftStatusIndicator) made no sense
+    // Junk - changed name (drawLeftStatusIndicator) made no sense
     private void getBubbleType() {
 
-    	
     	String bType = sp.getString(MessagingPreferenceActivity.MSG_BUBBLE_TYPE, "BubbleGlass");
-    	// mMessageBlock.getLayoutParams().width = LayoutParams.MATCH_PARENT; // Stretch Bubble
+    	mMsgFillParent = sp.getBoolean(MessagingPreferenceActivity.MSG_FILL_PARENT, false);
+    	if (mMsgFillParent) {
+    		mMessageBlock.getLayoutParams().width = LayoutParams.MATCH_PARENT; // Stretch Bubble
+    	} else {
+    		mMessageBlock.getLayoutParams().width = LayoutParams.WRAP_CONTENT; // Do Not Stretch Bubble
+    	}
     	
     	if (mMessageItem.getBoxId() == 1) {
     		mBodyTextView.setLinkTextColor(sp.getInt(MessagingPreferenceActivity.MSG_IN_LINK_COLOR, 0xff00ffff));
     		mMessageBlock.setLayoutDirection(LAYOUT_DIRECTION_LTR);
+    		mMessageLayout.setLayoutDirection(LAYOUT_DIRECTION_LTR);
     		if (bType.equals("BubbleGlassCall")) {
     		  mMessageBlock.setBackgroundResource(R.drawable.msg_in_bubble_2);
     		  mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.changeColorAlpha(mMsgInBgColor, .4f, .0f));
@@ -202,7 +204,7 @@ public class MessageListItem extends LinearLayout implements
     	    
     	  		mBodyTextView.setLinkTextColor(sp.getInt(MessagingPreferenceActivity.MSG_OUT_LINK_COLOR, 0xff00ffff));
     	  		mMessageBlock.setLayoutDirection(LAYOUT_DIRECTION_RTL);
-
+    	  		mMessageLayout.setLayoutDirection(LAYOUT_DIRECTION_LTR);
     	  		if (bType.equals("BubbleGlassCall")) {
     	  			mMessageBlock.setBackgroundResource(R.drawable.msg_out_bubble_2);
     	  			mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.changeColorAlpha(mMsgOutBgColor, .4f, .0f));
@@ -234,20 +236,15 @@ public class MessageListItem extends LinearLayout implements
     
     public void bind(MessageItem msgItem, boolean isLastItem) {
         mMessageItem = msgItem;
-        mIsLastItemInList = isLastItem;
+
       
         // Junk
         mMsgInBgColor = sp.getInt(MessagingPreferenceActivity.MSG_IN_BG_COLOR, 0xff00ff00);
         mMsgOutBgColor = sp.getInt(MessagingPreferenceActivity.MSG_OUT_BG_COLOR, 0xff00ff00);
-
-        mUseBubbles = sp.getBoolean(MessagingPreferenceActivity.MSG_USE_BUBBLES, false);
-        if (mUseBubbles) getBubbleType();
+        getBubbleType();
         mUseContact = sp.getBoolean(MessagingPreferenceActivity.MSG_USE_CONTACT, false);
-
-
-    
+        mMsgFillParent = sp.getBoolean(MessagingPreferenceActivity.MSG_FILL_PARENT, false);
         //
-        
         
         setLongClickable(false);
         setClickable(false);    // let the list view handle clicks on the item normally. When
@@ -899,69 +896,6 @@ public class MessageListItem extends LinearLayout implements
 
     }
 
-    /**
-     * Override dispatchDraw so that we can put our own background and border in.
-     * This is all complexity to support a shared border from one item to the next.
-     */
-    @Override
-    public void dispatchDraw(Canvas c) {
-    	
-        View v = mMessageBlock;
-        if (v != null) {
-            float l = v.getX();
-            float t = v.getY();
-            float r = v.getX() + v.getWidth();
-            float b = v.getY() + v.getHeight();
 
-            Log.e("***********************************************","L "+String.valueOf(l));
-            Log.e("***********************************************","T "+String.valueOf(t));
-            Log.e("***********************************************","R "+String.valueOf(r));
-            Log.e("***********************************************","B "+String.valueOf(b));
-            
-            
-            Path path = mPath;
-            path.reset();
-
-            super.dispatchDraw(c);
-
-            path.reset();
-
-            r -= 1;
-
-            // This block of code draws the border around the "message block" section
-            // of the layout.  This would normally be a simple rectangle but we omit
-            // the border at the point of the avatar's divot.  Also, the bottom is drawn
-            // 1 pixel below our own bounds to get it to line up with the border of
-            // the next item.
-            //
-            // But for the last item we draw the bottom in our own bounds -- so it will
-            // show up.
-            if (mIsLastItemInList) {
-                b -= 1;
-            }
- 
-                path.moveTo(l, t);
-                path.lineTo(l, t);
-                path.lineTo(r, t);
-                path.lineTo(r, b);
-                path.lineTo(l, b);
-                //path.lineTo(l, t + mAvatar.getFarOffset());
-                path.lineTo(l, t);
-
-
-            Paint paint = mPaint;
-            if (!mUseBubbles) {
-            	paint.setColor(0xffcccccc);
-            } else {
-            	paint.setColor(0x00cccccc);
-            }
-//            paint.setColor(0xffcccccc);
-            paint.setStrokeWidth(1F);
-            paint.setStyle(Paint.Style.STROKE);
-            c.drawPath(path, paint);
-        } else {
-            super.dispatchDraw(c);
-        }
-    }
    
 }

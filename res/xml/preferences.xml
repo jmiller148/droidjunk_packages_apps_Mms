@@ -30,24 +30,23 @@
   	<PreferenceCategory android:title="MESSAGE LIST"
                       android:key="key_bubbles">
 
-	<CheckBoxPreference 
-     	android:layout="?android:attr/preferenceLayoutChild"
-        android:key="msg_use_bubbles"
-        android:summary="Use bubbles for the message list"
-        android:title="Use Bubbles" 
- 		android:defaultValue="false"
- 		/>
 
 	<ListPreference
 		android:layout="?android:attr/preferenceLayoutChild"
-		android:dependency="msg_use_bubbles"
 		android:key="msg_bubble_type"
 		android:dialogTitle="Bubbles and Frames"
 		android:title="Choose a bubble or frame"
 		android:entries="@array/entries_bubble_type"
 		android:entryValues="@array/values_bubble_type"
-		android:defaultValue="Bubble - Glass"/>
+		android:defaultValue="BubbleGlassCall"/>
 
+	<CheckBoxPreference 
+     	android:layout="?android:attr/preferenceLayoutChild"
+        android:key="msg_fill_parent"
+        android:title="Stretch Screen Width " 
+ 		android:defaultValue="false"
+ 		/> 	
+	
 	<com.android.mms.ui.ColorPickerPreference 
 		android:layout="?android:attr/preferenceLayoutChild"
 		android:key="msg_list_bg_color"

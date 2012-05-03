@@ -70,8 +70,8 @@ public class MessagingPreferenceActivity extends PreferenceActivity
     public static final String MMS_LED_COLOR            = "mms_led_color";
     public static final String MMS_LED_ON_MS            = "mms_led_on_ms";
     public static final String MMS_LED_OFF_MS           = "mms_led_off_ms";
-    public static final String MSG_USE_BUBBLES		    = "msg_use_bubbles";
     public static final String MSG_BUBBLE_TYPE		    = "msg_bubble_type";
+    public static final String MSG_FILL_PARENT		    = "msg_fill_parent";
     public static final String MSG_USE_CONTACT		    = "msg_use_contact";
     public static final String MSG_LIST_BG_COLOR	    = "msg_list_bg_color";
     public static final String MSG_SHOW_AVATAR		    = "msg_show_avatar";
@@ -115,18 +115,7 @@ public class MessagingPreferenceActivity extends PreferenceActivity
     private static int        MmsLedColor;
     private static int        MmsLedOnMs;
     private static int        MmsLedOffMs;
-/*    private Preference mMsgInBgColor;
-    private Preference mMsgOutBgColor;
-    private Preference mMsgInContactColor;
-    private Preference mMsgOutContactColor;   
-    private Preference mMsgInTextColor;
-    private Preference mMsgOutTextColor;
-    private Preference mMsgInDateColor;
-    private Preference mMsgOutDateColor;
-    private Preference mMsgInLinkColor;
-    private Preference mMsgOutLinkColor;
-    private Preference mMsgInSearchColor;
-    private Preference mMsgOutSearchColor;   */ 
+
     
     
     
@@ -152,17 +141,6 @@ public class MessagingPreferenceActivity extends PreferenceActivity
         mMmsLedColor = (Preference) findPreference(MMS_LED_COLOR);
         mMmsLedOnMs = (Preference) findPreference(MMS_LED_ON_MS);
         mMmsLedOffMs = (Preference) findPreference(MMS_LED_OFF_MS);
-/*        mMsgInBgColor  = (Preference) findPreference(MSG_IN_BG_COLOR);
-        mMsgOutBgColor  = (Preference) findPreference(MSG_OUT_BG_COLOR);
-        mMsgInBgColor  = (Preference) findPreference(MSG_IN_TEXT_COLOR);
-        mMsgOutBgColor  = (Preference) findPreference(MSG_OUT_TEXT_COLOR);
-        mMsgInDateColor  = (Preference) findPreference(MSG_IN_DATE_COLOR);
-        mMsgOutDateColor  = (Preference) findPreference(MSG_OUT_DATE_COLOR);
-        mMsgInLinkColor  = (Preference) findPreference(MSG_IN_LINK_COLOR);
-        mMsgOutLinkColor  = (Preference) findPreference(MSG_OUT_LINK_COLOR);  
-        mMsgInSearchColor  = (Preference) findPreference(MSG_IN_SEARCH_COLOR);
-        mMsgOutSearchColor  = (Preference) findPreference(MSG_OUT_SEARCH_COLOR);  */
-        
         
         
         ActionBar actionBar = getActionBar();
