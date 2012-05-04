@@ -63,6 +63,7 @@ import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SqliteWrapper;
 import android.drm.mobile1.DrmException;
 import android.drm.mobile1.DrmRawContent;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -251,6 +252,7 @@ public class ComposeMessageActivity extends Activity
 
     private MessageListView mMsgListView;        // ListView for messages in this conversation
     public MessageListAdapter mMsgListAdapter;  // and its corresponding ListAdapter
+    private LinearLayout mComposeLayout;
 
     private RecipientsEditor mRecipientsEditor;  // UI control for editing recipients
     private ImageButton mRecipientsPicker;       // UI control for recipients picker
@@ -1718,9 +1720,14 @@ public class ComposeMessageActivity extends Activity
         super.onCreate(savedInstanceState);
 
         resetConfiguration(getResources().getConfiguration());
+        
+
 
         setContentView(R.layout.compose_message_activity);
         setProgressBarVisibility(false);
+        
+        mComposeLayout = (LinearLayout) findViewById(R.id.compose_layout);
+        mComposeLayout.setBackgroundColor(Color.WHITE);
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE |
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
