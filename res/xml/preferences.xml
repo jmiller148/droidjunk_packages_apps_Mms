@@ -51,7 +51,6 @@
 		android:layout="?android:attr/preferenceLayoutChild"
 		android:key="msg_list_bg_color"
 		android:title="List Background Color"
-		android:summary="Background color"
 		android:defaultValue="#ffffffff" 
 		alphaSlider="false" /> 
         
@@ -80,51 +79,45 @@
     </PreferenceCategory>
 
 
+  	
+  	
   	<PreferenceCategory android:title="IN MESSAGES"
                       android:key="key_in_msgs">
 
-
-
- 
 
 	<com.android.mms.ui.ColorPickerPreference 
 		android:dependency="msg_use_contact"         
 		android:layout="?android:attr/preferenceLayoutChild"
 		android:key="msg_in_contact_color"
 		android:title="Contact Name Color"
-		android:summary="Contact color for recieved messages"
-		android:defaultValue="#ffc4c4c4" 
+		android:defaultValue="#ffffffff" 
 		alphaSlider="true" /> 
 
 	<com.android.mms.ui.ColorPickerPreference 
 		android:layout="?android:attr/preferenceLayoutChild"
 		android:key="msg_in_bg_color"
 		android:title="Background Color"
-		android:summary="Background color for recieved messages"
-		android:defaultValue="#ffc4c4c4" 
+		android:defaultValue="#ff008ec2" 
 		alphaSlider="true" /> 
 						
 	<com.android.mms.ui.ColorPickerPreference 
 		android:layout="?android:attr/preferenceLayoutChild"
 		android:key="msg_in_text_color"
 		android:title="Message Color"
-		android:summary="Message color for recieved messages"
-		android:defaultValue="#ffffffff" 
+		android:defaultValue="#ffcecece" 
 		alphaSlider="true" /> 		
 		
 	<com.android.mms.ui.ColorPickerPreference 
 		android:layout="?android:attr/preferenceLayoutChild"
 		android:key="msg_in_date_color"
 		android:title="Date Color"
-		android:summary="Date color for recieved messages"
-		android:defaultValue="#ffffffff" 
+		android:defaultValue="#cdcfcfcf" 
 		alphaSlider="true" />
 
 	<com.android.mms.ui.ColorPickerPreference 
 		android:layout="?android:attr/preferenceLayoutChild"
 		android:key="msg_in_link_color"
 		android:title="Link Color"
-		android:summary="Link color for recieved messages"
 		android:defaultValue="#ffffffff" 
 		alphaSlider="true" /> 		
 
@@ -132,7 +125,6 @@
 		android:layout="?android:attr/preferenceLayoutChild"
 		android:key="msg_in_search_color"
 		android:title="Searched Text Color"
-		android:summary="Searched text color for recieved messages"
 		android:defaultValue="#ffffffff" 
 		alphaSlider="true" />
 		
@@ -150,39 +142,34 @@
 		android:layout="?android:attr/preferenceLayoutChild"
 		android:key="msg_out_contact_color"
 		android:title="Contact Name Color"
-		android:summary="Contact color for sent messages"
-		android:defaultValue="#ffc4c4c4" 
+		android:defaultValue="#ffffffff" 
 		alphaSlider="true" /> 
 
 	<com.android.mms.ui.ColorPickerPreference 
 		android:layout="?android:attr/preferenceLayoutChild"
 		android:key="msg_out_bg_color"
 		android:title="Background Color"
-		android:summary="Background color for sent messages"
-		android:defaultValue="#ff616161" 
+		android:defaultValue="#ff33b5e5" 
 		alphaSlider="true" /> 						
 
 	<com.android.mms.ui.ColorPickerPreference 
 		android:layout="?android:attr/preferenceLayoutChild"
 		android:key="msg_out_text_color"
 		android:title="Message Color"
-		android:summary="Message color for sent messages"
-		android:defaultValue="#ffffffff" 
+		android:defaultValue="#ffd6d6d6" 
 		alphaSlider="true" /> 				
 
 	<com.android.mms.ui.ColorPickerPreference 
 		android:layout="?android:attr/preferenceLayoutChild"
 		android:key="msg_out_date_color"
 		android:title="Date Color"
-		android:summary="Date color for sent messages"
-		android:defaultValue="#ffffffff" 
+		android:defaultValue="#cdffffff" 
 		alphaSlider="true" />
 
 	<com.android.mms.ui.ColorPickerPreference 
 		android:layout="?android:attr/preferenceLayoutChild"
 		android:key="msg_out_link_color"
 		android:title="Link Color"
-		android:summary="Link color for sent messages"
 		android:defaultValue="#ffffffff" 
 		alphaSlider="true" />
 
@@ -190,7 +177,6 @@
 		android:layout="?android:attr/preferenceLayoutChild"
 		android:key="msg_out_search_color"
 		android:title="Searched Text Color"
-		android:summary="Searched text color for sent messages"
 		android:defaultValue="#ffffffff" 
 		alphaSlider="true" />
 	
@@ -206,7 +192,183 @@
         
         android:key="conversation_settings"
         android:title="Conversation Settings" >
+	
+	<com.android.mms.ui.ColorPickerPreference 
+		android:layout="?android:attr/preferenceLayoutChild"
+		android:key="conv_list_bg_color"
+		android:title="List Background Color"
+		android:defaultValue="#ff000000" 
+		alphaSlider="false" />             
+        
+	
+    <PreferenceCategory android:title="READ CONVERSATIONS"
+		android:key="key_read_conv">
+	
+    
+        
+	<com.android.mms.ui.ColorPickerPreference 
+		android:layout="?android:attr/preferenceLayoutChild"
+		android:key="read_conv_bg_color"
+		android:title="Background Color"
+		android:defaultValue="#ff4e4e4e" 
+		alphaSlider="false" />       
+		
+	<com.android.mms.ui.ColorPickerPreference 
+		android:layout="?android:attr/preferenceLayoutChild"
+		android:key="read_conv_contact_color"
+		android:title="Contact Name Color"
+		android:defaultValue="#ffc4c4c4" 
+		alphaSlider="true" /> 
+		
+	<com.android.mms.ui.ColorPickerPreference 
+		android:layout="?android:attr/preferenceLayoutChild"
+		android:key="read_conv_count_color"
+		android:title="Message Count Color"
+		android:defaultValue="#ffe2e2e2" 
+		alphaSlider="true" />	
+	
+	<com.android.mms.ui.ColorPickerPreference 
+		android:layout="?android:attr/preferenceLayoutChild"
+		android:key="read_conv_subject_color"
+		android:title="Subject Color"
+		android:defaultValue="#ffb2b2b2" 
+		alphaSlider="true" /> 
+		
+	<com.android.mms.ui.ColorPickerPreference 
+		android:layout="?android:attr/preferenceLayoutChild"
+		android:key="read_conv_date_color"
+		android:title="Date Color"
+		android:defaultValue="#ff4b4b4b" 
+		alphaSlider="true" /> 
+	
+	<com.android.mms.ui.ColorPickerPreference 
+		android:layout="?android:attr/preferenceLayoutChild"
+		android:key="read_conv_attach_color"
+		android:title="Attachment Color"
+		android:defaultValue="#ffdbdbdb" 
+		alphaSlider="true" /> 
+	
+	<com.android.mms.ui.ColorPickerPreference 
+		android:layout="?android:attr/preferenceLayoutChild"
+		android:key="read_conv_error_color"
+		android:title="Error Color"
+		android:defaultValue="#ffdbdbdb" 
+		alphaSlider="true" /> 
+	</PreferenceCategory> 		
+	
 
+    
+    <PreferenceCategory android:title="UNREAD CONVERSATIONS"
+		android:key="key_unread_conv">
+	
+        
+	<com.android.mms.ui.ColorPickerPreference 
+		android:layout="?android:attr/preferenceLayoutChild"
+		android:key="unread_conv_bg_color"
+		android:title="Background Color"
+		android:defaultValue="#ffd8d8d8" 
+		alphaSlider="false" />       
+
+	<com.android.mms.ui.ColorPickerPreference 
+		android:layout="?android:attr/preferenceLayoutChild"
+		android:key="unread_conv_contact_color"
+		android:title="Contact Name Color"
+		android:defaultValue="#ff000000" 
+		alphaSlider="true" /> 
+
+	<com.android.mms.ui.ColorPickerPreference 
+		android:layout="?android:attr/preferenceLayoutChild"
+		android:key="unread_conv_count_color"
+		android:title="Message Count Color"
+		android:defaultValue="#ff33b5e5" 
+		alphaSlider="true" />	
+		
+		
+	<com.android.mms.ui.ColorPickerPreference 
+		android:layout="?android:attr/preferenceLayoutChild"
+		android:key="unread_conv_subject_color"
+		android:title="Subject Color"
+		android:defaultValue="#ff424242" 
+		alphaSlider="true" /> 
+		
+	<com.android.mms.ui.ColorPickerPreference 
+		android:layout="?android:attr/preferenceLayoutChild"
+		android:key="unread_conv_date_color"
+		android:title="Date Color"
+		android:defaultValue="#ff363636" 
+		alphaSlider="true" /> 
+	
+	<com.android.mms.ui.ColorPickerPreference 
+		android:layout="?android:attr/preferenceLayoutChild"
+		android:key="unread_conv_attach_color"
+		android:title="Attachment Color"
+		android:defaultValue="#ffffffff" 
+		alphaSlider="true" /> 
+	
+	<com.android.mms.ui.ColorPickerPreference 
+		android:layout="?android:attr/preferenceLayoutChild"
+		android:key="unread_conv_error_color"
+		android:title="Error Color"
+		android:defaultValue="#ffffffff" 
+		alphaSlider="true" /> 
+	</PreferenceCategory> 	    
+    
+    <PreferenceCategory android:title="SELECTED CONVERSATIONS"
+		android:key="key_selected_conv">
+	
+        
+	<com.android.mms.ui.ColorPickerPreference 
+		android:layout="?android:attr/preferenceLayoutChild"
+		android:key="selected_conv_bg_color"
+		android:title="Background Color"
+		android:defaultValue="#ff33b5e5" 
+		alphaSlider="false" />       
+		
+	<com.android.mms.ui.ColorPickerPreference 
+		android:layout="?android:attr/preferenceLayoutChild"
+		android:key="selected_conv_contact_color"
+		android:title="Contact Name Color"
+		android:defaultValue="#ffffffff" 
+		alphaSlider="true" /> 
+
+	<com.android.mms.ui.ColorPickerPreference 
+		android:layout="?android:attr/preferenceLayoutChild"
+		android:key="selected_conv_count_color"
+		android:title="Message Count Color"
+		android:defaultValue="#ff000000" 
+		alphaSlider="true" />	
+		
+		
+	<com.android.mms.ui.ColorPickerPreference 
+		android:layout="?android:attr/preferenceLayoutChild"
+		android:key="selected_conv_subject_color"
+		android:title="Subject Color"
+		android:defaultValue="#ff3c3c3c" 
+		alphaSlider="true" /> 
+		
+	<com.android.mms.ui.ColorPickerPreference 
+		android:layout="?android:attr/preferenceLayoutChild"
+		android:key="selected_conv_date_color"
+		android:title="Date Color"
+		android:defaultValue="#ff4b4b4b" 
+		alphaSlider="true" /> 
+	
+	<com.android.mms.ui.ColorPickerPreference 
+		android:layout="?android:attr/preferenceLayoutChild"
+		android:key="selected_conv_attach_color"
+		android:title="Attachment Color"
+		android:defaultValue="#ff4f4f4f" 
+		alphaSlider="true" /> 
+	
+	<com.android.mms.ui.ColorPickerPreference 
+		android:layout="?android:attr/preferenceLayoutChild"
+		android:key="selected_conv_error_color"
+		android:title="Error Color"
+		android:defaultValue="#ff4f4f4f" 
+		alphaSlider="true" /> 
+	</PreferenceCategory> 	    
+    
+    	
 	</PreferenceScreen>
 
   </PreferenceCategory>

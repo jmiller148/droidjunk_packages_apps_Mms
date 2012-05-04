@@ -172,7 +172,7 @@ public class MessageListItem extends LinearLayout implements
     	}
     	
     	if (mMessageItem.getBoxId() == 1) {
-    		mBodyTextView.setLinkTextColor(sp.getInt(MessagingPreferenceActivity.MSG_IN_LINK_COLOR, 0xff00ffff));
+    		mBodyTextView.setLinkTextColor(sp.getInt(MessagingPreferenceActivity.MSG_IN_LINK_COLOR, 0xffffffff));
     		mMessageBlock.setLayoutDirection(LAYOUT_DIRECTION_LTR);
     		mMessageLayout.setLayoutDirection(LAYOUT_DIRECTION_LTR);
     		if (bType.equals("BubbleGlassCall")) {
@@ -202,7 +202,7 @@ public class MessageListItem extends LinearLayout implements
     		
     	  	} else {
     	    
-    	  		mBodyTextView.setLinkTextColor(sp.getInt(MessagingPreferenceActivity.MSG_OUT_LINK_COLOR, 0xff00ffff));
+    	  		mBodyTextView.setLinkTextColor(sp.getInt(MessagingPreferenceActivity.MSG_OUT_LINK_COLOR, 0xffffffff));
     	  		mMessageBlock.setLayoutDirection(LAYOUT_DIRECTION_RTL);
     	  		mMessageLayout.setLayoutDirection(LAYOUT_DIRECTION_LTR);
     	  		if (bType.equals("BubbleGlassCall")) {
@@ -239,8 +239,8 @@ public class MessageListItem extends LinearLayout implements
 
       
         // Junk
-        mMsgInBgColor = sp.getInt(MessagingPreferenceActivity.MSG_IN_BG_COLOR, 0xff00ff00);
-        mMsgOutBgColor = sp.getInt(MessagingPreferenceActivity.MSG_OUT_BG_COLOR, 0xff00ff00);
+        mMsgInBgColor = sp.getInt(MessagingPreferenceActivity.MSG_IN_BG_COLOR, 0xff008ec2);
+        mMsgOutBgColor = sp.getInt(MessagingPreferenceActivity.MSG_OUT_BG_COLOR, 0xff33b5e5);
         getBubbleType();
         mUseContact = sp.getBoolean(MessagingPreferenceActivity.MSG_USE_CONTACT, false);
         mMsgFillParent = sp.getBoolean(MessagingPreferenceActivity.MSG_FILL_PARENT, false);
@@ -301,9 +301,9 @@ public class MessageListItem extends LinearLayout implements
         // Set the data color and background colors
         int mColor = 0;
         if (mMessageItem.getBoxId() == 1) {
-        	mColor = sp.getInt(MessagingPreferenceActivity.MSG_IN_DATE_COLOR, 0xffffffff);
+        	mColor = sp.getInt(MessagingPreferenceActivity.MSG_IN_DATE_COLOR, 0xcdcfcfcf);
          } else {
-        	 mColor = sp.getInt(MessagingPreferenceActivity.MSG_OUT_DATE_COLOR, 0xffffffff);
+        	 mColor = sp.getInt(MessagingPreferenceActivity.MSG_OUT_DATE_COLOR, 0xcdffffff);
         }
         mDateView.setBackgroundColor(0x00000000);
         mDateView.setTextColor(mColor);
@@ -412,9 +412,9 @@ public class MessageListItem extends LinearLayout implements
         // Set date and background colors
         int mColor = 0;
         if (mMessageItem.getBoxId() == 1) {
-        	mColor = sp.getInt(MessagingPreferenceActivity.MSG_IN_DATE_COLOR, 0xffffffff);
+        	mColor = sp.getInt(MessagingPreferenceActivity.MSG_IN_DATE_COLOR, 0xcdcfcfcf);
          } else {
-        	 mColor = sp.getInt(MessagingPreferenceActivity.MSG_OUT_DATE_COLOR, 0xffffffff);
+        	 mColor = sp.getInt(MessagingPreferenceActivity.MSG_OUT_DATE_COLOR, 0xcdffffff);
         }
         mDateView.setBackgroundColor(0x00000000);
         mDateView.setTextColor(mColor);
@@ -575,9 +575,9 @@ public class MessageListItem extends LinearLayout implements
         // Set the color of the text for messages
         mColor = 0;
          if (mMessageItem.getBoxId() == 1) {
-         mColor = sp.getInt(MessagingPreferenceActivity.MSG_IN_TEXT_COLOR, 0xffffffff);
+         mColor = sp.getInt(MessagingPreferenceActivity.MSG_IN_TEXT_COLOR, 0xffcecece);
           } else {
-          mColor = sp.getInt(MessagingPreferenceActivity.MSG_OUT_TEXT_COLOR, 0xffffffff);
+          mColor = sp.getInt(MessagingPreferenceActivity.MSG_OUT_TEXT_COLOR, 0xffd6d6d6);
          }
     
         buf.setSpan(new ForegroundColorSpan(mColor), contactLength, buf.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);         

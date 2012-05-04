@@ -23,11 +23,15 @@ import com.android.mms.data.ContactList;
 import com.android.mms.data.Conversation;
 import com.android.mms.util.SmileyParser;
 
+import droidjunk.colorfitermaker.ColorFilterMaker;
+
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.ForegroundColorSpan;
@@ -36,6 +40,7 @@ import android.text.style.TextAppearanceSpan;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.QuickContactBadge;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -50,12 +55,16 @@ public class ConversationListItem extends RelativeLayout implements Contact.Upda
     private TextView mSubjectView;
     private TextView mFromView;
     private TextView mDateView;
-    private View mAttachmentView;
-    private View mErrorIndicator;
+    private ImageView mAttachmentView;
+    private ImageView mErrorIndicator;
     private QuickContactBadge mAvatarView;
 
     static private Drawable sDefaultContactImage;
 
+
+    // Junk
+    SharedPreferences sp;
+    
     // For posting UI update Runnables from other threads:
     private Handler mHandler = new Handler();
 
@@ -73,6 +82,8 @@ public class ConversationListItem extends RelativeLayout implements Contact.Upda
         if (sDefaultContactImage == null) {
             sDefaultContactImage = context.getResources().getDrawable(R.drawable.ic_contact_picture);
         }
+        
+        sp = PreferenceManager.getDefaultSharedPreferences(context);
     }
 
     @Override
@@ -83,8 +94,8 @@ public class ConversationListItem extends RelativeLayout implements Contact.Upda
         mSubjectView = (TextView) findViewById(R.id.subject);
 
         mDateView = (TextView) findViewById(R.id.date);
-        mAttachmentView = findViewById(R.id.attachment);
-        mErrorIndicator = findViewById(R.id.error);
+        mAttachmentView = (ImageView) findViewById(R.id.attachment);
+        mErrorIndicator = (ImageView) findViewById(R.id.error);
         mAvatarView = (QuickContactBadge) findViewById(R.id.avatar);
     }
 
@@ -98,7 +109,7 @@ public class ConversationListItem extends RelativeLayout implements Contact.Upda
     public void bind(String title, String explain) {
         mFromView.setText(title);
         mSubjectView.setText(explain);
-    }
+     }
 
     private CharSequence formatMessage() {
         final int color = android.R.styleable.Theme_textColorSecondary;
@@ -110,9 +121,20 @@ public class ConversationListItem extends RelativeLayout implements Contact.Upda
             int before = buf.length();
             buf.append(mContext.getResources().getString(R.string.message_count_format,
                     mConversation.getMessageCount()));
+            
+            if (mConversation.isChecked()) {            
             buf.setSpan(new ForegroundColorSpan(
-                    mContext.getResources().getColor(R.color.message_count_color)),
+            		sp.getInt(MessagingPreferenceActivity.SELECTED_CONV_COUNT_COLOR, 0xff000000)),
                     before, buf.length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+            } else if (mConversation.hasUnreadMessages()) {
+                buf.setSpan(new ForegroundColorSpan(
+                		sp.getInt(MessagingPreferenceActivity.UNREAD_CONV_COUNT_COLOR, 0xff33b5e5)),
+                        before, buf.length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+            } else {
+                buf.setSpan(new ForegroundColorSpan(
+                		sp.getInt(MessagingPreferenceActivity.READ_CONV_COUNT_COLOR, 0xffe2e2e2)),
+                        before, buf.length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+            }
         }
         if (mConversation.hasDraft()) {
             buf.append(mContext.getResources().getString(R.string.draft_separator));
@@ -170,20 +192,40 @@ public class ConversationListItem extends RelativeLayout implements Contact.Upda
 
     public final void bind(Context context, final Conversation conversation) {
         //if (DEBUG) Log.v(TAG, "bind()");
-
         mConversation = conversation;
 
-        int backgroundId;
         if (conversation.isChecked()) {
-            backgroundId = R.drawable.list_selected_holo_light;
-        } else if (conversation.hasUnreadMessages()) {
-            backgroundId = R.drawable.conversation_item_background_unread;
-        } else {
-            backgroundId = R.drawable.conversation_item_background_read;
-        }
-        Drawable background = mContext.getResources().getDrawable(backgroundId);
+        	setBackgroundColor(sp.getInt(MessagingPreferenceActivity.SELECTED_CONV_BG_COLOR, 0xff33b5e5));
+            mFromView.setTextColor(sp.getInt(MessagingPreferenceActivity.SELECTED_CONV_CONTACT_COLOR, 0xffffffff));
+            mSubjectView.setTextColor(sp.getInt(MessagingPreferenceActivity.SELECTED_CONV_SUBJECT_COLOR, 0xff3c3c3c));
+            mDateView.setTextColor(sp.getInt(MessagingPreferenceActivity.SELECTED_CONV_DATE_COLOR, 0xff4b4b4b));
+            mErrorIndicator.setColorFilter(ColorFilterMaker.changeColor(
+            		sp.getInt(MessagingPreferenceActivity.SELECTED_CONV_ERROR_COLOR, 0xff4f4f4f), .6f));
+            mAttachmentView.setColorFilter(ColorFilterMaker.changeColor(
+            		sp.getInt(MessagingPreferenceActivity.SELECTED_CONV_ATTACH_COLOR, 0xff4f4f4f), .6f));
 
-        setBackgroundDrawable(background);
+        } else if (conversation.hasUnreadMessages()) {
+            setBackgroundColor(sp.getInt(MessagingPreferenceActivity.UNREAD_CONV_BG_COLOR, 0xffd8d8d8));
+            mFromView.setTextColor(sp.getInt(MessagingPreferenceActivity.UNREAD_CONV_CONTACT_COLOR, 0xff000000));
+            mSubjectView.setTextColor(sp.getInt(MessagingPreferenceActivity.UNREAD_CONV_SUBJECT_COLOR, 0xff424242));
+            mDateView.setTextColor(sp.getInt(MessagingPreferenceActivity.UNREAD_CONV_DATE_COLOR, 0xff363636));
+            mErrorIndicator.setColorFilter(ColorFilterMaker.changeColor(
+            		sp.getInt(MessagingPreferenceActivity.UNREAD_CONV_ERROR_COLOR, 0xffffffff), .6f));
+            mAttachmentView.setColorFilter(ColorFilterMaker.changeColor(
+            		sp.getInt(MessagingPreferenceActivity.UNREAD_CONV_ATTACH_COLOR, 0xffffffff), .6f));
+
+        } else {
+            setBackgroundColor(sp.getInt(MessagingPreferenceActivity.READ_CONV_BG_COLOR, 0xff4e4e4e));
+            mFromView.setTextColor(sp.getInt(MessagingPreferenceActivity.READ_CONV_CONTACT_COLOR, 0xff33b5e5));
+            mSubjectView.setTextColor(sp.getInt(MessagingPreferenceActivity.READ_CONV_SUBJECT_COLOR, 0xffb2b2b2));
+            mDateView.setTextColor(sp.getInt(MessagingPreferenceActivity.READ_CONV_DATE_COLOR, 0xff4b4b4b));
+            mErrorIndicator.setColorFilter(ColorFilterMaker.changeColor(
+            		sp.getInt(MessagingPreferenceActivity.READ_CONV_ERROR_COLOR, 0xffdbdbdb), .6f));
+            mAttachmentView.setColorFilter(ColorFilterMaker.changeColor(
+            		sp.getInt(MessagingPreferenceActivity.READ_CONV_ATTACH_COLOR, 0xffdbdbdb), .6f));
+
+        }
+        
 
         LayoutParams attachmentLayout = (LayoutParams)mAttachmentView.getLayoutParams();
         boolean hasError = conversation.hasError();

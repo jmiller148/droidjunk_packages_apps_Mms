@@ -57,7 +57,7 @@ public final class MessageListView extends ListView {
             }
             break;
         }
-
+        setBackgroundColor(sp.getInt(MessagingPreferenceActivity.MSG_LIST_BG_COLOR, 0xff000000));  // List background
         return super.onKeyShortcut(keyCode, event);
     }
     

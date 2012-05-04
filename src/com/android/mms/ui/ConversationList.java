@@ -105,6 +105,7 @@ public class ConversationList extends ListActivity implements DraftCache.OnDraft
     private Handler mHandler;
     private boolean mNeedToMarkAsSeen;
     private TextView mUnreadConvCount;
+    private ListView listView;
 
     private MenuItem mSearchItem;
     private SearchView mSearchView;
@@ -119,17 +120,19 @@ public class ConversationList extends ListActivity implements DraftCache.OnDraft
         setContentView(R.layout.conversation_list_screen);
 
         mQueryHandler = new ThreadListQueryHandler(getContentResolver());
-
-        ListView listView = getListView();
+        mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        
+        listView = getListView();
         listView.setOnCreateContextMenuListener(mConvListOnCreateContextMenuListener);
         listView.setOnKeyListener(mThreadListKeyListener);
         listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
         listView.setMultiChoiceModeListener(new ModeCallback());
-
+        
         // Tell the list view which view to display when the list is empty
         View emptyView = findViewById(R.id.empty);
         listView.setEmptyView(emptyView);
-
+        listView.setBackgroundColor(mPrefs.getInt(MessagingPreferenceActivity.CONV_LIST_BG_COLOR, 0xff000000));  // List background        
+        
         initListAdapter();
 
         setupActionBar();
@@ -137,11 +140,13 @@ public class ConversationList extends ListActivity implements DraftCache.OnDraft
         mTitle = getString(R.string.app_label);
 
         mHandler = new Handler();
-        mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+
         boolean checkedMessageLimits = mPrefs.getBoolean(CHECKED_MESSAGE_LIMITS, false);
         if (DEBUG) Log.v(TAG, "checkedMessageLimits: " + checkedMessageLimits);
         if (!checkedMessageLimits || DEBUG) {
             runOneTimeStorageLimitCheckForLegacyMessages();
+            
+            
         }
     }
 
@@ -297,6 +302,7 @@ public class ConversationList extends ListActivity implements DraftCache.OnDraft
     }
 
     private void startAsyncQuery() {
+    	listView.setBackgroundColor(mPrefs.getInt(MessagingPreferenceActivity.CONV_LIST_BG_COLOR, 0xff000000));  // List background
         try {
             setTitle(getString(R.string.refreshing));
             setProgressBarIndeterminateVisibility(true);

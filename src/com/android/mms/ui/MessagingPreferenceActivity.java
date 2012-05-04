@@ -87,7 +87,32 @@ public class MessagingPreferenceActivity extends PreferenceActivity
     public static final String MSG_IN_LINK_COLOR	    = "msg_in_link_color";
     public static final String MSG_OUT_LINK_COLOR	    = "msg_out_link_color";
     public static final String MSG_IN_SEARCH_COLOR	    = "msg_in_search_color";
-    public static final String MSG_OUT_SEARCH_COLOR	    = "msg_out_search_color";    
+    public static final String MSG_OUT_SEARCH_COLOR	    = "msg_out_search_color";
+    
+    public static final String CONV_LIST_BG_COLOR	    		= "conv_list_bg_color";
+    public static final String READ_CONV_BG_COLOR	    		= "read_conv_bg_color";
+    public static final String READ_CONV_CONTACT_COLOR	 	    = "read_conv_contact_color";
+    public static final String READ_CONV_COUNT_COLOR	 	    = "read_conv_count_color";
+    public static final String READ_CONV_SUBJECT_COLOR	 	    = "read_conv_subject_color";
+    public static final String READ_CONV_DATE_COLOR	    		= "read_conv_date_color";
+    public static final String READ_CONV_ATTACH_COLOR		    = "read_conv_attach_color";
+    public static final String READ_CONV_ERROR_COLOR	    	= "read_conv_error_color";
+    public static final String UNREAD_CONV_BG_COLOR			   	= "unread_conv_bg_color";
+    public static final String UNREAD_CONV_CONTACT_COLOR	    = "unread_conv_contact_color";
+    public static final String UNREAD_CONV_COUNT_COLOR	 	    = "unread_conv_count_color";
+    public static final String UNREAD_CONV_SUBJECT_COLOR	    = "unread_conv_subject_color";
+    public static final String UNREAD_CONV_DATE_COLOR	    	= "unread_conv_date_color";
+    public static final String UNREAD_CONV_ATTACH_COLOR	  		= "unread_conv_attach_color";
+    public static final String UNREAD_CONV_ERROR_COLOR	    	= "unread_conv_error_color";
+    public static final String SELECTED_CONV_BG_COLOR	    	= "selected_conv_bg_color";
+    public static final String SELECTED_CONV_CONTACT_COLOR	    = "selected_conv_contact_color";
+    public static final String SELECTED_CONV_COUNT_COLOR	 	    = "selected_conv_count_color";
+    public static final String SELECTED_CONV_SUBJECT_COLOR	    = "selected_conv_subject_color";
+    public static final String SELECTED_CONV_DATE_COLOR	    	= "selected_conv_date_color";
+    public static final String SELECTED_CONV_ATTACH_COLOR	    = "selected_conv_attach_color";
+    public static final String SELECTED_CONV_ERROR_COLOR		= "selected_conv_error_color";
+
+    
     
     // Menu entries
     private static final int MENU_RESTORE_DEFAULTS    = 1;
@@ -115,6 +140,7 @@ public class MessagingPreferenceActivity extends PreferenceActivity
     private static int        MmsLedColor;
     private static int        MmsLedOnMs;
     private static int        MmsLedOffMs;
+    
 
     
     
@@ -141,6 +167,7 @@ public class MessagingPreferenceActivity extends PreferenceActivity
         mMmsLedColor = (Preference) findPreference(MMS_LED_COLOR);
         mMmsLedOnMs = (Preference) findPreference(MMS_LED_ON_MS);
         mMmsLedOffMs = (Preference) findPreference(MMS_LED_OFF_MS);
+        
         
         
         ActionBar actionBar = getActionBar();
@@ -222,6 +249,7 @@ public class MessagingPreferenceActivity extends PreferenceActivity
         MmsLedOffMs = sharedPreferences.getInt(MMS_LED_OFF_MS, 10);
 
     }
+    
 
     private void setEnabledNotificationsPref() {
         // The "enable notifications" setting is really stored in our own prefs. Read the
