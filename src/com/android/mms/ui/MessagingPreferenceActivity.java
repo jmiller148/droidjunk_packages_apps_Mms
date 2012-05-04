@@ -40,6 +40,7 @@ import android.preference.PreferenceCategory;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.preference.Preference.OnPreferenceChangeListener;
+import android.preference.SeekBarPreference;
 import android.provider.SearchRecentSuggestions;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -74,6 +75,7 @@ public class MessagingPreferenceActivity extends PreferenceActivity
     public static final String MSG_FILL_PARENT		    = "msg_fill_parent";
     public static final String MSG_USE_CONTACT		    = "msg_use_contact";
     public static final String MSG_LIST_BG_COLOR	    = "msg_list_bg_color";
+	public static final String MSG_DIVIDER_HEIGHT	    = "msg_divider_height";
     public static final String MSG_SHOW_AVATAR		    = "msg_show_avatar";
     public static final String MSG_FULL_DATE		    = "msg_full_date";
     public static final String MSG_IN_BG_COLOR		    = "msg_in_bg_color";
@@ -106,7 +108,7 @@ public class MessagingPreferenceActivity extends PreferenceActivity
     public static final String UNREAD_CONV_ERROR_COLOR	    	= "unread_conv_error_color";
     public static final String SELECTED_CONV_BG_COLOR	    	= "selected_conv_bg_color";
     public static final String SELECTED_CONV_CONTACT_COLOR	    = "selected_conv_contact_color";
-    public static final String SELECTED_CONV_COUNT_COLOR	 	    = "selected_conv_count_color";
+    public static final String SELECTED_CONV_COUNT_COLOR	    = "selected_conv_count_color";
     public static final String SELECTED_CONV_SUBJECT_COLOR	    = "selected_conv_subject_color";
     public static final String SELECTED_CONV_DATE_COLOR	    	= "selected_conv_date_color";
     public static final String SELECTED_CONV_ATTACH_COLOR	    = "selected_conv_attach_color";
@@ -137,9 +139,11 @@ public class MessagingPreferenceActivity extends PreferenceActivity
     private Preference mMmsLedColor;
     private Preference mMmsLedOnMs;
     private Preference mMmsLedOffMs;
-    private static int        MmsLedColor;
-    private static int        MmsLedOnMs;
-    private static int        MmsLedOffMs;
+    private SeekBarPreference mDividerHeight;
+    private static int MmsLedColor;
+    private static int MmsLedOnMs;
+    private static int MmsLedOffMs;
+    private SharedPreferences sp;
     
 
     
@@ -161,15 +165,17 @@ public class MessagingPreferenceActivity extends PreferenceActivity
         mVibrateWhenPref = (ListPreference) findPreference(NOTIFICATION_VIBRATE_WHEN);
         mVibrateEntries = getResources().getTextArray(R.array.prefEntries_vibrateWhen);
         mVibrateValues = getResources().getTextArray(R.array.prefValues_vibrateWhen);
-
         
         // Junk
+        sp = PreferenceManager.getDefaultSharedPreferences(this);
         mMmsLedColor = (Preference) findPreference(MMS_LED_COLOR);
         mMmsLedOnMs = (Preference) findPreference(MMS_LED_ON_MS);
         mMmsLedOffMs = (Preference) findPreference(MMS_LED_OFF_MS);
-        
-        
-        
+        mDividerHeight = (SeekBarPreference) findPreference(MSG_DIVIDER_HEIGHT);
+        mDividerHeight.setMax(100);
+        mDividerHeight.setDefaultValue(sp.getInt(MSG_DIVIDER_HEIGHT, 0));
+        mDividerHeight.setProgress(sp.getInt(MSG_DIVIDER_HEIGHT, 0));
+       
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         setMessagePreferences();
@@ -227,10 +233,10 @@ public class MessagingPreferenceActivity extends PreferenceActivity
         setEnabledNotificationsPref();
 
         // If needed, migrate vibration setting from a previous version
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        if (!sharedPreferences.contains(NOTIFICATION_VIBRATE_WHEN) &&
-                sharedPreferences.contains(NOTIFICATION_VIBRATE)) {
-            int stringId = sharedPreferences.getBoolean(NOTIFICATION_VIBRATE, false) ?
+
+        if (!sp.contains(NOTIFICATION_VIBRATE_WHEN) &&
+                sp.contains(NOTIFICATION_VIBRATE)) {
+            int stringId = sp.getBoolean(NOTIFICATION_VIBRATE, false) ?
                     R.string.prefDefault_vibrate_true :
                     R.string.prefDefault_vibrate_false;
             mVibrateWhenPref.setValue(getString(stringId));
@@ -244,9 +250,9 @@ public class MessagingPreferenceActivity extends PreferenceActivity
         setMmsDisplayLimit();
         adjustVibrateSummary(mVibrateWhenPref.getValue());
         
-        MmsLedColor = sharedPreferences.getInt(MMS_LED_COLOR, 0xff00ff00);
-        MmsLedOnMs = sharedPreferences.getInt(MMS_LED_ON_MS, 10);
-        MmsLedOffMs = sharedPreferences.getInt(MMS_LED_OFF_MS, 10);
+        MmsLedColor = sp.getInt(MMS_LED_COLOR, 0xff00ff00);
+        MmsLedOnMs = sp.getInt(MMS_LED_ON_MS, 10);
+        MmsLedOffMs = sp.getInt(MMS_LED_OFF_MS, 10);
 
     }
     
@@ -445,6 +451,9 @@ public class MessagingPreferenceActivity extends PreferenceActivity
         if (preference == mVibrateWhenPref) {
             adjustVibrateSummary((String)newValue);
             result = true;
+        } else if (preference == mDividerHeight) {
+        	
+        	
         }
         return result;
     }

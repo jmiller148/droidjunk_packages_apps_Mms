@@ -131,8 +131,7 @@ public class ConversationList extends ListActivity implements DraftCache.OnDraft
         // Tell the list view which view to display when the list is empty
         View emptyView = findViewById(R.id.empty);
         listView.setEmptyView(emptyView);
-        listView.setBackgroundColor(mPrefs.getInt(MessagingPreferenceActivity.CONV_LIST_BG_COLOR, 0xff000000));  // List background        
-        
+        listView.setBackgroundColor(mPrefs.getInt(MessagingPreferenceActivity.CONV_LIST_BG_COLOR, 0xff000000));  // List background    
         initListAdapter();
 
         setupActionBar();

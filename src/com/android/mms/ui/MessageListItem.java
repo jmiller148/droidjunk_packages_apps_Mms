@@ -175,29 +175,17 @@ public class MessageListItem extends LinearLayout implements
     		mBodyTextView.setLinkTextColor(sp.getInt(MessagingPreferenceActivity.MSG_IN_LINK_COLOR, 0xffffffff));
     		mMessageBlock.setLayoutDirection(LAYOUT_DIRECTION_LTR);
     		mMessageLayout.setLayoutDirection(LAYOUT_DIRECTION_LTR);
-    		if (bType.equals("BubbleGlassCall")) {
-    		  mMessageBlock.setBackgroundResource(R.drawable.msg_in_bubble_2);
+    		if (bType.equals("BubbleCall")) {
+    		  mMessageBlock.setBackgroundResource(R.drawable.msg_in_bubble_1);
     		  mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.changeColorAlpha(mMsgInBgColor, .4f, .0f));
     	  
-    	  		} else if (bType.equals("BubblePlainCall")) {
-    	  			mMessageBlock.setBackgroundResource(R.drawable.msg_in_bubble_1);
+    	  		} else if (bType.equals("Bubble")) {
+    	  			mMessageBlock.setBackgroundResource(R.drawable.msg_in_bubble_2);
     	  			mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.changeColorAlpha(mMsgInBgColor, .4f, .0f));
         
-    	  		} else if (bType.equals("BubbleGlass")) {
-    	  			mMessageBlock.setBackgroundResource(R.drawable.msg_in_bubble_3);
-    	  			mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.changeColorAlpha(mMsgInBgColor, .4f, .0f));
-        
-    	  		} else if (bType.equals("FramePlain")) {
+    	  		} else if (bType.equals("Plain")) {
     	  			mMessageBlock.setBackgroundResource(R.drawable.msg_in_frame_1);
     	  			mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.changeColorAlpha(mMsgInBgColor, .4f, .0f));
-    	  			
-    	  		} else if (bType.equals("FrameArrow")) {
-    	  			mMessageBlock.setBackgroundResource(R.drawable.msg_in_frame_2);
-    	  			mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.changeColorAlpha(mMsgInBgColor, .4f, .0f));
-    	  		
-    	  		} else if (bType.equals("FrameGlow")) {
-    	  			mMessageBlock.setBackgroundResource(R.drawable.msg_in_glow);
-    	  			mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.changeColorAlpha(mMsgInBgColor, .4f, .0f));	
     	  			}
     		
     	  	} else {
@@ -205,28 +193,16 @@ public class MessageListItem extends LinearLayout implements
     	  		mBodyTextView.setLinkTextColor(sp.getInt(MessagingPreferenceActivity.MSG_OUT_LINK_COLOR, 0xffffffff));
     	  		mMessageBlock.setLayoutDirection(LAYOUT_DIRECTION_RTL);
     	  		mMessageLayout.setLayoutDirection(LAYOUT_DIRECTION_LTR);
-    	  		if (bType.equals("BubbleGlassCall")) {
-    	  			mMessageBlock.setBackgroundResource(R.drawable.msg_out_bubble_2);
-    	  			mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.changeColorAlpha(mMsgOutBgColor, .4f, .0f));
-    		
-    	  		} else if (bType.equals("BubblePlainCall")) {
+    	  		if (bType.equals("BubbleCall")) {
     	  			mMessageBlock.setBackgroundResource(R.drawable.msg_out_bubble_1);
     	  			mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.changeColorAlpha(mMsgOutBgColor, .4f, .0f));
+    		
+    	  		} else if (bType.equals("Bubble")) {
+    	  			mMessageBlock.setBackgroundResource(R.drawable.msg_out_bubble_2);
+    	  			mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.changeColorAlpha(mMsgOutBgColor, .4f, .0f));
     		 
-    	  		} else if (bType.equals("BubbleGlass")) {
-    	  			mMessageBlock.setBackgroundResource(R.drawable.msg_out_bubble_3);
-    	  			mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.changeColorAlpha(mMsgOutBgColor, .4f, .0f));
-            
-    	  		} else if (bType.equals("FramePlain")) {
+    	  		} else if (bType.equals("Plain")) {
     	  			mMessageBlock.setBackgroundResource(R.drawable.msg_out_frame_1);
-    	  			mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.changeColorAlpha(mMsgOutBgColor, .4f, .0f));
-    	  		
-    	  		} else if (bType.equals("FrameArrow")) {
-    	  			mMessageBlock.setBackgroundResource(R.drawable.msg_out_frame_2);
-    	  			mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.changeColorAlpha(mMsgOutBgColor, .4f, .0f));
-    	  			
-    	  		} else if (bType.equals("FrameGlow")) {
-    	  			mMessageBlock.setBackgroundResource(R.drawable.msg_out_glow);
     	  			mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.changeColorAlpha(mMsgOutBgColor, .4f, .0f));
     	  		}
     	  }

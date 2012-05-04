@@ -252,7 +252,6 @@ public class ComposeMessageActivity extends Activity
 
     private MessageListView mMsgListView;        // ListView for messages in this conversation
     public MessageListAdapter mMsgListAdapter;  // and its corresponding ListAdapter
-    private LinearLayout mComposeLayout;
 
     private RecipientsEditor mRecipientsEditor;  // UI control for editing recipients
     private ImageButton mRecipientsPicker;       // UI control for recipients picker
@@ -1654,6 +1653,7 @@ public class ComposeMessageActivity extends Activity
         mRecipientsEditor.populate(recipients);
         mRecipientsEditor.setOnCreateContextMenuListener(mRecipientsMenuCreateListener);
         mRecipientsEditor.addTextChangedListener(mRecipientsWatcher);
+        mRecipientsEditor.setBackgroundColor(0xffffffff);
         // TODO : Remove the max length limitation due to the multiple phone picker is added and the
         // user is able to select a large number of recipients from the Contacts. The coming
         // potential issue is that it is hard for user to edit a recipient from hundred of
@@ -1726,8 +1726,8 @@ public class ComposeMessageActivity extends Activity
         setContentView(R.layout.compose_message_activity);
         setProgressBarVisibility(false);
         
-        mComposeLayout = (LinearLayout) findViewById(R.id.compose_layout);
-        mComposeLayout.setBackgroundColor(Color.WHITE);
+//        mComposeLayout = (LinearLayout) findViewById(R.id.compose_layout);
+//        mComposeLayout.setBackgroundColor(Color.WHITE);
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE |
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
@@ -3268,6 +3268,7 @@ public class ComposeMessageActivity extends Activity
         mTextEditor.addTextChangedListener(mTextEditorWatcher);
         mTextEditor.setFilters(new InputFilter[] {
                 new LengthFilter(MmsConfig.getMaxTextLimit())});
+        mTextEditor.setBackgroundColor(0xffffffff);
         mTextCounter = (TextView) findViewById(R.id.text_counter);
         mSendButtonMms = (TextView) findViewById(R.id.send_button_mms);
         mSendButtonSms = (ImageButton) findViewById(R.id.send_button_sms);

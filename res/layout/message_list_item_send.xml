@@ -38,9 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 			android:layout_gravity="right"
-
 			>
-
 
             <LinearLayout
                 android:id="@+id/message_block"
@@ -49,9 +47,6 @@
                 android:layout_height="wrap_content"
 				android:orientation="horizontal" 
 				>
-
-                
-                
                 
             <android.widget.QuickContactBadge
             	android:id="@+id/avatar"
@@ -60,7 +55,6 @@
                 style="?android:attr/quickContactBadgeStyleWindowSmall"
                 />
 
-
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">                
@@ -68,7 +62,6 @@
                 <TextView 
                 	android:id="@+id/text_view"
                     android:autoLink="all"
-
                     android:paddingLeft="8dip"
                     android:paddingRight="8dip"
                     android:paddingTop="8dip"
@@ -86,7 +79,6 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal" 
                     android:layout_below="@id/text_view"
-                    
                     android:paddingLeft="8dip"
                     android:paddingRight="8dip"
                     android:paddingTop="6dip"
@@ -96,7 +88,6 @@
 
                     <TextView 
                     	android:id="@+id/date_view"
-
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceSmall"

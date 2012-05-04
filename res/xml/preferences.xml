@@ -40,12 +40,7 @@
 		android:entryValues="@array/values_bubble_type"
 		android:defaultValue="BubbleGlassCall"/>
 
-	<CheckBoxPreference 
-     	android:layout="?android:attr/preferenceLayoutChild"
-        android:key="msg_fill_parent"
-        android:title="Stretch Screen Width " 
- 		android:defaultValue="false"
- 		/> 	
+
 	
 	<com.android.mms.ui.ColorPickerPreference 
 		android:layout="?android:attr/preferenceLayoutChild"
@@ -53,7 +48,21 @@
 		android:title="List Background Color"
 		android:defaultValue="#ffffffff" 
 		alphaSlider="false" /> 
-        
+
+	<SeekBarPreference 
+     	android:layout="?android:attr/preferenceLayoutChild"
+        android:key="msg_divider_height"
+        android:title="Distance Between Messages" 
+ 		android:defaultValue="10"
+ 		/> 	
+	
+	<CheckBoxPreference 
+     	android:layout="?android:attr/preferenceLayoutChild"
+        android:key="msg_fill_parent"
+        android:title="Stretch Screen Width" 
+ 		android:defaultValue="false"
+ 		/> 		
+	
 	<CheckBoxPreference 
      	android:layout="?android:attr/preferenceLayoutChild"
         android:key="msg_show_avatar"

@@ -22,7 +22,6 @@
     android:id="@+id/compose_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/list_background"
     android:orientation="vertical">
 
     <LinearLayout
@@ -40,7 +39,7 @@
             android:layout="@layout/recipients_editor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-        />
+          />
 
         <EditText android:id="@+id/subject"
             android:textAppearance="?android:attr/textAppearanceMediumInverse"
@@ -51,14 +50,16 @@
             android:autoText="true"
             android:singleLine="true"
             android:hint="@string/subject_hint"
-            android:visibility="gone"/>
+            android:visibility="gone"
+            />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:gravity="bottom">
+        android:gravity="bottom"
+        >
 
         <view class="com.android.mms.ui.MessageListView"
             style="?android:attr/listViewWhiteStyle"
@@ -81,13 +82,15 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            >
 
             <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
                 android:id="@+id/attachment_editor_scroll_view"
                 android:layout_weight="1.0"
                 android:layout_width="match_parent"
-                android:layout_height="0dip">
+                android:layout_height="0dip"
+                >
 
               <view class="com.android.mms.ui.AttachmentEditor"
                   android:id="@+id/attachment_editor"
@@ -127,8 +130,8 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#fff"
-                android:paddingBottom="4dip" >
+                android:paddingBottom="4dip"
+                 >
 
                 <EditText
                     android:textColor="@android:color/black"
@@ -154,7 +157,8 @@
                     android:orientation="vertical"
                     android:layout_gravity="bottom"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" >
+                    android:layout_height="wrap_content" 
+                    >
 
                     <TextView
                         android:id="@+id/text_counter"
@@ -184,7 +188,8 @@
                         android:editable="false"
                         android:text="@string/mms"
                         android:contentDescription="@string/send"
-                        android:nextFocusLeft="@+id/embedded_text_editor" />
+                        android:nextFocusLeft="@+id/embedded_text_editor"
+                         />
 
                     <ImageButton
                         android:id="@+id/send_button_sms"

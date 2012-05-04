@@ -74,22 +74,16 @@
     <!-- TranquilIce - DJ -->
     
     <string-array name="entries_bubble_type" translatable="false">
-		<item>Bubble Glass Callout</item>
-        <item>Bubble Plain Callout</item>
-        <item>Bubble Glass</item>
-        <item>Frame Plain</item>
-        <item>Frame Arrow</item>
-        <item>Frame Glow</item>
+		<item>Bubble Callout</item>
+        <item>Bubble</item>
+        <item>Standard</item>
     </string-array>
 
 
     <string-array name="values_bubble_type" translatable="false">
-        <item>BubbleGlassCall</item>
-		<item>BubblePlainCall</item>
-		<item>BubbleGlass</item>
-        <item>FramePlain</item>
-        <item>FrameArrow</item>
-        <item>FrameGlow</item>
+        <item>BubbleCall</item>
+		<item>Bubble</item>
+		<item>Plain</item>
     </string-array>
     
     

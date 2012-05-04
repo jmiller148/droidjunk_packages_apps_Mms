@@ -18,8 +18,10 @@
 package com.android.mms.ui;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.provider.BaseColumns;
 import android.provider.Telephony.Mms;
 import android.provider.Telephony.MmsSms;
@@ -113,6 +115,9 @@ public class MessageListAdapter extends CursorAdapter {
     private Handler mMsgListItemHandler;
     private Pattern mHighlight;
     private Context mContext;
+    // Junk
+    private ListView mListView;
+    private SharedPreferences sp;
 
     public MessageListAdapter(
             Context context, Cursor c, ListView listView,
@@ -130,7 +135,13 @@ public class MessageListAdapter extends CursorAdapter {
         } else {
             mColumnsMap = new ColumnsMap(c);
         }
-
+        
+        sp = PreferenceManager.getDefaultSharedPreferences(context);
+        mListView = listView;
+        mListView.setDivider(context.getResources().getDrawable(R.drawable.msg_divider));
+        mListView.setDividerHeight(sp.getInt(MessagingPreferenceActivity.MSG_DIVIDER_HEIGHT, 0));
+        
+        
         listView.setRecyclerListener(new AbsListView.RecyclerListener() {
             @Override
             public void onMovedToScrapHeap(View view) {
@@ -156,6 +167,8 @@ public class MessageListAdapter extends CursorAdapter {
                 mli.setMsgListItemHandler(mMsgListItemHandler);
             }
         }
+        mListView.setDividerHeight(sp.getInt(MessagingPreferenceActivity.MSG_DIVIDER_HEIGHT, 0));
+        
     }
 
     public interface OnDataSetChangedListener {

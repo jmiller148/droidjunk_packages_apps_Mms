@@ -16,6 +16,7 @@
 
 package com.android.mms.ui;
 
+import com.android.mms.R;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
