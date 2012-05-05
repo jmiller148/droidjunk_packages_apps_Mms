@@ -177,19 +177,19 @@ public class MessageListItem extends LinearLayout implements
     		mMessageLayout.setLayoutDirection(LAYOUT_DIRECTION_LTR);
     		if (bType.equals("BubbleCall")) {
     		  mMessageBlock.setBackgroundResource(R.drawable.msg_in_bubble_1);
-    		  mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.changeColorAlpha(mMsgInBgColor, .4f, .0f));
+    		  mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.changeColor(mMsgInBgColor, .2f));
     	  
     	  		} else if (bType.equals("Bubble")) {
     	  			mMessageBlock.setBackgroundResource(R.drawable.msg_in_bubble_2);
-    	  			mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.changeColorAlpha(mMsgInBgColor, .4f, .0f));
+    	  			mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.changeColor(mMsgInBgColor, .2f));
         
     	  		} else if (bType.equals("Plain")) {
     	  			mMessageBlock.setBackgroundResource(R.drawable.msg_in_frame_1);
-    	  			mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.changeColorAlpha(mMsgInBgColor, .4f, .0f));
+    	  			mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.changeColor(mMsgInBgColor, .2f));
 
     	  		} else if (bType.equals("Beveled")) {
        	  			mMessageBlock.setBackgroundResource(R.drawable.msg_in_frame_2);
-       	  			mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.changeColorAlpha(mMsgInBgColor, .4f, .0f));
+       	  			mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.changeColor(mMsgInBgColor, .2f));
    	  			}
 
     		
@@ -200,19 +200,19 @@ public class MessageListItem extends LinearLayout implements
     	  		mMessageLayout.setLayoutDirection(LAYOUT_DIRECTION_LTR);
     	  		if (bType.equals("BubbleCall")) {
     	  			mMessageBlock.setBackgroundResource(R.drawable.msg_out_bubble_1);
-    	  			mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.changeColorAlpha(mMsgOutBgColor, .4f, .0f));
+    	  			mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.changeColor(mMsgOutBgColor, .2f));
     		
     	  		} else if (bType.equals("Bubble")) {
     	  			mMessageBlock.setBackgroundResource(R.drawable.msg_out_bubble_2);
-    	  			mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.changeColorAlpha(mMsgOutBgColor, .4f, .0f));
+    	  			mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.changeColor(mMsgOutBgColor, .2f));
     		 
     	  		} else if (bType.equals("Plain")) {
     	  			mMessageBlock.setBackgroundResource(R.drawable.msg_out_frame_1);
-    	  			mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.changeColorAlpha(mMsgOutBgColor, .4f, .0f));
+    	  			mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.changeColor(mMsgOutBgColor, .2f));
 
     	  		} else if (bType.equals("Beveled")) {
        	  			mMessageBlock.setBackgroundResource(R.drawable.msg_out_frame_2);
-       	  			mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.changeColorAlpha(mMsgOutBgColor, .4f, .0f));
+       	  			mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.changeColor(mMsgOutBgColor, .2f));
    	  			}
     	  }
     };    

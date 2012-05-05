@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<map>
+<boolean name="msg_use_smiley" value="true" />
+<string name="msg_preset_colors">Grey</string>
+<int name="msg_out_smiley_color" value="-16741699" />
+<int name="msg_in_text_color" value="-13027015" />
+<int name="unread_conv_error_color" value="-16777216" />
+<int name="msg_in_contact_color" value="-16777216" />
+<boolean name="pref_key_mms_auto_retrieval" value="true" />
+<int name="msg_out_date_color" value="1795162111" />
+<int name="msg_in_link_color" value="-16777216" />
+<int name="unread_conv_date_color" value="-16777216" />
+<int name="selected_conv_attach_color" value="-16777216" />
+<int name="selected_conv_error_color" value="-16777216" />
+<boolean name="msg_show_avatar" value="false" />
+<boolean name="pref_key_enable_notifications" value="true" />
+<int name="read_conv_date_color" value="-4473925" />
+<int name="msg_out_text_color" value="-4013374" />
+<int name="read_conv_error_color" value="-36864" />
+<boolean name="checked_message_limits" value="true" />
+<int name="unread_conv_count_color" value="-14514775" />
+<string name="pref_key_vibrateWhen">never</string>
+<int name="mms_led_color" value="-16711936" />
+<string name="msg_bubble_type">BubbleCall</string>
+<int name="msg_out_link_color" value="-16777216" />
+<int name="msg_in_search_color" value="-16777216" />
+<int name="unread_conv_attach_color" value="-16777216" />
+<boolean name="msg_fill_parent" value="false" />
+<int name="selected_conv_count_color" value="-16777216" />
+<int name="msg_list_bg_color" value="-14474461" />
+<int name="selected_conv_contact_color" value="-16777216" />
+<int name="selected_conv_date_color" value="-16777216" />
+<int name="unread_conv_subject_color" value="-16777216" />
+<int name="msg_in_smiley_color" value="-1" />
+<int name="selected_conv_subject_color" value="-16777216" />
+<string name="pref_key_ringtone">content://media/internal/audio/media/362</string>
+<int name="msg_in_bg_color" value="-6974059" />
+<int name="unread_conv_bg_color" value="-1" />
+<int name="msg_out_search_color" value="-16777216" />
+<int name="read_conv_count_color" value="-13388315" />
+<boolean name="pref_key_auto_delete" value="true" />
+<int name="read_conv_attach_color" value="-13388315" />
+<int name="msg_out_bg_color" value="-11579569" />
+<int name="read_conv_subject_color" value="-3289651" />
+<int name="msg_out_contact_color" value="-1" />
+<int name="mms_led_on_ms" value="2" />
+<int name="msg_divider_height" value="12" />
+<int name="msg_in_date_color" value="1879048192" />
+<int name="unread_conv_contact_color" value="-16777216" />
+<int name="read_conv_bg_color" value="-9737365" />
+<int name="selected_conv_bg_color" value="-13381147" />
+<boolean name="msg_full_date" value="true" />
+<int name="conv_list_bg_color" value="-16777216" />
+<boolean name="msg_use_contact" value="true" />
+<int name="mms_led_off_ms" value="2" />
+<int name="read_conv_contact_color" value="-1" />
+</map>
