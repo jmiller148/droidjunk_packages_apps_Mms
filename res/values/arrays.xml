@@ -71,7 +71,7 @@
     </string-array>
     
     
-    <!-- TranquilIce - DJ -->
+    <!-- DroidJunk -->
     
     <string-array name="entries_bubble_type" translatable="false">
 		<item>Bubble Callout</item>
@@ -87,6 +87,16 @@
 		<item>Beveled</item>
 		<item>Plain</item>
     </string-array>
-    
+ 
+    <string-array name="entries_preset_colors" translatable="false">
+		<item>Grey</item>
+        <item>Blue</item>
+    </string-array>
+
+
+    <string-array name="values_preset_colors" translatable="false">
+        <item>Grey</item>
+		<item>Blue</item>
+    </string-array>    
     
 </resources>

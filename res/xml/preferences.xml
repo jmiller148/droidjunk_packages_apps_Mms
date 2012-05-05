@@ -22,6 +22,16 @@
   <PreferenceCategory android:title="CUSTOMIZE"
                       android:key="pref_key_customize_settings">
 
+	<ListPreference
+		android:layout="?android:attr/preferenceLayoutChild"
+		android:key="msg_preset_colors"
+		android:dialogTitle="Preset Colors"
+		android:title="Choose a preset color scheme"
+		android:entries="@array/entries_preset_colors"
+		android:entryValues="@array/values_preset_colors"
+		android:defaultValue="Gray"/>      
+      
+      
     <PreferenceScreen
  
         android:key="message_settings"
