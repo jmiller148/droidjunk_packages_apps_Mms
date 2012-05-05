@@ -80,6 +80,9 @@ public class MessagingPreferenceActivity extends PreferenceActivity
     public static final String MSG_FULL_DATE		    = "msg_full_date";
     public static final String MSG_IN_BG_COLOR		    = "msg_in_bg_color";
     public static final String MSG_OUT_BG_COLOR		    = "msg_out_bg_color";
+    public static final String MSG_USE_SMILEY		    = "msg_use_smiley";
+    public static final String MSG_IN_SMILEY_COLOR	    = "msg_in_smiley_color";
+    public static final String MSG_OUT_SMILEY_COLOR	    = "msg_out_smiley_color";
     public static final String MSG_IN_CONTACT_COLOR	    = "msg_in_contact_color";
     public static final String MSG_OUT_CONTACT_COLOR	= "msg_out_contact_color";
     public static final String MSG_IN_TEXT_COLOR	    = "msg_in_text_color";

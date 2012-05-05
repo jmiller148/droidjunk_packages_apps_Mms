@@ -255,7 +255,7 @@ public class ConversationListItem extends RelativeLayout implements Contact.Upda
 
         // Subject
         SmileyParser parser = SmileyParser.getInstance();
-        mSubjectView.setText(parser.addSmileySpans(conversation.getSnippet()));
+        mSubjectView.setText(parser.addSmileySpans(conversation.getSnippet(), 0xffacacac));
         LayoutParams subjectLayout = (LayoutParams)mSubjectView.getLayoutParams();
         // We have to make the subject left of whatever optional items are shown on the right.
         subjectLayout.addRule(RelativeLayout.LEFT_OF, hasAttachment ? R.id.attachment :

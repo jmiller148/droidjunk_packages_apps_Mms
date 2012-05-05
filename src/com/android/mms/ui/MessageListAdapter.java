@@ -168,6 +168,7 @@ public class MessageListAdapter extends CursorAdapter {
             }
         }
         mListView.setDividerHeight(sp.getInt(MessagingPreferenceActivity.MSG_DIVIDER_HEIGHT, 0));
+        mListView.setBackgroundColor(sp.getInt(MessagingPreferenceActivity.MSG_LIST_BG_COLOR, 0xff000000));
         
     }
 

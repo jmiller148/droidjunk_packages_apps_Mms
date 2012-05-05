@@ -45,7 +45,7 @@
 	<com.android.mms.ui.ColorPickerPreference 
 		android:layout="?android:attr/preferenceLayoutChild"
 		android:key="msg_list_bg_color"
-		android:title="List Background Color"
+		android:title="Message List Background Color"
 		android:defaultValue="#ffffffff" 
 		alphaSlider="false" /> 
 
@@ -62,7 +62,14 @@
         android:title="Stretch Screen Width" 
  		android:defaultValue="false"
  		/> 		
-	
+
+	<CheckBoxPreference 
+     	android:layout="?android:attr/preferenceLayoutChild"
+        android:key="msg_use_smiley"
+        android:title="Use smiley icons" 
+ 		android:defaultValue="true"
+ 		/>        
+
 	<CheckBoxPreference 
      	android:layout="?android:attr/preferenceLayoutChild"
         android:key="msg_show_avatar"
@@ -95,20 +102,28 @@
 
 
 	<com.android.mms.ui.ColorPickerPreference 
-		android:dependency="msg_use_contact"         
-		android:layout="?android:attr/preferenceLayoutChild"
-		android:key="msg_in_contact_color"
-		android:title="Contact Name Color"
-		android:defaultValue="#ffffffff" 
-		alphaSlider="true" /> 
-
-	<com.android.mms.ui.ColorPickerPreference 
 		android:layout="?android:attr/preferenceLayoutChild"
 		android:key="msg_in_bg_color"
 		android:title="Background Color"
 		android:defaultValue="#ff008ec2" 
 		alphaSlider="true" /> 
-						
+
+	<com.android.mms.ui.ColorPickerPreference 
+		android:dependency="msg_use_smiley"         
+		android:layout="?android:attr/preferenceLayoutChild"
+		android:key="msg_in_smiley_color"
+		android:title="Smiley Icon Color"
+		android:defaultValue="#ffffffff" 
+		alphaSlider="true" /> 		
+
+	<com.android.mms.ui.ColorPickerPreference 
+		android:dependency="msg_use_contact"         
+		android:layout="?android:attr/preferenceLayoutChild"
+		android:key="msg_in_contact_color"
+		android:title="Contact Name Color"
+		android:defaultValue="#ffffffff" 
+		alphaSlider="true" /> 	
+								
 	<com.android.mms.ui.ColorPickerPreference 
 		android:layout="?android:attr/preferenceLayoutChild"
 		android:key="msg_in_text_color"
@@ -147,20 +162,28 @@
                       android:key="key_out_msgs">
 
 	<com.android.mms.ui.ColorPickerPreference 
+		android:layout="?android:attr/preferenceLayoutChild"
+		android:key="msg_out_bg_color"
+		android:title="Background Color"
+		android:defaultValue="#ff33b5e5" 
+		alphaSlider="true" /> 					
+		
+	<com.android.mms.ui.ColorPickerPreference 
+		android:dependency="msg_use_smiley"         
+		android:layout="?android:attr/preferenceLayoutChild"
+		android:key="msg_out_smiley_color"
+		android:title="Smiley Icon Color"
+		android:defaultValue="#ffffffff" 
+		alphaSlider="true" /> 		
+		
+	<com.android.mms.ui.ColorPickerPreference 
 		android:dependency="msg_use_contact"         
 		android:layout="?android:attr/preferenceLayoutChild"
 		android:key="msg_out_contact_color"
 		android:title="Contact Name Color"
 		android:defaultValue="#ffffffff" 
 		alphaSlider="true" /> 
-
-	<com.android.mms.ui.ColorPickerPreference 
-		android:layout="?android:attr/preferenceLayoutChild"
-		android:key="msg_out_bg_color"
-		android:title="Background Color"
-		android:defaultValue="#ff33b5e5" 
-		alphaSlider="true" /> 						
-
+	
 	<com.android.mms.ui.ColorPickerPreference 
 		android:layout="?android:attr/preferenceLayoutChild"
 		android:key="msg_out_text_color"
@@ -205,7 +228,7 @@
 	<com.android.mms.ui.ColorPickerPreference 
 		android:layout="?android:attr/preferenceLayoutChild"
 		android:key="conv_list_bg_color"
-		android:title="List Background Color"
+		android:title="Conversation List Background Color"
 		android:defaultValue="#ff000000" 
 		alphaSlider="false" />             
         

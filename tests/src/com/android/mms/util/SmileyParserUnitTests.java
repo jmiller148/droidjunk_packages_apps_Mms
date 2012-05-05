@@ -50,7 +50,7 @@ public class SmileyParserUnitTests extends AndroidTestCase {
         SpannableStringBuilder buf = new SpannableStringBuilder();
         
         // Put a string that looks kind of like a smiley in between two valid smileys.
-        buf.append(parser.addSmileySpans(":-):-:-("));
+        buf.append(parser.addSmileySpans(":-):-:-(", 0xffffffff));
 
         ImageSpan[] spans = buf.getSpans(0, buf.length(), ImageSpan.class);
 

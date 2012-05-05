@@ -186,7 +186,12 @@ public class MessageListItem extends LinearLayout implements
     	  		} else if (bType.equals("Plain")) {
     	  			mMessageBlock.setBackgroundResource(R.drawable.msg_in_frame_1);
     	  			mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.changeColorAlpha(mMsgInBgColor, .4f, .0f));
-    	  			}
+
+    	  		} else if (bType.equals("Beveled")) {
+       	  			mMessageBlock.setBackgroundResource(R.drawable.msg_in_frame_2);
+       	  			mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.changeColorAlpha(mMsgInBgColor, .4f, .0f));
+   	  			}
+
     		
     	  	} else {
     	    
@@ -204,7 +209,11 @@ public class MessageListItem extends LinearLayout implements
     	  		} else if (bType.equals("Plain")) {
     	  			mMessageBlock.setBackgroundResource(R.drawable.msg_out_frame_1);
     	  			mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.changeColorAlpha(mMsgOutBgColor, .4f, .0f));
-    	  		}
+
+    	  		} else if (bType.equals("Beveled")) {
+       	  			mMessageBlock.setBackgroundResource(R.drawable.msg_out_frame_2);
+       	  			mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.changeColorAlpha(mMsgOutBgColor, .4f, .0f));
+   	  			}
     	  }
     };    
     
@@ -212,7 +221,6 @@ public class MessageListItem extends LinearLayout implements
     
     public void bind(MessageItem msgItem, boolean isLastItem) {
         mMessageItem = msgItem;
-
       
         // Junk
         mMsgInBgColor = sp.getInt(MessagingPreferenceActivity.MSG_IN_BG_COLOR, 0xff008ec2);
@@ -521,7 +529,7 @@ public class MessageListItem extends LinearLayout implements
         boolean hasSubject = !TextUtils.isEmpty(subject);
         SmileyParser parser = SmileyParser.getInstance();
         if (hasSubject) {
-            CharSequence smilizedSubject = parser.addSmileySpans(subject);
+            CharSequence smilizedSubject = parser.addSmileySpans(subject, 0xffacacac);
             
             // Can't use the normal getString() with extra arguments for string replacement
             // because it doesn't preserve the SpannableText returned by addSmileySpans.
@@ -541,8 +549,15 @@ public class MessageListItem extends LinearLayout implements
                 if (hasSubject) {
                     buf.append(" - ");
                 }
-                //buf.append(parser.addSmileySpans(body));
-                buf.append(body);
+                if (sp.getBoolean(MessagingPreferenceActivity.MSG_USE_SMILEY, true)) {
+                	if (mMessageItem.getBoxId() == 1) {
+                		buf.append(parser.addSmileySpans(body, sp.getInt(MessagingPreferenceActivity.MSG_IN_SMILEY_COLOR, 0xffffffff)));
+                	} else {
+                		buf.append(parser.addSmileySpans(body, sp.getInt(MessagingPreferenceActivity.MSG_OUT_SMILEY_COLOR, 0xffffffff)));
+                	}
+                } else {
+                	buf.append(body);
+                }
             }
         }
 
