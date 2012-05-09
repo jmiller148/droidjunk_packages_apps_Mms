@@ -28,7 +28,7 @@
 		android:title="Choose a preset color scheme"
 		android:entries="@array/entries_preset_colors"
 		android:entryValues="@array/values_preset_colors"
-		android:defaultValue="Gray"/>      
+		android:defaultValue="StockLike"/>      
       
       
     <PreferenceScreen
