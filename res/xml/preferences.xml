@@ -23,7 +23,6 @@
                       android:key="pref_key_customize_settings">
 
 	<ListPreference
-		android:layout="?android:attr/preferenceLayoutChild"
 		android:key="msg_preset_colors"
 		android:dialogTitle="Preset Colors"
 		android:title="Choose a preset color scheme"
@@ -59,7 +58,7 @@
 		android:defaultValue="#ffffffff" 
 		alphaSlider="false" /> 
 
-	<SeekBarPreference 
+	<DJSeekBarPreference 
      	android:layout="?android:attr/preferenceLayoutChild"
         android:key="msg_divider_height"
         android:title="Distance Between Messages" 
@@ -116,7 +115,7 @@
 		android:key="msg_in_bg_color"
 		android:title="Background Color"
 		android:defaultValue="#ff008ec2" 
-		alphaSlider="true" /> 
+		alphaSlider="false" /> 
 
 	<com.android.mms.ui.ColorPickerPreference 
 		android:dependency="msg_use_smiley"         
@@ -124,7 +123,7 @@
 		android:key="msg_in_smiley_color"
 		android:title="Smiley Icon Color"
 		android:defaultValue="#ffffffff" 
-		alphaSlider="true" /> 		
+		alphaSlider="false" /> 		
 
 	<com.android.mms.ui.ColorPickerPreference 
 		android:dependency="msg_use_contact"         
@@ -176,7 +175,7 @@
 		android:key="msg_out_bg_color"
 		android:title="Background Color"
 		android:defaultValue="#ff33b5e5" 
-		alphaSlider="true" /> 					
+		alphaSlider="false" /> 					
 		
 	<com.android.mms.ui.ColorPickerPreference 
 		android:dependency="msg_use_smiley"         
@@ -184,7 +183,7 @@
 		android:key="msg_out_smiley_color"
 		android:title="Smiley Icon Color"
 		android:defaultValue="#ffffffff" 
-		alphaSlider="true" /> 		
+		alphaSlider="false" /> 		
 		
 	<com.android.mms.ui.ColorPickerPreference 
 		android:dependency="msg_use_contact"         
@@ -288,14 +287,14 @@
 		android:key="read_conv_attach_color"
 		android:title="Attachment Color"
 		android:defaultValue="#ffdbdbdb" 
-		alphaSlider="true" /> 
+		alphaSlider="false" /> 
 	
 	<com.android.mms.ui.ColorPickerPreference 
 		android:layout="?android:attr/preferenceLayoutChild"
 		android:key="read_conv_error_color"
 		android:title="Error Color"
 		android:defaultValue="#ffdbdbdb" 
-		alphaSlider="true" /> 
+		alphaSlider="false" /> 
 	</PreferenceCategory> 		
 	
 
@@ -345,14 +344,14 @@
 		android:key="unread_conv_attach_color"
 		android:title="Attachment Color"
 		android:defaultValue="#ffffffff" 
-		alphaSlider="true" /> 
+		alphaSlider="false" /> 
 	
 	<com.android.mms.ui.ColorPickerPreference 
 		android:layout="?android:attr/preferenceLayoutChild"
 		android:key="unread_conv_error_color"
 		android:title="Error Color"
 		android:defaultValue="#ffffffff" 
-		alphaSlider="true" /> 
+		alphaSlider="false" /> 
 	</PreferenceCategory> 	    
     
     <PreferenceCategory android:title="SELECTED CONVERSATIONS"
@@ -400,14 +399,14 @@
 		android:key="selected_conv_attach_color"
 		android:title="Attachment Color"
 		android:defaultValue="#ff4f4f4f" 
-		alphaSlider="true" /> 
+		alphaSlider="false" /> 
 	
 	<com.android.mms.ui.ColorPickerPreference 
 		android:layout="?android:attr/preferenceLayoutChild"
 		android:key="selected_conv_error_color"
 		android:title="Error Color"
 		android:defaultValue="#ff4f4f4f" 
-		alphaSlider="true" /> 
+		alphaSlider="false" /> 
 	</PreferenceCategory> 	    
     
     	
@@ -450,30 +449,37 @@
   </PreferenceCategory>
   <PreferenceCategory android:title="@string/pref_mms_settings_title"
                       android:key="pref_key_mms_settings">
-    <CheckBoxPreference android:defaultValue="false"
+
+      <CheckBoxPreference android:defaultValue="false"
                       android:key="pref_key_mms_delivery_reports"
                       android:summary="@string/pref_summary_mms_delivery_reports"
                       android:title="@string/pref_title_mms_delivery_reports" />
+
     <CheckBoxPreference android:defaultValue="false"
                       android:key="pref_key_mms_read_reports"
                       android:summary="@string/pref_summary_mms_read_reports"
                       android:title="@string/pref_title_mms_read_reports" />
+
     <CheckBoxPreference android:defaultValue="true"
                       android:key="pref_key_mms_auto_retrieval"
                       android:title="@string/pref_title_mms_auto_retrieval"
                       android:summary="@string/pref_summary_mms_auto_retrieval" />
-    <CheckBoxPreference android:layout="?android:attr/preferenceLayoutChild"
+
+    <CheckBoxPreference 
                         android:dependency="pref_key_mms_auto_retrieval"
                         android:defaultValue="false"
                         android:key="pref_key_mms_retrieval_during_roaming"
                         android:title="@string/pref_title_mms_retrieval_during_roaming"
                         android:summary="@string/pref_summary_mms_retrieval_during_roaming" />
   </PreferenceCategory>
+
   <PreferenceCategory android:title="@string/pref_notification_settings_title">
-    <CheckBoxPreference android:key="pref_key_enable_notifications"
+
+      <CheckBoxPreference android:key="pref_key_enable_notifications"
                         android:title="@string/pref_title_notification_enabled"
                         android:summary="@string/pref_summary_notification_enabled"
                         android:defaultValue="true" />
+
     <RingtonePreference android:layout="?android:attr/preferenceLayoutChild"
                         android:dependency="pref_key_enable_notifications"
                         android:key="pref_key_ringtone"
@@ -490,19 +496,19 @@
 						android:defaultValue="#ff00ff00" 
 						alphaSlider="false" /> 
    				
-	<Preference 		android:layout="?android:attr/preferenceLayoutChild"
+	<DJSeekBarPreference 		
+	    				android:layout="?android:attr/preferenceLayoutChild"
     					android:dependency="pref_key_enable_notifications"
 						android:key="mms_led_on_ms"
 						android:title="Led On Seconds (in 10ths)"
-						android:summary="Number of seconds led is on"
-						android:defaultValue="10" />	
+						android:defaultValue="3" />	
 		
-	<Preference 		android:layout="?android:attr/preferenceLayoutChild"
+	<DJSeekBarPreference 		
+	    				android:layout="?android:attr/preferenceLayoutChild"
     					android:dependency="pref_key_enable_notifications"
 						android:key="mms_led_off_ms"
 						android:title="Led Off Seconds (in 10ths)"
-						android:summary="Number of seconds led is off"
-						android:defaultValue="10" />	
+						android:defaultValue="3" />	
 		                        
     <ListPreference     android:layout="?android:attr/preferenceLayoutChild"
                         android:dependency="pref_key_enable_notifications"

@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8' standalone='yes' ?>
 <map>
 <boolean name="msg_use_smiley" value="true" />
-<string name="msg_preset_colors">Grey</string>
+<string name="msg_preset_colors">Gray</string>
 <int name="msg_out_smiley_color" value="-16741699" />
 <int name="msg_in_text_color" value="-1376512" />
 <int name="unread_conv_error_color" value="-16777216" />
@@ -11,47 +11,44 @@
 <int name="msg_in_link_color" value="-16777216" />
 <int name="unread_conv_date_color" value="-16777216" />
 <int name="selected_conv_attach_color" value="-16777216" />
+<boolean name="pref_key_enable_notifications" value="true" />
 <int name="selected_conv_error_color" value="-16777216" />
 <boolean name="msg_show_avatar" value="false" />
-<boolean name="pref_key_enable_notifications" value="true" />
-<int name="read_conv_date_color" value="-1761610752" />
+<int name="read_conv_date_color" value="-5526613" />
 <int name="msg_out_text_color" value="-16715265" />
-<int name="read_conv_error_color" value="-36864" />
 <boolean name="checked_message_limits" value="true" />
+<int name="read_conv_error_color" value="-36864" />
 <int name="unread_conv_count_color" value="-14514775" />
 <string name="pref_key_vibrateWhen">never</string>
-<int name="mms_led_color" value="-16711936" />
 <string name="msg_bubble_type">BubbleCall</string>
 <int name="msg_out_link_color" value="-16777216" />
-<int name="msg_in_search_color" value="-16777216" />
 <int name="unread_conv_attach_color" value="-16777216" />
+<int name="msg_in_search_color" value="-16777216" />
 <boolean name="msg_fill_parent" value="false" />
+<boolean name="mms_assets_copied" value="true" />
 <int name="selected_conv_count_color" value="-16777216" />
 <int name="msg_list_bg_color" value="-12171706" />
-<int name="selected_conv_contact_color" value="-16777216" />
 <int name="selected_conv_date_color" value="-16777216" />
+<int name="selected_conv_contact_color" value="-16777216" />
 <int name="unread_conv_subject_color" value="-16777216" />
 <int name="msg_in_smiley_color" value="-1" />
 <int name="selected_conv_subject_color" value="-16777216" />
-<string name="pref_key_ringtone">content://media/internal/audio/media/362</string>
-<int name="msg_in_bg_color" value="-16731114" />
+<string name="pref_key_ringtone">content://settings/system/notification_sound</string>
+<int name="msg_in_bg_color" value="-16743151" />
 <int name="unread_conv_bg_color" value="-4737097" />
 <int name="msg_out_search_color" value="-16777216" />
-<int name="read_conv_count_color" value="-11082445" />
+<int name="read_conv_count_color" value="-920006656" />
 <boolean name="pref_key_auto_delete" value="true" />
-<int name="read_conv_attach_color" value="-21248" />
-<int name="msg_out_bg_color" value="-16748296" />
+<int name="read_conv_attach_color" value="-3289651" />
+<int name="msg_out_bg_color" value="-16694639" />
 <int name="read_conv_subject_color" value="-1497170176" />
 <int name="msg_out_contact_color" value="-1" />
-<int name="mms_led_on_ms" value="2" />
-<int name="msg_divider_height" value="8" />
 <int name="msg_in_date_color" value="-1931804928" />
 <int name="unread_conv_contact_color" value="-16777216" />
-<int name="read_conv_bg_color" value="-13158601" />
-<int name="selected_conv_bg_color" value="-13381147" />
+<int name="read_conv_bg_color" value="-14671840" />
 <boolean name="msg_full_date" value="true" />
+<int name="selected_conv_bg_color" value="-13381147" />
 <int name="conv_list_bg_color" value="-16777216" />
 <boolean name="msg_use_contact" value="true" />
-<int name="mms_led_off_ms" value="2" />
-<int name="read_conv_contact_color" value="-1" />
+<int name="read_conv_contact_color" value="-2171170" />
 </map>

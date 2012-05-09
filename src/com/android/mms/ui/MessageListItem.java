@@ -177,20 +177,24 @@ public class MessageListItem extends LinearLayout implements
     		mMessageLayout.setLayoutDirection(LAYOUT_DIRECTION_LTR);
     		if (bType.equals("BubbleCall")) {
     		  mMessageBlock.setBackgroundResource(R.drawable.msg_in_bubble_1);
-    		  mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.changeColor(mMsgInBgColor, .2f));
+    		  mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.changeColor(mMsgInBgColor, .32f));
     	  
     	  		} else if (bType.equals("Bubble")) {
     	  			mMessageBlock.setBackgroundResource(R.drawable.msg_in_bubble_2);
-    	  			mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.changeColor(mMsgInBgColor, .2f));
+    	  			mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.changeColor(mMsgInBgColor, .32f));
         
-    	  		} else if (bType.equals("Plain")) {
+    	  		} else if (bType.equals("Framed")) {
     	  			mMessageBlock.setBackgroundResource(R.drawable.msg_in_frame_1);
-    	  			mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.changeColor(mMsgInBgColor, .2f));
+    	  			mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.changeColor(mMsgInBgColor, .32f));
 
-    	  		} else if (bType.equals("Beveled")) {
+    	  		} else if (bType.equals("FramedArrow")) {
        	  			mMessageBlock.setBackgroundResource(R.drawable.msg_in_frame_2);
-       	  			mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.changeColor(mMsgInBgColor, .2f));
-   	  			}
+       	  			mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.changeColor(mMsgInBgColor, .32f));
+    	  		
+    	  		} else if (bType.equals("Plain")) {
+       	  			mMessageBlock.setBackgroundResource(R.drawable.msg_in_frame_3);
+       	  			mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.changeColor(mMsgInBgColor, .32f));
+    	  		}
 
     		
     	  	} else {
@@ -200,19 +204,23 @@ public class MessageListItem extends LinearLayout implements
     	  		mMessageLayout.setLayoutDirection(LAYOUT_DIRECTION_LTR);
     	  		if (bType.equals("BubbleCall")) {
     	  			mMessageBlock.setBackgroundResource(R.drawable.msg_out_bubble_1);
-    	  			mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.changeColor(mMsgOutBgColor, .2f));
+    	  			mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.changeColor(mMsgOutBgColor, .32f));
     		
     	  		} else if (bType.equals("Bubble")) {
     	  			mMessageBlock.setBackgroundResource(R.drawable.msg_out_bubble_2);
-    	  			mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.changeColor(mMsgOutBgColor, .2f));
+    	  			mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.changeColor(mMsgOutBgColor, .32f));
     		 
-    	  		} else if (bType.equals("Plain")) {
+    	  		} else if (bType.equals("Framed")) {
     	  			mMessageBlock.setBackgroundResource(R.drawable.msg_out_frame_1);
-    	  			mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.changeColor(mMsgOutBgColor, .2f));
+    	  			mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.changeColor(mMsgOutBgColor, .32f));
 
-    	  		} else if (bType.equals("Beveled")) {
+    	  		} else if (bType.equals("FramedArrow")) {
        	  			mMessageBlock.setBackgroundResource(R.drawable.msg_out_frame_2);
-       	  			mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.changeColor(mMsgOutBgColor, .2f));
+       	  			mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.changeColor(mMsgOutBgColor, .32f));
+   	  			
+    	  		} else if (bType.equals("Plain")) {
+       	  			mMessageBlock.setBackgroundResource(R.drawable.msg_out_frame_3);
+       	  			mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.changeColor(mMsgOutBgColor, .32f));
    	  			}
     	  }
     };    

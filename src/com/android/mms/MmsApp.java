@@ -17,9 +17,6 @@
 
 package com.android.mms;
 
-import java.io.File;
-import java.util.Locale;
-
 import com.android.mms.data.Contact;
 import com.android.mms.data.Conversation;
 import com.android.mms.layout.LayoutManager;
@@ -30,22 +27,19 @@ import com.android.mms.util.SmileyParser;
 import com.android.mms.util.RateController;
 import com.android.mms.MmsConfig;
 import com.android.mms.transaction.MessagingNotification;
-import com.google.android.mms.MmsException;
-
 import android.app.Application;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.location.Country;
 import android.location.CountryDetector;
 import android.location.CountryListener;
-import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.provider.SearchRecentSuggestions;
 import android.telephony.TelephonyManager;
-import android.util.Log;
 
 public class MmsApp extends Application {
     public static final String LOG_TAG = "Mms";
+    public static final String MMS_ASSETS_COPIED        = "mms_assets_copied";
 
     private SearchRecentSuggestions mRecentSuggestions;
     private TelephonyManager mTelephonyManager;
@@ -53,6 +47,7 @@ public class MmsApp extends Application {
     private CountryListener mCountryListener;
     private String mCountryIso;
     private static MmsApp sMmsApp = null;
+
 
     @Override
     public void onCreate() {
@@ -62,7 +57,7 @@ public class MmsApp extends Application {
 
         // Load the default preference values
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
-
+        
         // Figure out the country *before* loading contacts and formatting numbers
         mCountryDetector = (CountryDetector) getSystemService(Context.COUNTRY_DETECTOR);
         mCountryListener = new CountryListener() {
@@ -84,7 +79,8 @@ public class MmsApp extends Application {
         LayoutManager.init(this);
         SmileyParser.init(this);
         MessagingNotification.init(this);
-    }
+        
+    } 
 
     synchronized public static MmsApp getApplication() {
         return sMmsApp;

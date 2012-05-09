@@ -192,7 +192,7 @@ public class SmileyParser {
         while (matcher.find()) {
             int resId = mSmileyToRes.get(matcher.group());
             ImageSpan mSpan = new ImageSpan(mContext, resId);
-            mSpan.getDrawable().setColorFilter(ColorFilterMaker.changeColor(color, .4f));
+            mSpan.getDrawable().setColorFilter(ColorFilterMaker.changeColor(color, .32f));
            // builder.setSpan(new ImageSpan(mContext, resId),
            //                 matcher.start(), matcher.end(),
            //                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);

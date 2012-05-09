@@ -17,8 +17,7 @@
 
 package com.android.mms.ui;
 
-import java.text.DecimalFormat;
-
+import java.io.IOException;
 import com.android.mms.MmsApp;
 import com.android.mms.MmsConfig;
 import com.android.mms.R;
@@ -32,6 +31,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
+import android.preference.DJSeekBarPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
@@ -39,13 +39,11 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
-import android.preference.Preference.OnPreferenceChangeListener;
-import android.preference.SeekBarPreference;
 import android.provider.SearchRecentSuggestions;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.android.mms.util.AssetUtils;
 import com.android.mms.util.Recycler;
 
 /**
@@ -69,6 +67,7 @@ public class MessagingPreferenceActivity extends PreferenceActivity
     public static final String AUTO_DELETE              = "pref_key_auto_delete";
 
     // Junk
+    public static final String MMS_ASSETS_COPIED        = "mms_assets_copied";
     public static final String MMS_LED_COLOR            = "mms_led_color";
     public static final String MMS_LED_ON_MS            = "mms_led_on_ms";
     public static final String MMS_LED_OFF_MS           = "mms_led_off_ms";
@@ -141,16 +140,11 @@ public class MessagingPreferenceActivity extends PreferenceActivity
 
     
     // Junk
-    private Preference mMmsLedColor;
-    private Preference mMmsLedOnMs;
-    private Preference mMmsLedOffMs;
+    private DJSeekBarPreference mMmsLedOnMs;
+    private DJSeekBarPreference mMmsLedOffMs;
     private ListPreference mPresetColors;
-    private SeekBarPreference mDividerHeight;
-    private static int MmsLedColor;
-    private static int MmsLedOnMs;
-    private static int MmsLedOffMs;
+    private DJSeekBarPreference mDividerHeight;
     private SharedPreferences sp;
-    
 
     private int mMsgListBgColor;
     private int mMsgInBgColor;
@@ -215,10 +209,15 @@ public class MessagingPreferenceActivity extends PreferenceActivity
         sp = PreferenceManager.getDefaultSharedPreferences(this);
         mPresetColors = (ListPreference) findPreference(MSG_PRESET_COLORS);
         mPresetColors.setOnPreferenceChangeListener(this);
-        mMmsLedColor = (Preference) findPreference(MMS_LED_COLOR);
-        mMmsLedOnMs = (Preference) findPreference(MMS_LED_ON_MS);
-        mMmsLedOffMs = (Preference) findPreference(MMS_LED_OFF_MS);
-        mDividerHeight = (SeekBarPreference) findPreference(MSG_DIVIDER_HEIGHT);
+        mMmsLedOnMs = (DJSeekBarPreference) findPreference(MMS_LED_ON_MS);
+        mMmsLedOnMs.setMax(50);
+        mMmsLedOnMs.setDefaultValue(sp.getInt(MMS_LED_ON_MS, 0));
+        mMmsLedOnMs.setProgress(sp.getInt(MMS_LED_ON_MS, 0));
+        mMmsLedOffMs = (DJSeekBarPreference) findPreference(MMS_LED_OFF_MS);
+        mMmsLedOffMs.setMax(50);
+        mMmsLedOffMs.setDefaultValue(sp.getInt(MMS_LED_OFF_MS, 0));
+        mMmsLedOffMs.setProgress(sp.getInt(MMS_LED_OFF_MS, 0));
+        mDividerHeight = (DJSeekBarPreference) findPreference(MSG_DIVIDER_HEIGHT);
         mDividerHeight.setMax(100);
         mDividerHeight.setDefaultValue(sp.getInt(MSG_DIVIDER_HEIGHT, 0));
         mDividerHeight.setProgress(sp.getInt(MSG_DIVIDER_HEIGHT, 0));
@@ -226,6 +225,65 @@ public class MessagingPreferenceActivity extends PreferenceActivity
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         setMessagePreferences();
+        
+//        if (sp.getBoolean(MMS_ASSETS_COPIED, false) == false) {
+        	boolean copied = false;
+        	
+ 
+        	try {
+ 				copied = AssetUtils.copyAsset(getBaseContext(), "Junk_StockLike.xml",
+ 						"data/data/com.android.mms/shared_prefs/Junk_StockLike.xml");
+ 				SharedPreferences.Editor editor = sp.edit();
+				editor.putBoolean(MMS_ASSETS_COPIED, copied);
+				editor.commit();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+        	try {
+ 				copied = AssetUtils.copyAsset(getBaseContext(), "Junk_Blue.xml",
+ 						"data/data/com.android.mms/shared_prefs/Junk_Blue.xml");
+ 				SharedPreferences.Editor editor = sp.edit();
+				editor.putBoolean(MMS_ASSETS_COPIED, copied);
+				editor.commit();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+        	try {
+ 				copied = AssetUtils.copyAsset(getBaseContext(), "Junk_Grey.xml",
+ 						"data/data/com.android.mms/shared_prefs/Junk_Grey.xml");
+ 				SharedPreferences.Editor editor = sp.edit();
+				editor.putBoolean(MMS_ASSETS_COPIED, copied);
+				editor.commit();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+ 
+        	try {
+ 				copied = AssetUtils.copyAsset(getBaseContext(), "Junk_Red.xml",
+ 						"data/data/com.android.mms/shared_prefs/Junk_Red.xml");
+ 				SharedPreferences.Editor editor = sp.edit();
+				editor.putBoolean(MMS_ASSETS_COPIED, copied);
+				editor.commit();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+        	try {
+ 				copied = AssetUtils.copyAsset(getBaseContext(), "Junk_DroidJunk.xml",
+ 						"data/data/com.android.mms/shared_prefs/Junk_DroidJunk.xml");
+ 				SharedPreferences.Editor editor = sp.edit();
+				editor.putBoolean(MMS_ASSETS_COPIED, copied);
+				editor.commit();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+        	
+        	
+        	
+ //       }
+
     }
 
     @Override
@@ -297,9 +355,7 @@ public class MessagingPreferenceActivity extends PreferenceActivity
         setMmsDisplayLimit();
         adjustVibrateSummary(mVibrateWhenPref.getValue());
         
-        MmsLedColor = sp.getInt(MMS_LED_COLOR, 0xff00ff00);
-        MmsLedOnMs = sp.getInt(MMS_LED_ON_MS, 10);
-        MmsLedOffMs = sp.getInt(MMS_LED_OFF_MS, 10);
+
 
     }
     
@@ -355,6 +411,7 @@ public class MessagingPreferenceActivity extends PreferenceActivity
                     mSmsRecycler.getMessageMinLimit(),
                     mSmsRecycler.getMessageMaxLimit(),
                     R.string.pref_title_sms_delete).show();
+
         } else if (preference == mMmsLimitPref) {
             new NumberPickerDialog(this,
                     mMmsLimitListener,
@@ -362,27 +419,14 @@ public class MessagingPreferenceActivity extends PreferenceActivity
                     mMmsRecycler.getMessageMinLimit(),
                     mMmsRecycler.getMessageMaxLimit(),
                     R.string.pref_title_mms_delete).show();
-        } else if (preference == mMmsLedOnMs) {
-            new NumberPickerDialog(this,
-                    mMmsLedOnListener,
-                    MmsLedOnMs,
-                    1,
-                    50,
-                    R.string.mms_led_on_ms).show();
-        } else if (preference == mMmsLedOffMs) {
-            new NumberPickerDialog(this,
-                    mMmsLedOffListener,
-                    MmsLedOffMs,
-                    1,
-                    50,
-                    R.string.mms_led_off_ms).show();
-        
-            
+
         } else if (preference == mManageSimPref) {
             startActivity(new Intent(this, ManageSimMessages.class));
+
         } else if (preference == mClearHistoryPref) {
             showDialog(CONFIRM_CLEAR_SEARCH_HISTORY_DIALOG);
             return true;
+
         } else if (preference == mEnableNotificationsPref) {
             // Update the actual "enable notifications" value that is stored in secure settings.
             enableNotifications(mEnableNotificationsPref.isChecked(), this);
@@ -416,35 +460,7 @@ public class MessagingPreferenceActivity extends PreferenceActivity
             }
     };
 
-    NumberPickerDialog.OnNumberSetListener mMmsLedOnListener =
-            new NumberPickerDialog.OnNumberSetListener() {
-                public void onNumberSet(int limit) {
-                    SharedPreferences.Editor editor =
-                            PreferenceManager.getDefaultSharedPreferences(getBaseContext()).edit();
-                    editor.putInt(MessagingPreferenceActivity.MMS_LED_ON_MS, limit);
-                    editor.apply();
-                    DecimalFormat numf = new DecimalFormat("#.##");
-                    double mTime = ((double) (limit) / (double)(10));
-                    mMmsLedOnMs.setSummary(numf.format(mTime)+ " seconds");
-                    MmsLedOnMs = limit;
-                }
-        };
-    
-        NumberPickerDialog.OnNumberSetListener mMmsLedOffListener =
-                new NumberPickerDialog.OnNumberSetListener() {
-                    public void onNumberSet(int limit) {
-                        SharedPreferences.Editor editor =
-                                PreferenceManager.getDefaultSharedPreferences(getBaseContext()).edit();
 
-                        editor.putInt(MessagingPreferenceActivity.MMS_LED_OFF_MS, limit);
-                        editor.apply();
-                        DecimalFormat numf = new DecimalFormat("#.##");
-                        double mTime = ((double) (limit) / (double)(10));
-                        mMmsLedOffMs.setSummary(numf.format(mTime) + " seconds");
-                        MmsLedOffMs = limit;
-                    }
-            };
-    
     
     
     @Override

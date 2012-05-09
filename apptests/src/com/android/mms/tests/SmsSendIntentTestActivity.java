@@ -56,7 +56,7 @@ public class SmsSendIntentTestActivity extends Activity {
         mRecipient = (EditText)findViewById(R.id.sms_recipient);
         mMessage = (EditText)findViewById(R.id.sms_content);
 
-        mRecipient.setText("650-278-2055"); // use this to prime a number
+        mRecipient.setText(""); // use this to prime a number
 
         Button sendButton = (Button) findViewById(R.id.sms_send_message);
         sendButton.setOnClickListener(new OnClickListener() {
