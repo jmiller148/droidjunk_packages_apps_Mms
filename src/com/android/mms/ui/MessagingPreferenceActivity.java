@@ -17,20 +17,24 @@
 
 package com.android.mms.ui;
 
+import java.io.File;
 import java.io.IOException;
 import com.android.mms.MmsApp;
 import com.android.mms.MmsConfig;
+import com.android.mms.util.BackupUtils;
 import com.android.mms.R;
 
 import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
+import android.preference.ColorPickerPreference;
 import android.preference.DJSeekBarPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -40,11 +44,14 @@ import android.preference.PreferenceCategory;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.provider.SearchRecentSuggestions;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.android.mms.util.AssetUtils;
 import com.android.mms.util.Recycler;
+
 
 /**
  * With this activity, users can set preferences for MMS and SMS and
@@ -67,6 +74,9 @@ public class MessagingPreferenceActivity extends PreferenceActivity
     public static final String AUTO_DELETE              = "pref_key_auto_delete";
 
     // Junk
+	private final String BACKUP_MMS = "backup_mms";
+	private final String RESTORE_MMS = "restore_mms";
+
     public static final String MMS_ASSETS_COPIED        = "mms_assets_copied";
     public static final String MMS_LED_COLOR            = "mms_led_color";
     public static final String MMS_LED_ON_MS            = "mms_led_on_ms";
@@ -144,6 +154,8 @@ public class MessagingPreferenceActivity extends PreferenceActivity
     private DJSeekBarPreference mMmsLedOffMs;
     private ListPreference mPresetColors;
     private DJSeekBarPreference mDividerHeight;
+	Preference mBackupMmsSettings;
+	Preference mRestoreMmsSettings;
     private SharedPreferences sp;
 
     private int mMsgListBgColor;
@@ -206,6 +218,9 @@ public class MessagingPreferenceActivity extends PreferenceActivity
         mVibrateValues = getResources().getTextArray(R.array.prefValues_vibrateWhen);
         
         // Junk
+        File junkBackupDir = new File("/sdcard/.junk/backup/");
+        junkBackupDir.mkdirs(); 
+
         sp = PreferenceManager.getDefaultSharedPreferences(this);
         mPresetColors = (ListPreference) findPreference(MSG_PRESET_COLORS);
         mPresetColors.setOnPreferenceChangeListener(this);
@@ -221,15 +236,17 @@ public class MessagingPreferenceActivity extends PreferenceActivity
         mDividerHeight.setMax(100);
         mDividerHeight.setDefaultValue(sp.getInt(MSG_DIVIDER_HEIGHT, 0));
         mDividerHeight.setProgress(sp.getInt(MSG_DIVIDER_HEIGHT, 0));
+        mBackupMmsSettings = (Preference) findPreference(BACKUP_MMS);
+		mBackupMmsSettings.setOnPreferenceChangeListener(this);	
+        mRestoreMmsSettings = (Preference) findPreference(RESTORE_MMS);
+		mRestoreMmsSettings.setOnPreferenceChangeListener(this);
+		
        
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         setMessagePreferences();
         
-//        if (sp.getBoolean(MMS_ASSETS_COPIED, false) == false) {
         	boolean copied = false;
-        	
- 
         	try {
  				copied = AssetUtils.copyAsset(getBaseContext(), "Junk_StockLike.xml",
  						"data/data/com.android.mms/shared_prefs/Junk_StockLike.xml");
@@ -279,10 +296,6 @@ public class MessagingPreferenceActivity extends PreferenceActivity
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-        	
-        	
-        	
- //       }
 
     }
 
@@ -420,7 +433,12 @@ public class MessagingPreferenceActivity extends PreferenceActivity
                     mMmsRecycler.getMessageMaxLimit(),
                     R.string.pref_title_mms_delete).show();
 
-        } else if (preference == mManageSimPref) {
+        } else if (preference == mBackupMmsSettings) {
+    		BackupMmsDialog();
+    	} else if (preference == mRestoreMmsSettings) {
+    		RestoreMmsDialog();
+ 
+    	} else if (preference == mManageSimPref) {
             startActivity(new Intent(this, ManageSimMessages.class));
 
         } else if (preference == mClearHistoryPref) {
@@ -461,7 +479,72 @@ public class MessagingPreferenceActivity extends PreferenceActivity
     };
 
 
+    private void BackupMmsDialog()	{
+		
+    	Builder alertDialog = new AlertDialog.Builder(getPreferenceScreen().getContext());
+    	alertDialog.setTitle("Backup Mms Settings");
+    	alertDialog.setMessage("Backup Mms settings?");
+    	alertDialog.setNegativeButton("Cancel", null);
+    	alertDialog.setPositiveButton("Backup", backupMmsDialogPositiveListener);
+    	alertDialog.show();
+    }
+
+    private void RestoreMmsDialog()	{
+		
+    	Builder alertDialog = new AlertDialog.Builder(getPreferenceScreen().getContext());
+    	alertDialog.setTitle("Restore Mms Settings");
+    	alertDialog.setMessage("Restore Mms settings?");
+    	alertDialog.setNegativeButton("Cancel", null);
+    	alertDialog.setPositiveButton("Restore", restoreMmsDialogPositiveListener);
+    	alertDialog.show();
+    }    
     
+    
+    DialogInterface.OnClickListener backupMmsDialogPositiveListener =
+            new DialogInterface.OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+			        try {
+			        	if (BackupUtils.settingsExist()) {
+			        		Log.e("JUNK: ","EXISTS");
+			        		BackupUtils.copyBackup("/data/data/com.android.mms/shared_prefs/com.android.mms_preferences.xml",
+			        				"/sdcard/.junk/backup/com.android.mms_preferences.xml");
+			        		Toast.makeText(getBaseContext(), "Backup Successful", Toast.LENGTH_SHORT).show();
+			        	} else {
+			        		Log.e("JUNK: ","DOES NOT EXISTS");
+			        	}
+			        	
+			        } catch (IOException e) {
+			        	Toast.makeText(getBaseContext(), "ERROR Backing up Mms settings", Toast.LENGTH_SHORT).show();
+			        	Log.e("JUNK: ","ERROR BACKING UP MMS SETTINGS");
+			        };	
+				}
+			};
+    
+    DialogInterface.OnClickListener restoreMmsDialogPositiveListener =
+            new DialogInterface.OnClickListener() {
+						
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					
+			        try {
+			        	if (BackupUtils.backupExist(
+			        			"sdcard/.junk/backup/com.android.mms_preferences.xml")) {
+			        		BackupUtils.copyBackup("sdcard/.junk/backup/com.android.mms_preferences.xml",
+									"data/data/com.android.mms/shared_prefs/com.android.mms_preferences_temp.xml");
+			        		onPreferenceChange(mRestoreMmsSettings,null);
+			        		Toast.makeText(getBaseContext(), "Restore Successful", Toast.LENGTH_SHORT).show();
+			        		
+			        		
+			        	} else {
+			        		Toast.makeText(getBaseContext(), "No backup exists!", Toast.LENGTH_SHORT).show();	
+			        	}
+			        } catch (IOException e) {
+			        	Log.e("JUNK: ","ERROR RESTORING MMS SETTINGS");
+			        };
+				}
+			};    
     
     @Override
     protected Dialog onCreateDialog(int id) {
@@ -516,92 +599,14 @@ public class MessagingPreferenceActivity extends PreferenceActivity
             adjustVibrateSummary((String)newValue);
             result = true;
         } else if (preference == mPresetColors) {
-        	
-        	PreferenceManager prefMgr = getPreferenceManager();
-            prefMgr.setSharedPreferencesName("Junk_" + (String) newValue);
-            prefMgr.setSharedPreferencesMode(Context.MODE_WORLD_READABLE);
-            prefMgr.getSharedPreferences();
+            sp = getSharedPreferences("Junk_" + (String) newValue, Context.MODE_WORLD_READABLE);
+            getValues();
+            writeValues();
             
-        	sp = prefMgr.getSharedPreferences();
-
-            mMsgListBgColor = sp.getInt(MSG_LIST_BG_COLOR, 0xff000000);
-            mMsgInBgColor = sp.getInt(MSG_IN_BG_COLOR, 0xff000000);
-            mMsgOutBgColor = sp.getInt(MSG_OUT_BG_COLOR, 0xff000000);
-            mMsgInSmileyColor = sp.getInt(MSG_IN_SMILEY_COLOR, 0xff000000);
-            mMsgOutSmileyColor = sp.getInt(MSG_OUT_SMILEY_COLOR, 0xff000000);
-            mMsgInContactColor = sp.getInt(MSG_IN_CONTACT_COLOR, 0xff000000);
-            mMsgOutContactColor = sp.getInt(MSG_OUT_CONTACT_COLOR, 0xff000000);
-            mMsgInTextColor = sp.getInt(MSG_IN_TEXT_COLOR, 0xff000000);
-            mMsgOutTextColor = sp.getInt(MSG_OUT_TEXT_COLOR, 0xff000000);
-            mMsgInDateColor = sp.getInt(MSG_IN_DATE_COLOR, 0xff000000);
-            mMsgOutDateColor = sp.getInt(MSG_OUT_DATE_COLOR, 0xff000000);
-            mMsgInLinkColor = sp.getInt(MSG_IN_LINK_COLOR, 0xff000000);
-            mMsgOutLinkColor = sp.getInt(MSG_OUT_LINK_COLOR, 0xff000000);
-            mMsgInSearchColor = sp.getInt(MSG_IN_SEARCH_COLOR, 0xff000000);
-            mMsgOutSearchColor = sp.getInt(MSG_OUT_SEARCH_COLOR, 0xff000000);
-            mConvListBgColor = sp.getInt(CONV_LIST_BG_COLOR, 0xff000000);
-            mConvReadBgColor = sp.getInt(READ_CONV_BG_COLOR, 0xff000000);
-            mConvReadContactColor = sp.getInt(READ_CONV_CONTACT_COLOR, 0xff000000);
-            mConvReadCountColor = sp.getInt(READ_CONV_COUNT_COLOR, 0xff000000);
-            mConvReadSubjectColor = sp.getInt(READ_CONV_SUBJECT_COLOR, 0xff000000);
-            mConvReadDateColor = sp.getInt(READ_CONV_DATE_COLOR, 0xff000000);
-            mConvReadAttachColor = sp.getInt(READ_CONV_ATTACH_COLOR, 0xff000000);
-            mConvReadErrorColor = sp.getInt(READ_CONV_ERROR_COLOR, 0xff000000);
-            mConvUnReadBgColor = sp.getInt(UNREAD_CONV_BG_COLOR, 0xff00ff00);
-            mConvUnReadContactColor = sp.getInt(UNREAD_CONV_CONTACT_COLOR, 0xff000000);
-            mConvUnReadCountColor = sp.getInt(UNREAD_CONV_COUNT_COLOR, 0xff000000);
-            mConvUnReadSubjectColor = sp.getInt(UNREAD_CONV_SUBJECT_COLOR, 0xff000000);
-            mConvUnReadDateColor = sp.getInt(UNREAD_CONV_DATE_COLOR, 0xff000000);
-            mConvUnReadAttachColor = sp.getInt(UNREAD_CONV_ATTACH_COLOR, 0xff000000);
-            mConvUnReadErrorColor = sp.getInt(UNREAD_CONV_ERROR_COLOR, 0xff000000);
-            mConvSelectedBgColor = sp.getInt(SELECTED_CONV_BG_COLOR, 0xff00ff00);
-            mConvSelectedContactColor = sp.getInt(SELECTED_CONV_CONTACT_COLOR, 0xff000000);
-            mConvSelectedCountColor = sp.getInt(SELECTED_CONV_COUNT_COLOR, 0xff000000);
-            mConvSelectedSubjectColor = sp.getInt(SELECTED_CONV_SUBJECT_COLOR, 0xff000000);
-            mConvSelectedDateColor = sp.getInt(SELECTED_CONV_DATE_COLOR, 0xff000000);
-            mConvSelectedAttachColor = sp.getInt(SELECTED_CONV_ATTACH_COLOR, 0xff000000);
-            mConvSelectedErrorColor = sp.getInt(SELECTED_CONV_ERROR_COLOR, 0xff000000);
-        	
-            sp = PreferenceManager.getDefaultSharedPreferences(this);
-        	SharedPreferences.Editor editor = sp.edit();
-        	editor.putInt(MSG_LIST_BG_COLOR, mMsgListBgColor);
-        	editor.putInt(MSG_IN_BG_COLOR, mMsgInBgColor);
-        	editor.putInt(MSG_OUT_BG_COLOR, mMsgOutBgColor);
-        	editor.putInt(MSG_IN_SMILEY_COLOR, mMsgInSmileyColor);
-        	editor.putInt(MSG_OUT_SMILEY_COLOR, mMsgOutSmileyColor);
-        	editor.putInt(MSG_IN_CONTACT_COLOR, mMsgInContactColor);
-        	editor.putInt(MSG_OUT_CONTACT_COLOR, mMsgOutContactColor);
-        	editor.putInt(MSG_IN_TEXT_COLOR, mMsgInTextColor);
-        	editor.putInt(MSG_OUT_TEXT_COLOR, mMsgOutTextColor);
-        	editor.putInt(MSG_IN_DATE_COLOR, mMsgInDateColor);
-        	editor.putInt(MSG_OUT_DATE_COLOR, mMsgOutDateColor);
-        	editor.putInt(MSG_IN_LINK_COLOR, mMsgInLinkColor);
-        	editor.putInt(MSG_OUT_LINK_COLOR, mMsgOutLinkColor);
-        	editor.putInt(MSG_IN_SEARCH_COLOR, mMsgInSearchColor);
-        	editor.putInt(MSG_OUT_SEARCH_COLOR, mMsgOutSearchColor);
-        	editor.putInt(CONV_LIST_BG_COLOR, mConvListBgColor);
-        	editor.putInt(READ_CONV_BG_COLOR, mConvReadBgColor);
-        	editor.putInt(READ_CONV_CONTACT_COLOR, mConvReadContactColor);
-        	editor.putInt(READ_CONV_COUNT_COLOR, mConvReadCountColor);
-        	editor.putInt(READ_CONV_SUBJECT_COLOR, mConvReadSubjectColor);
-        	editor.putInt(READ_CONV_DATE_COLOR, mConvReadDateColor);
-        	editor.putInt(READ_CONV_ATTACH_COLOR, mConvReadAttachColor);
-        	editor.putInt(READ_CONV_ERROR_COLOR, mConvReadErrorColor);
-        	editor.putInt(UNREAD_CONV_BG_COLOR, mConvUnReadBgColor);
-        	editor.putInt(UNREAD_CONV_CONTACT_COLOR, mConvUnReadContactColor);
-        	editor.putInt(UNREAD_CONV_COUNT_COLOR, mConvUnReadCountColor);
-        	editor.putInt(UNREAD_CONV_SUBJECT_COLOR, mConvUnReadSubjectColor);
-        	editor.putInt(UNREAD_CONV_DATE_COLOR, mConvUnReadDateColor);
-        	editor.putInt(UNREAD_CONV_ATTACH_COLOR, mConvUnReadAttachColor);
-        	editor.putInt(UNREAD_CONV_ERROR_COLOR, mConvUnReadErrorColor);
-        	editor.putInt(SELECTED_CONV_BG_COLOR, mConvSelectedBgColor);
-        	editor.putInt(SELECTED_CONV_CONTACT_COLOR, mConvSelectedContactColor);
-        	editor.putInt(SELECTED_CONV_COUNT_COLOR, mConvSelectedCountColor);
-        	editor.putInt(SELECTED_CONV_SUBJECT_COLOR, mConvSelectedSubjectColor);
-        	editor.putInt(SELECTED_CONV_DATE_COLOR, mConvSelectedDateColor);
-        	editor.putInt(SELECTED_CONV_ATTACH_COLOR, mConvSelectedAttachColor);
-        	editor.putInt(SELECTED_CONV_ERROR_COLOR, mConvSelectedErrorColor);
-        	editor.commit();
+        } else if (preference == mRestoreMmsSettings) {
+            sp = getSharedPreferences("com.android.mms_preferences_temp", Context.MODE_WORLD_READABLE);
+            getValues();
+            writeValues();
         	
         }
         return result;
@@ -618,6 +623,89 @@ public class MessagingPreferenceActivity extends PreferenceActivity
         mVibrateWhenPref.setSummary(null);
     }
 
+    private void getValues() {
+
+    	mMsgListBgColor = sp.getInt(MSG_LIST_BG_COLOR, 0xff000000);
+        mMsgInBgColor = sp.getInt(MSG_IN_BG_COLOR, 0xff000000);
+        mMsgOutBgColor = sp.getInt(MSG_OUT_BG_COLOR, 0xff000000);
+        mMsgInSmileyColor = sp.getInt(MSG_IN_SMILEY_COLOR, 0xff000000);
+        mMsgOutSmileyColor = sp.getInt(MSG_OUT_SMILEY_COLOR, 0xff000000);
+        mMsgInContactColor = sp.getInt(MSG_IN_CONTACT_COLOR, 0xff000000);
+        mMsgOutContactColor = sp.getInt(MSG_OUT_CONTACT_COLOR, 0xff000000);
+        mMsgInTextColor = sp.getInt(MSG_IN_TEXT_COLOR, 0xff000000);
+        mMsgOutTextColor = sp.getInt(MSG_OUT_TEXT_COLOR, 0xff000000);
+        mMsgInDateColor = sp.getInt(MSG_IN_DATE_COLOR, 0xff000000);
+        mMsgOutDateColor = sp.getInt(MSG_OUT_DATE_COLOR, 0xff000000);
+        mMsgInLinkColor = sp.getInt(MSG_IN_LINK_COLOR, 0xff000000);
+        mMsgOutLinkColor = sp.getInt(MSG_OUT_LINK_COLOR, 0xff000000);
+        mMsgInSearchColor = sp.getInt(MSG_IN_SEARCH_COLOR, 0xff000000);
+        mMsgOutSearchColor = sp.getInt(MSG_OUT_SEARCH_COLOR, 0xff000000);
+        mConvListBgColor = sp.getInt(CONV_LIST_BG_COLOR, 0xff000000);
+        mConvReadBgColor = sp.getInt(READ_CONV_BG_COLOR, 0xff000000);
+        mConvReadContactColor = sp.getInt(READ_CONV_CONTACT_COLOR, 0xff000000);
+        mConvReadCountColor = sp.getInt(READ_CONV_COUNT_COLOR, 0xff000000);
+        mConvReadSubjectColor = sp.getInt(READ_CONV_SUBJECT_COLOR, 0xff000000);
+        mConvReadDateColor = sp.getInt(READ_CONV_DATE_COLOR, 0xff000000);
+        mConvReadAttachColor = sp.getInt(READ_CONV_ATTACH_COLOR, 0xff000000);
+        mConvReadErrorColor = sp.getInt(READ_CONV_ERROR_COLOR, 0xff000000);
+        mConvUnReadBgColor = sp.getInt(UNREAD_CONV_BG_COLOR, 0xff00ff00);
+        mConvUnReadContactColor = sp.getInt(UNREAD_CONV_CONTACT_COLOR, 0xff000000);
+        mConvUnReadCountColor = sp.getInt(UNREAD_CONV_COUNT_COLOR, 0xff000000);
+        mConvUnReadSubjectColor = sp.getInt(UNREAD_CONV_SUBJECT_COLOR, 0xff000000);
+        mConvUnReadDateColor = sp.getInt(UNREAD_CONV_DATE_COLOR, 0xff000000);
+        mConvUnReadAttachColor = sp.getInt(UNREAD_CONV_ATTACH_COLOR, 0xff000000);
+        mConvUnReadErrorColor = sp.getInt(UNREAD_CONV_ERROR_COLOR, 0xff000000);
+        mConvSelectedBgColor = sp.getInt(SELECTED_CONV_BG_COLOR, 0xff00ff00);
+        mConvSelectedContactColor = sp.getInt(SELECTED_CONV_CONTACT_COLOR, 0xff000000);
+        mConvSelectedCountColor = sp.getInt(SELECTED_CONV_COUNT_COLOR, 0xff000000);
+        mConvSelectedSubjectColor = sp.getInt(SELECTED_CONV_SUBJECT_COLOR, 0xff000000);
+        mConvSelectedDateColor = sp.getInt(SELECTED_CONV_DATE_COLOR, 0xff000000);
+        mConvSelectedAttachColor = sp.getInt(SELECTED_CONV_ATTACH_COLOR, 0xff000000);
+        mConvSelectedErrorColor = sp.getInt(SELECTED_CONV_ERROR_COLOR, 0xff000000);
+    }
     
+    private void writeValues() {
+    	
+        sp = PreferenceManager.getDefaultSharedPreferences(this);
+    	SharedPreferences.Editor editor = sp.edit();
+    	editor.putInt(MSG_LIST_BG_COLOR, mMsgListBgColor);
+    	editor.putInt(MSG_IN_BG_COLOR, mMsgInBgColor);
+    	editor.putInt(MSG_OUT_BG_COLOR, mMsgOutBgColor);
+    	editor.putInt(MSG_IN_SMILEY_COLOR, mMsgInSmileyColor);
+    	editor.putInt(MSG_OUT_SMILEY_COLOR, mMsgOutSmileyColor);
+    	editor.putInt(MSG_IN_CONTACT_COLOR, mMsgInContactColor);
+    	editor.putInt(MSG_OUT_CONTACT_COLOR, mMsgOutContactColor);
+    	editor.putInt(MSG_IN_TEXT_COLOR, mMsgInTextColor);
+    	editor.putInt(MSG_OUT_TEXT_COLOR, mMsgOutTextColor);
+    	editor.putInt(MSG_IN_DATE_COLOR, mMsgInDateColor);
+    	editor.putInt(MSG_OUT_DATE_COLOR, mMsgOutDateColor);
+    	editor.putInt(MSG_IN_LINK_COLOR, mMsgInLinkColor);
+    	editor.putInt(MSG_OUT_LINK_COLOR, mMsgOutLinkColor);
+    	editor.putInt(MSG_IN_SEARCH_COLOR, mMsgInSearchColor);
+    	editor.putInt(MSG_OUT_SEARCH_COLOR, mMsgOutSearchColor);
+    	editor.putInt(CONV_LIST_BG_COLOR, mConvListBgColor);
+    	editor.putInt(READ_CONV_BG_COLOR, mConvReadBgColor);
+    	editor.putInt(READ_CONV_CONTACT_COLOR, mConvReadContactColor);
+    	editor.putInt(READ_CONV_COUNT_COLOR, mConvReadCountColor);
+    	editor.putInt(READ_CONV_SUBJECT_COLOR, mConvReadSubjectColor);
+    	editor.putInt(READ_CONV_DATE_COLOR, mConvReadDateColor);
+    	editor.putInt(READ_CONV_ATTACH_COLOR, mConvReadAttachColor);
+    	editor.putInt(READ_CONV_ERROR_COLOR, mConvReadErrorColor);
+    	editor.putInt(UNREAD_CONV_BG_COLOR, mConvUnReadBgColor);
+    	editor.putInt(UNREAD_CONV_CONTACT_COLOR, mConvUnReadContactColor);
+    	editor.putInt(UNREAD_CONV_COUNT_COLOR, mConvUnReadCountColor);
+    	editor.putInt(UNREAD_CONV_SUBJECT_COLOR, mConvUnReadSubjectColor);
+    	editor.putInt(UNREAD_CONV_DATE_COLOR, mConvUnReadDateColor);
+    	editor.putInt(UNREAD_CONV_ATTACH_COLOR, mConvUnReadAttachColor);
+    	editor.putInt(UNREAD_CONV_ERROR_COLOR, mConvUnReadErrorColor);
+    	editor.putInt(SELECTED_CONV_BG_COLOR, mConvSelectedBgColor);
+    	editor.putInt(SELECTED_CONV_CONTACT_COLOR, mConvSelectedContactColor);
+    	editor.putInt(SELECTED_CONV_COUNT_COLOR, mConvSelectedCountColor);
+    	editor.putInt(SELECTED_CONV_SUBJECT_COLOR, mConvSelectedSubjectColor);
+    	editor.putInt(SELECTED_CONV_DATE_COLOR, mConvSelectedDateColor);
+    	editor.putInt(SELECTED_CONV_ATTACH_COLOR, mConvSelectedAttachColor);
+    	editor.putInt(SELECTED_CONV_ERROR_COLOR, mConvSelectedErrorColor);
+    	editor.commit();
+    }
 
 }

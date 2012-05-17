@@ -19,7 +19,29 @@
 -->
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-  <PreferenceCategory android:title="CUSTOMIZE"
+    <PreferenceCategory
+		android:title="B A C K U P   A N D   R E S T O R E"
+		android:key="backup_restore"
+		>    
+
+    <Preference
+		android:layout="?android:attr/preferenceLayoutChild"
+		android:key="backup_mms"
+		android:title="Backup Mms Settings" 
+		android:summary="Backup Junk Mms settings"
+		/>       
+
+    <Preference
+		android:layout="?android:attr/preferenceLayoutChild"
+		android:key="restore_mms"
+		android:title="Restore Mms Settings" 
+		android:summary="Restore Junk Mms settings"
+		/>    
+  	
+	</PreferenceCategory>    
+	
+    
+    <PreferenceCategory android:title="CUSTOMIZE"
                       android:key="pref_key_customize_settings">
 
 	<ListPreference
@@ -30,7 +52,8 @@
 		android:entryValues="@array/values_preset_colors"
 		android:defaultValue="StockLike"/>      
       
-      
+ 
+	
     <PreferenceScreen
  
         android:key="message_settings"
