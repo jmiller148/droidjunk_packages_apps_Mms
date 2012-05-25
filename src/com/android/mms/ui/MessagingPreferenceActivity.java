@@ -81,6 +81,7 @@ public class MessagingPreferenceActivity extends PreferenceActivity
     public static final String MMS_LED_COLOR            = "mms_led_color";
     public static final String MMS_LED_ON_MS            = "mms_led_on_ms";
     public static final String MMS_LED_OFF_MS           = "mms_led_off_ms";
+    public static final String MSG_TEXT_SIZE		    = "msg_text_size";
     public static final String MSG_PRESET_COLORS	    = "msg_preset_colors";
     public static final String MSG_BUBBLE_TYPE		    = "msg_bubble_type";
     public static final String MSG_FILL_PARENT		    = "msg_fill_parent";
@@ -153,11 +154,23 @@ public class MessagingPreferenceActivity extends PreferenceActivity
     private DJSeekBarPreference mMmsLedOnMs;
     private DJSeekBarPreference mMmsLedOffMs;
     private ListPreference mPresetColors;
+    private DJSeekBarPreference mMsgTextSize;
     private DJSeekBarPreference mDividerHeight;
 	Preference mBackupMmsSettings;
 	Preference mRestoreMmsSettings;
     private SharedPreferences sp;
 
+    private String mMsgBType;
+    private boolean mMsgStretch;
+    private boolean mMsgSmiley;
+    private boolean mMsgAvatar;
+    private boolean mMsgContact;
+    private boolean mMsgDate;
+    private int mMsgLedColor;
+    private int mMsgLedOn;
+    private int mMsgLedOff;
+    private int mMsgTxtSize;
+    private int mMsgDivHeight;
     private int mMsgListBgColor;
     private int mMsgInBgColor;
     private int mMsgOutBgColor;
@@ -224,21 +237,28 @@ public class MessagingPreferenceActivity extends PreferenceActivity
         sp = PreferenceManager.getDefaultSharedPreferences(this);
         mPresetColors = (ListPreference) findPreference(MSG_PRESET_COLORS);
         mPresetColors.setOnPreferenceChangeListener(this);
+
         mMmsLedOnMs = (DJSeekBarPreference) findPreference(MMS_LED_ON_MS);
         mMmsLedOnMs.setMax(50);
-        mMmsLedOnMs.setDefaultValue(sp.getInt(MMS_LED_ON_MS, 0));
         mMmsLedOnMs.setProgress(sp.getInt(MMS_LED_ON_MS, 0));
+
         mMmsLedOffMs = (DJSeekBarPreference) findPreference(MMS_LED_OFF_MS);
         mMmsLedOffMs.setMax(50);
-        mMmsLedOffMs.setDefaultValue(sp.getInt(MMS_LED_OFF_MS, 0));
         mMmsLedOffMs.setProgress(sp.getInt(MMS_LED_OFF_MS, 0));
+
+        mMsgTextSize = (DJSeekBarPreference) findPreference(MSG_TEXT_SIZE);
+        mMsgTextSize.setMax(24);
+        mMsgTextSize.setMin(12);
+        mMsgTextSize.setProgress(sp.getInt(MSG_TEXT_SIZE, 14 ));
+
         mDividerHeight = (DJSeekBarPreference) findPreference(MSG_DIVIDER_HEIGHT);
         mDividerHeight.setMax(100);
-        mDividerHeight.setDefaultValue(sp.getInt(MSG_DIVIDER_HEIGHT, 0));
         mDividerHeight.setProgress(sp.getInt(MSG_DIVIDER_HEIGHT, 0));
+
         mBackupMmsSettings = (Preference) findPreference(BACKUP_MMS);
 		mBackupMmsSettings.setOnPreferenceChangeListener(this);	
-        mRestoreMmsSettings = (Preference) findPreference(RESTORE_MMS);
+
+		mRestoreMmsSettings = (Preference) findPreference(RESTORE_MMS);
 		mRestoreMmsSettings.setOnPreferenceChangeListener(this);
 		
        
@@ -624,50 +644,71 @@ public class MessagingPreferenceActivity extends PreferenceActivity
     }
 
     private void getValues() {
-
-    	mMsgListBgColor = sp.getInt(MSG_LIST_BG_COLOR, 0xff000000);
-        mMsgInBgColor = sp.getInt(MSG_IN_BG_COLOR, 0xff000000);
-        mMsgOutBgColor = sp.getInt(MSG_OUT_BG_COLOR, 0xff000000);
-        mMsgInSmileyColor = sp.getInt(MSG_IN_SMILEY_COLOR, 0xff000000);
-        mMsgOutSmileyColor = sp.getInt(MSG_OUT_SMILEY_COLOR, 0xff000000);
-        mMsgInContactColor = sp.getInt(MSG_IN_CONTACT_COLOR, 0xff000000);
-        mMsgOutContactColor = sp.getInt(MSG_OUT_CONTACT_COLOR, 0xff000000);
-        mMsgInTextColor = sp.getInt(MSG_IN_TEXT_COLOR, 0xff000000);
-        mMsgOutTextColor = sp.getInt(MSG_OUT_TEXT_COLOR, 0xff000000);
-        mMsgInDateColor = sp.getInt(MSG_IN_DATE_COLOR, 0xff000000);
-        mMsgOutDateColor = sp.getInt(MSG_OUT_DATE_COLOR, 0xff000000);
-        mMsgInLinkColor = sp.getInt(MSG_IN_LINK_COLOR, 0xff000000);
-        mMsgOutLinkColor = sp.getInt(MSG_OUT_LINK_COLOR, 0xff000000);
-        mMsgInSearchColor = sp.getInt(MSG_IN_SEARCH_COLOR, 0xff000000);
-        mMsgOutSearchColor = sp.getInt(MSG_OUT_SEARCH_COLOR, 0xff000000);
+    	mMsgBType = sp.getString(MSG_BUBBLE_TYPE, "BubbleCall");
+    	mMsgStretch = sp.getBoolean(MSG_FILL_PARENT, false);
+    	mMsgSmiley = sp.getBoolean(MSG_USE_SMILEY, true);
+    	mMsgAvatar = sp.getBoolean(MSG_SHOW_AVATAR, false);
+    	mMsgContact = sp.getBoolean(MSG_USE_CONTACT, false);
+    	mMsgDate = sp.getBoolean(MSG_FULL_DATE, false);
+    	mMsgLedColor = sp.getInt(MMS_LED_COLOR, 0xff00ff00);
+    	mMsgLedOn = sp.getInt(MMS_LED_ON_MS, 2);
+    	mMsgLedOff = sp.getInt(MMS_LED_OFF_MS, 2);
+    	mMsgTxtSize = sp.getInt(MSG_TEXT_SIZE, 14);
+    	mMsgListBgColor = sp.getInt(MSG_LIST_BG_COLOR, 0xffffffff);
+    	mMsgDivHeight = sp.getInt(MSG_DIVIDER_HEIGHT, 0);
+        mMsgInBgColor = sp.getInt(MSG_IN_BG_COLOR, 0xff008ec2);
+        mMsgOutBgColor = sp.getInt(MSG_OUT_BG_COLOR, 0xff33b5e5);
+        mMsgInSmileyColor = sp.getInt(MSG_IN_SMILEY_COLOR, 0xffffffff);
+        mMsgOutSmileyColor = sp.getInt(MSG_OUT_SMILEY_COLOR, 0xffffffff);
+        mMsgInContactColor = sp.getInt(MSG_IN_CONTACT_COLOR, 0xffffff);
+        mMsgOutContactColor = sp.getInt(MSG_OUT_CONTACT_COLOR, 0xffffffff);
+        mMsgInTextColor = sp.getInt(MSG_IN_TEXT_COLOR, 0xffcecece);
+        mMsgOutTextColor = sp.getInt(MSG_OUT_TEXT_COLOR, 0xffd6d6d6);
+        mMsgInDateColor = sp.getInt(MSG_IN_DATE_COLOR, 0xcdcfcfcf);
+        mMsgOutDateColor = sp.getInt(MSG_OUT_DATE_COLOR, 0xcdffffff);
+        mMsgInLinkColor = sp.getInt(MSG_IN_LINK_COLOR, 0xffffffff);
+        mMsgOutLinkColor = sp.getInt(MSG_OUT_LINK_COLOR, 0xffffffff);
+        mMsgInSearchColor = sp.getInt(MSG_IN_SEARCH_COLOR, 0xffffffff);
+        mMsgOutSearchColor = sp.getInt(MSG_OUT_SEARCH_COLOR, 0xffffffff);
         mConvListBgColor = sp.getInt(CONV_LIST_BG_COLOR, 0xff000000);
-        mConvReadBgColor = sp.getInt(READ_CONV_BG_COLOR, 0xff000000);
-        mConvReadContactColor = sp.getInt(READ_CONV_CONTACT_COLOR, 0xff000000);
-        mConvReadCountColor = sp.getInt(READ_CONV_COUNT_COLOR, 0xff000000);
-        mConvReadSubjectColor = sp.getInt(READ_CONV_SUBJECT_COLOR, 0xff000000);
-        mConvReadDateColor = sp.getInt(READ_CONV_DATE_COLOR, 0xff000000);
-        mConvReadAttachColor = sp.getInt(READ_CONV_ATTACH_COLOR, 0xff000000);
-        mConvReadErrorColor = sp.getInt(READ_CONV_ERROR_COLOR, 0xff000000);
-        mConvUnReadBgColor = sp.getInt(UNREAD_CONV_BG_COLOR, 0xff00ff00);
+        mConvReadBgColor = sp.getInt(READ_CONV_BG_COLOR, 0xff4e4e4e);
+        mConvReadContactColor = sp.getInt(READ_CONV_CONTACT_COLOR, 0xffc4c4c4);
+        mConvReadCountColor = sp.getInt(READ_CONV_COUNT_COLOR, 0xffe2e2e2);
+        mConvReadSubjectColor = sp.getInt(READ_CONV_SUBJECT_COLOR, 0xffb2b2b2);
+        mConvReadDateColor = sp.getInt(READ_CONV_DATE_COLOR, 0xff4b4b4b);
+        mConvReadAttachColor = sp.getInt(READ_CONV_ATTACH_COLOR, 0xffdbdbdb);
+        mConvReadErrorColor = sp.getInt(READ_CONV_ERROR_COLOR, 0xffdbdbdb);
+        mConvUnReadBgColor = sp.getInt(UNREAD_CONV_BG_COLOR, 0xffd8d8d8);
         mConvUnReadContactColor = sp.getInt(UNREAD_CONV_CONTACT_COLOR, 0xff000000);
-        mConvUnReadCountColor = sp.getInt(UNREAD_CONV_COUNT_COLOR, 0xff000000);
-        mConvUnReadSubjectColor = sp.getInt(UNREAD_CONV_SUBJECT_COLOR, 0xff000000);
-        mConvUnReadDateColor = sp.getInt(UNREAD_CONV_DATE_COLOR, 0xff000000);
-        mConvUnReadAttachColor = sp.getInt(UNREAD_CONV_ATTACH_COLOR, 0xff000000);
-        mConvUnReadErrorColor = sp.getInt(UNREAD_CONV_ERROR_COLOR, 0xff000000);
-        mConvSelectedBgColor = sp.getInt(SELECTED_CONV_BG_COLOR, 0xff00ff00);
-        mConvSelectedContactColor = sp.getInt(SELECTED_CONV_CONTACT_COLOR, 0xff000000);
+        mConvUnReadCountColor = sp.getInt(UNREAD_CONV_COUNT_COLOR, 0xff33b5e5);
+        mConvUnReadSubjectColor = sp.getInt(UNREAD_CONV_SUBJECT_COLOR, 0xff424242);
+        mConvUnReadDateColor = sp.getInt(UNREAD_CONV_DATE_COLOR, 0xff363636);
+        mConvUnReadAttachColor = sp.getInt(UNREAD_CONV_ATTACH_COLOR, 0xffffffff);
+        mConvUnReadErrorColor = sp.getInt(UNREAD_CONV_ERROR_COLOR, 0xffdbdbdb);
+        mConvSelectedBgColor = sp.getInt(SELECTED_CONV_BG_COLOR, 0xff33b5e5);
+        mConvSelectedContactColor = sp.getInt(SELECTED_CONV_CONTACT_COLOR, 0xffffffff);
         mConvSelectedCountColor = sp.getInt(SELECTED_CONV_COUNT_COLOR, 0xff000000);
-        mConvSelectedSubjectColor = sp.getInt(SELECTED_CONV_SUBJECT_COLOR, 0xff000000);
-        mConvSelectedDateColor = sp.getInt(SELECTED_CONV_DATE_COLOR, 0xff000000);
-        mConvSelectedAttachColor = sp.getInt(SELECTED_CONV_ATTACH_COLOR, 0xff000000);
-        mConvSelectedErrorColor = sp.getInt(SELECTED_CONV_ERROR_COLOR, 0xff000000);
+        mConvSelectedSubjectColor = sp.getInt(SELECTED_CONV_SUBJECT_COLOR, 0xff3c3c3c);
+        mConvSelectedDateColor = sp.getInt(SELECTED_CONV_DATE_COLOR, 0xff4b4b4b);
+        mConvSelectedAttachColor = sp.getInt(SELECTED_CONV_ATTACH_COLOR, 0xff4f4f4f);
+        mConvSelectedErrorColor = sp.getInt(SELECTED_CONV_ERROR_COLOR, 0xffdbdbdb);
     }
     
     private void writeValues() {
     	
         sp = PreferenceManager.getDefaultSharedPreferences(this);
     	SharedPreferences.Editor editor = sp.edit();
+    	editor.putBoolean(MSG_FILL_PARENT, mMsgStretch);
+    	editor.putBoolean(MSG_USE_SMILEY, mMsgSmiley);
+    	editor.putBoolean(MSG_SHOW_AVATAR, mMsgAvatar);
+    	editor.putBoolean(MSG_USE_CONTACT, mMsgContact);
+    	editor.putBoolean(MSG_FULL_DATE, mMsgDate);
+    	editor.putInt(MMS_LED_COLOR, mMsgLedColor);
+    	editor.putInt(MMS_LED_COLOR, mMsgLedColor);
+    	editor.putInt(MMS_LED_ON_MS, mMsgLedOn);
+    	editor.putInt(MMS_LED_OFF_MS, mMsgLedOff);
+    	editor.putInt(MSG_TEXT_SIZE, mMsgTxtSize);
+    	editor.putInt(MSG_DIVIDER_HEIGHT, mMsgDivHeight);
     	editor.putInt(MSG_LIST_BG_COLOR, mMsgListBgColor);
     	editor.putInt(MSG_IN_BG_COLOR, mMsgInBgColor);
     	editor.putInt(MSG_OUT_BG_COLOR, mMsgOutBgColor);

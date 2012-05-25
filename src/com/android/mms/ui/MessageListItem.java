@@ -393,6 +393,7 @@ public class MessageListItem extends LinearLayout implements
                                              msgItem.mHighlight, msgItem.mTextContentType);
         }
         mBodyTextView.setText(formattedMessage);
+        mBodyTextView.setTextSize(sp.getInt(MessagingPreferenceActivity.MSG_TEXT_SIZE, 14));
 
         // If we're in the process of sending a message (i.e. pending), then we show a "SENDING..."
         // string in place of the timestamp.

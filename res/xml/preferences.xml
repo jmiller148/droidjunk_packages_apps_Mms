@@ -52,7 +52,6 @@
 		android:entryValues="@array/values_preset_colors"
 		android:defaultValue="StockLike"/>      
       
- 
 	
     <PreferenceScreen
  
@@ -72,7 +71,11 @@
 		android:entryValues="@array/values_bubble_type"
 		android:defaultValue="BubbleGlassCall"/>
 
-
+	<DJSeekBarPreference 		
+		android:layout="?android:attr/preferenceLayoutChild"
+		android:key="msg_text_size"
+		android:title="Message Text Size"
+		android:defaultValue="14" />	
 	
 	<ColorPickerPreference 
 		android:layout="?android:attr/preferenceLayoutChild"
@@ -85,7 +88,7 @@
      	android:layout="?android:attr/preferenceLayoutChild"
         android:key="msg_divider_height"
         android:title="Distance Between Messages" 
- 		android:defaultValue="10"
+ 		android:defaultValue="0"
  		/> 	
 	
 	<CheckBoxPreference 
