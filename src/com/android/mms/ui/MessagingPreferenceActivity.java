@@ -698,6 +698,7 @@ public class MessagingPreferenceActivity extends PreferenceActivity
     	
         sp = PreferenceManager.getDefaultSharedPreferences(this);
     	SharedPreferences.Editor editor = sp.edit();
+    	editor.putString(MSG_BUBBLE_TYPE, mMsgBType);
     	editor.putBoolean(MSG_FILL_PARENT, mMsgStretch);
     	editor.putBoolean(MSG_USE_SMILEY, mMsgSmiley);
     	editor.putBoolean(MSG_SHOW_AVATAR, mMsgAvatar);

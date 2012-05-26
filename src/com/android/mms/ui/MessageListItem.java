@@ -177,26 +177,25 @@ public class MessageListItem extends LinearLayout implements
     		mMessageLayout.setLayoutDirection(LAYOUT_DIRECTION_LTR);
     		if (bType.equals("BubbleCall")) {
     		  mMessageBlock.setBackgroundResource(R.drawable.msg_in_bubble_1);
-    		  mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.changeColor(mMsgInBgColor, .32f));
+    		  mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.changeColorAlpha(mMsgInBgColor, .32f,0f));
     	  
     	  		} else if (bType.equals("Bubble")) {
     	  			mMessageBlock.setBackgroundResource(R.drawable.msg_in_bubble_2);
-    	  			mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.changeColor(mMsgInBgColor, .32f));
+    	  			mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.changeColorAlpha(mMsgInBgColor, .32f,0f));
         
     	  		} else if (bType.equals("Framed")) {
     	  			mMessageBlock.setBackgroundResource(R.drawable.msg_in_frame_1);
-    	  			mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.changeColor(mMsgInBgColor, .32f));
+    	  			mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.changeColorAlpha(mMsgInBgColor, .32f,0f));
 
     	  		} else if (bType.equals("FramedArrow")) {
        	  			mMessageBlock.setBackgroundResource(R.drawable.msg_in_frame_2);
-       	  			mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.changeColor(mMsgInBgColor, .32f));
+       	  			mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.changeColorAlpha(mMsgInBgColor, .32f,0f));
     	  		
     	  		} else if (bType.equals("Plain")) {
        	  			mMessageBlock.setBackgroundResource(R.drawable.msg_in_frame_3);
-       	  			mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.changeColor(mMsgInBgColor, .32f));
+       	  			mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.changeColorAlpha(mMsgInBgColor, .32f,0f));
     	  		}
 
-    		
     	  	} else {
     	    
     	  		mBodyTextView.setLinkTextColor(sp.getInt(MessagingPreferenceActivity.MSG_OUT_LINK_COLOR, 0xffffffff));
@@ -204,23 +203,23 @@ public class MessageListItem extends LinearLayout implements
     	  		mMessageLayout.setLayoutDirection(LAYOUT_DIRECTION_LTR);
     	  		if (bType.equals("BubbleCall")) {
     	  			mMessageBlock.setBackgroundResource(R.drawable.msg_out_bubble_1);
-    	  			mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.changeColor(mMsgOutBgColor, .32f));
+    	  			mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.changeColorAlpha(mMsgInBgColor, .32f,0f));
     		
     	  		} else if (bType.equals("Bubble")) {
     	  			mMessageBlock.setBackgroundResource(R.drawable.msg_out_bubble_2);
-    	  			mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.changeColor(mMsgOutBgColor, .32f));
+    	  			mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.changeColorAlpha(mMsgInBgColor, .32f,0f));
     		 
     	  		} else if (bType.equals("Framed")) {
     	  			mMessageBlock.setBackgroundResource(R.drawable.msg_out_frame_1);
-    	  			mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.changeColor(mMsgOutBgColor, .32f));
+    	  			mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.changeColorAlpha(mMsgInBgColor, .32f,0f));
 
     	  		} else if (bType.equals("FramedArrow")) {
        	  			mMessageBlock.setBackgroundResource(R.drawable.msg_out_frame_2);
-       	  			mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.changeColor(mMsgOutBgColor, .32f));
+       	  			mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.changeColorAlpha(mMsgInBgColor, .32f,0f));
    	  			
     	  		} else if (bType.equals("Plain")) {
        	  			mMessageBlock.setBackgroundResource(R.drawable.msg_out_frame_3);
-       	  			mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.changeColor(mMsgOutBgColor, .32f));
+       	  			mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.changeColorAlpha(mMsgInBgColor, .32f,0f));
    	  			}
     	  }
     };    
