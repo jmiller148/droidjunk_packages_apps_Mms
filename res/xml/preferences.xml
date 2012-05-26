@@ -201,7 +201,7 @@
 		android:key="msg_out_bg_color"
 		android:title="Background Color"
 		android:defaultValue="#ff33b5e5" 
-		alphaSlider="false" /> 					
+		alphaSlider="true" /> 					
 		
 	<ColorPickerPreference 
 		android:dependency="msg_use_smiley"         
