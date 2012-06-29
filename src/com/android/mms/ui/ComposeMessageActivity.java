@@ -56,6 +56,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.DialogInterface.OnClickListener;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.Cursor;
@@ -74,6 +75,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.Parcelable;
 import android.os.SystemProperties;
+import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
 import android.provider.ContactsContract.CommonDataKinds.Email;
 import android.provider.ContactsContract.Contacts;
@@ -286,6 +288,14 @@ public class ComposeMessageActivity extends Activity
     private Intent mAddContactIntent;   // Intent used to add a new contact
 
     private String mDebugRecipients;
+    
+    
+    // JUNK
+    private String mSignature;
+    private SharedPreferences sp;
+    
+    
+    
 
     @SuppressWarnings("unused")
     public static void log(String logMsg) {
@@ -1782,6 +1792,7 @@ public class ComposeMessageActivity extends Activity
     public void initialize(Bundle savedInstanceState, long originalThreadId) {
         // Create a new empty working message.
         mWorkingMessage = WorkingMessage.createEmpty(this);
+
 
         // Read parameters or previously saved state of this activity. This will load a new
         // mConversation
@@ -3462,7 +3473,11 @@ public class ComposeMessageActivity extends Activity
             // send can change the recipients. Make sure we remove the listeners first and then add
             // them back once the recipient list has settled.
             removeRecipientsListeners();
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+            sp = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+            mSignature = sp.getString(MessagingPreferenceActivity.MSG_SIGNATURE, "");
+            mSignature = "\n" + mSignature;
+            mWorkingMessage.setText(mWorkingMessage.getText() + mSignature);
             mWorkingMessage.send(mDebugRecipients);
 
             mSentMessage = true;

@@ -51,7 +51,15 @@
 		android:entries="@array/entries_preset_colors"
 		android:entryValues="@array/values_preset_colors"
 		android:defaultValue="StockLike"/>      
-      
+	
+	<EditTextPreference
+        android:key="msg_signature"
+		android:title="Message Signature" 
+		android:summary="Set a custom signature for messages"
+		android:dialogTitle="Message Signature"
+		android:dialogMessage="Enter text"	
+		android:defaultValue="" />	
+	
 	
     <PreferenceScreen
  

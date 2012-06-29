@@ -36,6 +36,7 @@ import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.ColorPickerPreference;
 import android.preference.DJSeekBarPreference;
+import android.preference.EditTextPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
@@ -76,7 +77,7 @@ public class MessagingPreferenceActivity extends PreferenceActivity
     // Junk
 	private final String BACKUP_MMS = "backup_mms";
 	private final String RESTORE_MMS = "restore_mms";
-
+	public static final String MSG_SIGNATURE	        = "msg_signature";
     public static final String MMS_ASSETS_COPIED        = "mms_assets_copied";
     public static final String MMS_LED_COLOR            = "mms_led_color";
     public static final String MMS_LED_ON_MS            = "mms_led_on_ms";
@@ -154,11 +155,13 @@ public class MessagingPreferenceActivity extends PreferenceActivity
     private DJSeekBarPreference mMmsLedOnMs;
     private DJSeekBarPreference mMmsLedOffMs;
     private ListPreference mPresetColors;
+    private EditTextPreference mSignature;
     private DJSeekBarPreference mMsgTextSize;
     private DJSeekBarPreference mDividerHeight;
 	Preference mBackupMmsSettings;
 	Preference mRestoreMmsSettings;
     private SharedPreferences sp;
+
 
     private String mMsgBType;
     private boolean mMsgStretch;
@@ -235,6 +238,12 @@ public class MessagingPreferenceActivity extends PreferenceActivity
         junkBackupDir.mkdirs(); 
 
         sp = PreferenceManager.getDefaultSharedPreferences(this);
+        
+        mSignature = (EditTextPreference) findPreference(MSG_SIGNATURE);
+        mSignature.setOnPreferenceChangeListener(this);
+        mSignature.setText(sp.getString(MSG_SIGNATURE,""));
+        
+        
         mPresetColors = (ListPreference) findPreference(MSG_PRESET_COLORS);
         mPresetColors.setOnPreferenceChangeListener(this);
 
@@ -627,9 +636,16 @@ public class MessagingPreferenceActivity extends PreferenceActivity
             sp = getSharedPreferences("com.android.mms_preferences_temp", Context.MODE_WORLD_READABLE);
             getValues();
             writeValues();
-        	
-        }
+
+
+
+    } else if (preference == mSignature) {
+    	SharedPreferences.Editor editor = sp.edit();
+        editor.putString(MSG_SIGNATURE, (String) newValue);
+        editor.commit();
+    }
         return result;
+
     }
 
     private void adjustVibrateSummary(String value) {
