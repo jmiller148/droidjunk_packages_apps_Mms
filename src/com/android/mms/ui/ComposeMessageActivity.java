@@ -3473,7 +3473,9 @@ public class ComposeMessageActivity extends Activity
             // send can change the recipients. Make sure we remove the listeners first and then add
             // them back once the recipient list has settled.
             removeRecipientsListeners();
-///////////////////////////////////////////////////////////////////////////////////////////////////////
+            
+            // JUNK - Signature
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////
             sp = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
             mSignature = sp.getString(MessagingPreferenceActivity.MSG_SIGNATURE, "");
             mSignature = "\n" + mSignature;
