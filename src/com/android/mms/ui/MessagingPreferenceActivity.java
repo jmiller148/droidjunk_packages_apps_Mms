@@ -162,7 +162,7 @@ public class MessagingPreferenceActivity extends PreferenceActivity
 	Preference mRestoreMmsSettings;
     private SharedPreferences sp;
 
-
+    private String mSignatureText;
     private String mMsgBType;
     private boolean mMsgStretch;
     private boolean mMsgSmiley;
@@ -660,6 +660,7 @@ public class MessagingPreferenceActivity extends PreferenceActivity
     }
 
     private void getValues() {
+    	mSignatureText = sp.getString(MSG_SIGNATURE, "");
     	mMsgBType = sp.getString(MSG_BUBBLE_TYPE, "BubbleCall");
     	mMsgStretch = sp.getBoolean(MSG_FILL_PARENT, false);
     	mMsgSmiley = sp.getBoolean(MSG_USE_SMILEY, true);
@@ -714,6 +715,7 @@ public class MessagingPreferenceActivity extends PreferenceActivity
     	
         sp = PreferenceManager.getDefaultSharedPreferences(this);
     	SharedPreferences.Editor editor = sp.edit();
+    	editor.putString(MSG_SIGNATURE, mSignatureText);
     	editor.putString(MSG_BUBBLE_TYPE, mMsgBType);
     	editor.putBoolean(MSG_FILL_PARENT, mMsgStretch);
     	editor.putBoolean(MSG_USE_SMILEY, mMsgSmiley);
