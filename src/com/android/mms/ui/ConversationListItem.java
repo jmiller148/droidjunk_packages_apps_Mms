@@ -32,6 +32,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.ForegroundColorSpan;
@@ -84,6 +85,9 @@ public class ConversationListItem extends RelativeLayout implements Contact.Upda
         if (sDefaultContactImage == null) {
             sDefaultContactImage = context.getResources().getDrawable(R.drawable.ic_contact_picture);
         }
+        // Junk
+        sp = PreferenceManager.getDefaultSharedPreferences(context);
+        // End Junk
     }
 
     @Override
@@ -200,40 +204,6 @@ public class ConversationListItem extends RelativeLayout implements Contact.Upda
 
         updateBackground();
 
-		// Junk
-        if (conversation.isChecked()) {
-        	setBackgroundColor(sp.getInt(MessagingPreferenceActivity.SELECTED_CONV_BG_COLOR, 0xff33b5e5));
-            mFromView.setTextColor(sp.getInt(MessagingPreferenceActivity.SELECTED_CONV_CONTACT_COLOR, 0xffffffff));
-            mSubjectView.setTextColor(sp.getInt(MessagingPreferenceActivity.SELECTED_CONV_SUBJECT_COLOR, 0xff3c3c3c));
-            mDateView.setTextColor(sp.getInt(MessagingPreferenceActivity.SELECTED_CONV_DATE_COLOR, 0xff4b4b4b));
-            mErrorIndicator.setColorFilter(ColorFilterMaker.changeColor(
-            		sp.getInt(MessagingPreferenceActivity.SELECTED_CONV_ERROR_COLOR, 0xff4f4f4f), .6f));
-            mAttachmentView.setColorFilter(ColorFilterMaker.changeColor(
-            		sp.getInt(MessagingPreferenceActivity.SELECTED_CONV_ATTACH_COLOR, 0xff4f4f4f), .6f));
-
-        } else if (conversation.hasUnreadMessages()) {
-            setBackgroundColor(sp.getInt(MessagingPreferenceActivity.UNREAD_CONV_BG_COLOR, 0xffd8d8d8));
-            mFromView.setTextColor(sp.getInt(MessagingPreferenceActivity.UNREAD_CONV_CONTACT_COLOR, 0xff000000));
-            mSubjectView.setTextColor(sp.getInt(MessagingPreferenceActivity.UNREAD_CONV_SUBJECT_COLOR, 0xff424242));
-            mDateView.setTextColor(sp.getInt(MessagingPreferenceActivity.UNREAD_CONV_DATE_COLOR, 0xff363636));
-            mErrorIndicator.setColorFilter(ColorFilterMaker.changeColor(
-            		sp.getInt(MessagingPreferenceActivity.UNREAD_CONV_ERROR_COLOR, 0xffffffff), .6f));
-            mAttachmentView.setColorFilter(ColorFilterMaker.changeColor(
-            		sp.getInt(MessagingPreferenceActivity.UNREAD_CONV_ATTACH_COLOR, 0xffffffff), .6f));
-
-        } else {
-            setBackgroundColor(sp.getInt(MessagingPreferenceActivity.READ_CONV_BG_COLOR, 0xff4e4e4e));
-            mFromView.setTextColor(sp.getInt(MessagingPreferenceActivity.READ_CONV_CONTACT_COLOR, 0xff33b5e5));
-            mSubjectView.setTextColor(sp.getInt(MessagingPreferenceActivity.READ_CONV_SUBJECT_COLOR, 0xffb2b2b2));
-            mDateView.setTextColor(sp.getInt(MessagingPreferenceActivity.READ_CONV_DATE_COLOR, 0xff4b4b4b));
-            mErrorIndicator.setColorFilter(ColorFilterMaker.changeColor(
-            		sp.getInt(MessagingPreferenceActivity.READ_CONV_ERROR_COLOR, 0xffdbdbdb), .6f));
-            mAttachmentView.setColorFilter(ColorFilterMaker.changeColor(
-            		sp.getInt(MessagingPreferenceActivity.READ_CONV_ATTACH_COLOR, 0xffdbdbdb), .6f));
-
-        }
-		// End Junk
-
         LayoutParams attachmentLayout = (LayoutParams)mAttachmentView.getLayoutParams();
         boolean hasError = conversation.hasError();
         // When there's an error icon, the attachment icon is left of the error icon.
@@ -277,16 +247,39 @@ public class ConversationListItem extends RelativeLayout implements Contact.Upda
     }
 
     private void updateBackground() {
-        int backgroundId;
+		// Junk
         if (mConversation.isChecked()) {
-            backgroundId = R.drawable.list_selected_holo_light;
+        	setBackgroundColor(sp.getInt(MessagingPreferenceActivity.SELECTED_CONV_BG_COLOR, 0xff33b5e5));
+            mFromView.setTextColor(sp.getInt(MessagingPreferenceActivity.SELECTED_CONV_CONTACT_COLOR, 0xffffffff));
+            mSubjectView.setTextColor(sp.getInt(MessagingPreferenceActivity.SELECTED_CONV_SUBJECT_COLOR, 0xff3c3c3c));
+            mDateView.setTextColor(sp.getInt(MessagingPreferenceActivity.SELECTED_CONV_DATE_COLOR, 0xff4b4b4b));
+            mErrorIndicator.setColorFilter(ColorFilterMaker.changeColor(
+            		sp.getInt(MessagingPreferenceActivity.SELECTED_CONV_ERROR_COLOR, 0xff4f4f4f), .6f));
+            mAttachmentView.setColorFilter(ColorFilterMaker.changeColor(
+            		sp.getInt(MessagingPreferenceActivity.SELECTED_CONV_ATTACH_COLOR, 0xff4f4f4f), .6f));
+
         } else if (mConversation.hasUnreadMessages()) {
-            backgroundId = R.drawable.conversation_item_background_unread;
+            setBackgroundColor(sp.getInt(MessagingPreferenceActivity.UNREAD_CONV_BG_COLOR, 0xffd8d8d8));
+            mFromView.setTextColor(sp.getInt(MessagingPreferenceActivity.UNREAD_CONV_CONTACT_COLOR, 0xff000000));
+            mSubjectView.setTextColor(sp.getInt(MessagingPreferenceActivity.UNREAD_CONV_SUBJECT_COLOR, 0xff424242));
+            mDateView.setTextColor(sp.getInt(MessagingPreferenceActivity.UNREAD_CONV_DATE_COLOR, 0xff363636));
+            mErrorIndicator.setColorFilter(ColorFilterMaker.changeColor(
+            		sp.getInt(MessagingPreferenceActivity.UNREAD_CONV_ERROR_COLOR, 0xffffffff), .6f));
+            mAttachmentView.setColorFilter(ColorFilterMaker.changeColor(
+            		sp.getInt(MessagingPreferenceActivity.UNREAD_CONV_ATTACH_COLOR, 0xffffffff), .6f));
+
         } else {
-            backgroundId = R.drawable.conversation_item_background_read;
+            setBackgroundColor(sp.getInt(MessagingPreferenceActivity.READ_CONV_BG_COLOR, 0xff4e4e4e));
+            mFromView.setTextColor(sp.getInt(MessagingPreferenceActivity.READ_CONV_CONTACT_COLOR, 0xff33b5e5));
+            mSubjectView.setTextColor(sp.getInt(MessagingPreferenceActivity.READ_CONV_SUBJECT_COLOR, 0xffb2b2b2));
+            mDateView.setTextColor(sp.getInt(MessagingPreferenceActivity.READ_CONV_DATE_COLOR, 0xff4b4b4b));
+            mErrorIndicator.setColorFilter(ColorFilterMaker.changeColor(
+            		sp.getInt(MessagingPreferenceActivity.READ_CONV_ERROR_COLOR, 0xffdbdbdb), .6f));
+            mAttachmentView.setColorFilter(ColorFilterMaker.changeColor(
+            		sp.getInt(MessagingPreferenceActivity.READ_CONV_ATTACH_COLOR, 0xffdbdbdb), .6f));
+
         }
-        Drawable background = mContext.getResources().getDrawable(backgroundId);
-        setBackground(background);
+		// End Junk
     }
 
     public final void unbind() {
