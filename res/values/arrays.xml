@@ -69,4 +69,42 @@
         <item>Smirk</item>                   <!-- 19: :-/ -->
         <item>Poker face</item>              <!-- 20: :-I -->
     </string-array>
+    
+    
+    <!-- DroidJunk -->
+    
+    <string-array name="entries_bubble_type" translatable="false">
+		<item>Bubble Callout</item>
+        <item>Bubble</item>
+        <item>Framed</item>
+        <item>Framed Arrow</item>
+        <item>Standard</item>
+    </string-array>
+
+
+    <string-array name="values_bubble_type" translatable="false">
+        <item>BubbleCall</item>
+		<item>Bubble</item>
+		<item>Framed</item>
+		<item>FramedArrow</item>
+		<item>Plain</item>
+    </string-array>
+ 
+    <string-array name="entries_preset_colors" translatable="false">
+        <item>Stock Look</item>
+        <item>Blue</item>
+		<item>Grey</item>
+        <item>Red</item>
+        <item>DroidJunk</item>
+    </string-array>
+
+
+    <string-array name="values_preset_colors" translatable="false">
+        <item>StockLike</item>
+        <item>Blue</item>
+		<item>Grey</item>
+		<item>Red</item>
+		<item>DroidJunk</item>
+    </string-array>    
+    
 </resources>

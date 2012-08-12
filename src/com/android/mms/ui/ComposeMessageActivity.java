@@ -55,6 +55,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.DialogInterface.OnClickListener;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.Cursor;
@@ -71,6 +72,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.Parcelable;
 import android.os.SystemProperties;
+import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
 import android.provider.ContactsContract.CommonDataKinds.Email;
 import android.provider.ContactsContract.Contacts;
@@ -297,18 +299,26 @@ public class ComposeMessageActivity extends Activity
     private AsyncDialog mAsyncDialog;   // Used for background tasks.
 
     private String mDebugRecipients;
+    
     private int mLastSmoothScrollPosition;
+    
     private boolean mScrollOnSend;      // Flag that we need to scroll the list to the end.
 
     private int mSavedScrollPosition = -1;  // we save the ListView's scroll position in onPause(),
                                             // so we can remember it after re-entering the activity.
                                             // If the value >= 0, then we jump to that line. If the
                                             // value is maxint, then we jump to the end.
-
+    
     /**
      * Whether this activity is currently running (i.e. not paused)
      */
-    private boolean mIsRunning;
+    private boolean mIsRunning;   
+
+    // JUNK
+    private String mSignature;
+    private SharedPreferences sp;
+    // End Junk
+    
 
     @SuppressWarnings("unused")
     public static void log(String logMsg) {
@@ -1735,6 +1745,7 @@ public class ComposeMessageActivity extends Activity
         mRecipientsEditor.populate(recipients);
         mRecipientsEditor.setOnCreateContextMenuListener(mRecipientsMenuCreateListener);
         mRecipientsEditor.addTextChangedListener(mRecipientsWatcher);
+        mRecipientsEditor.setBackgroundColor(0xffffffff);
         // TODO : Remove the max length limitation due to the multiple phone picker is added and the
         // user is able to select a large number of recipients from the Contacts. The coming
         // potential issue is that it is hard for user to edit a recipient from hundred of
@@ -3341,6 +3352,7 @@ public class ComposeMessageActivity extends Activity
         mTextEditor.addTextChangedListener(mTextEditorWatcher);
         mTextEditor.setFilters(new InputFilter[] {
                 new LengthFilter(MmsConfig.getMaxTextLimit())});
+        mTextEditor.setBackgroundColor(0xffffffff);
         mTextCounter = (TextView) findViewById(R.id.text_counter);
         mSendButtonMms = (TextView) findViewById(R.id.send_button_mms);
         mSendButtonSms = (ImageButton) findViewById(R.id.send_button_sms);
@@ -3368,7 +3380,7 @@ public class ComposeMessageActivity extends Activity
 
         if (date >= 0) {
             body = getString(R.string.undelivered_msg_dialog_body,
-                    MessageUtils.formatTimeStampString(this, date));
+                    MessageUtils.formatTimeStampString(this, date, false));
         } else {
             // FIXME: we can not get sms retry time.
             body = getString(R.string.undelivered_sms_dialog_body);
@@ -3547,7 +3559,14 @@ public class ComposeMessageActivity extends Activity
             // send can change the recipients. Make sure we remove the listeners first and then add
             // them back once the recipient list has settled.
             removeRecipientsListeners();
-
+            
+            // JUNK - Signature
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////
+            sp = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+            mSignature = sp.getString(MessagingPreferenceActivity.MSG_SIGNATURE, "");
+            mSignature = "\n" + mSignature;
+            mWorkingMessage.setText(mWorkingMessage.getText() + mSignature);
+			// End Junk
             mWorkingMessage.send(mDebugRecipients);
 
             mSentMessage = true;

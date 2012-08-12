@@ -21,8 +21,10 @@ import java.util.regex.Pattern;
 
 import android.content.ContentUris;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.provider.Telephony.Mms;
 import android.provider.Telephony.MmsSms;
 import android.provider.Telephony.Sms;
@@ -72,7 +74,12 @@ public class MessageItem {
     DeliveryStatus mDeliveryStatus;
     boolean mReadReport;
     boolean mLocked;            // locked to prevent auto-deletion
-
+    
+    // Junk
+    boolean mFullDate = false;
+    SharedPreferences sp;
+    // End Junk
+    
     String mTimestamp;
     String mAddress;
     String mContact;
@@ -116,6 +123,10 @@ public class MessageItem {
         mCursor = cursor;
         mColumnsMap = columnsMap;
 
+        sp = PreferenceManager.getDefaultSharedPreferences(mContext);
+        mFullDate = sp.getBoolean(MessagingPreferenceActivity.MSG_FULL_DATE, false);
+        
+
         if ("sms".equals(type)) {
             mReadReport = false; // No read reports in sms
 
@@ -153,7 +164,7 @@ public class MessageItem {
             if (!isOutgoingMessage()) {
                 // Set "received" or "sent" time stamp
                 long date = cursor.getLong(columnsMap.mColumnSmsDate);
-                mTimestamp = MessageUtils.formatTimeStampString(context, date);
+                mTimestamp = MessageUtils.formatTimeStampString(context, date, mFullDate);
             }
 
             mLocked = cursor.getInt(columnsMap.mColumnSmsLocked) != 0;
