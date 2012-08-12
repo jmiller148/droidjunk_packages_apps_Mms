@@ -125,8 +125,7 @@
                 android:id="@+id/bottom_panel"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#fff" >
+                android:layout_height="wrap_content">
 
                 <EditText
                     android:textColor="@android:color/black"
