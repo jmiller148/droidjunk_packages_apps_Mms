@@ -111,10 +111,6 @@ public class MessageListItem extends LinearLayout implements
     private String mDefaultCountryIso;
     private TextView mDateView;
     public View mMessageBlock;
-    private Path mPathRight;
-    private Path mPathLeft;
-    private Paint mPaint;
-     private boolean mIsLastItemInList;
     static private Drawable sDefaultContactImage;
     private Presenter mPresenter;
     private int mPosition;      // for debugging
@@ -237,10 +233,8 @@ public class MessageListItem extends LinearLayout implements
 
     public void bind(MessageItem msgItem, boolean isLastItem, int position) {
         mMessageItem = msgItem;
-        mIsLastItemInList = isLastItem;
         mPosition = position;
 
-        // Junk
         mMsgInBgColor = sp.getInt(MessagingPreferenceActivity.MSG_IN_BG_COLOR, 0xff008ec2);
         mMsgOutBgColor = sp.getInt(MessagingPreferenceActivity.MSG_OUT_BG_COLOR, 0xff33b5e5);
         getBubbleType();
@@ -643,7 +637,13 @@ public class MessageListItem extends LinearLayout implements
         int mColor = 0;
         int contactLength = 0;
         if (mUseContact) {
-        	contactLength = msgItem.mContact.length() + 1;
+        	
+        	try {
+        	contactLength = contact.length() + 1;
+        	} catch (NullPointerException e)
+        	{}
+        	//contactLength = msgItem.mContact.length() + 1;
+       	
         	if (mMessageItem.getBoxId() == 1) {
         		mColor = sp.getInt(MessagingPreferenceActivity.MSG_IN_CONTACT_COLOR, 0xffffffff);
         	} else {
@@ -999,60 +999,5 @@ public class MessageListItem extends LinearLayout implements
 
     }
 
-    /**
-     * Override dispatchDraw so that we can put our own background and border in.
-     * This is all complexity to support a shared border from one item to the next.
-     */
-    @Override
-    public void dispatchDraw(Canvas c) {
-        super.dispatchDraw(c);
 
-        // This custom border is causing our scrolling fps to drop from 60+ to the mid 40's.
-        // Commenting out for now until we come up with a new UI design that doesn't require
-        // the border.
-        return;
-
-//        View v = mMessageBlock;
-//        if (v != null) {
-//            Path path = null;
-//            if (mAvatar.getPosition() == Divot.RIGHT_UPPER) {
-//                if (mPathRight == null) {
-//                    float r = v.getWidth() - 1;
-//                    float b = v.getHeight();
-//
-//                    mPathRight = new Path();
-//                    mPathRight.moveTo(0, mAvatar.getCloseOffset());
-//                    mPathRight.lineTo(0, 0);
-//                    mPathRight.lineTo(r, 0);
-//                    mPathRight.lineTo(r, b);
-//                    mPathRight.lineTo(0, b);
-//                    mPathRight.lineTo(0, mAvatar.getFarOffset());
-//                }
-//                path = mPathRight;
-//            } else if (mAvatar.getPosition() == Divot.LEFT_UPPER) {
-//                if (mPathLeft == null) {
-//                    float r = v.getWidth() - 1;
-//                    float b = v.getHeight();
-//
-//                    mPathLeft = new Path();
-//                    mPathLeft.moveTo(r, mAvatar.getCloseOffset());
-//                    mPathLeft.lineTo(r, 0);
-//                    mPathLeft.lineTo(0, 0);
-//                    mPathLeft.lineTo(0, b);
-//                    mPathLeft.lineTo(r, b);
-//                    mPathLeft.lineTo(r, mAvatar.getFarOffset());
-//                }
-//                path = mPathLeft;
-//            }
-//            if (mPaint == null) {
-//                mPaint = new Paint();
-//                mPaint.setColor(0xffcccccc);
-//                mPaint.setStrokeWidth(1F);
-//                mPaint.setStyle(Paint.Style.STROKE);
-//                mPaint.setColor(0xff00ff00);  // turn on for debugging, draws lines in green
-//            }
-//            c.translate(v.getX(), v.getY());
-//            c.drawPath(path, mPaint);
-//        }
-    }
 }
