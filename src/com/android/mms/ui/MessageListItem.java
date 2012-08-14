@@ -159,9 +159,7 @@ public class MessageListItem extends LinearLayout implements
         mDetailsIndicator = (ImageView) findViewById(R.id.details_indicator);
         mAvatar = (QuickContactBadge) findViewById(R.id.avatar);
         mMessageBlock = findViewById(R.id.message_block);
-		// Junk
-		mMessageLayout = findViewById(R.id.message_layout);
-		// End Junk
+        mMessageLayout = findViewById(R.id.message_layout);
     }
     
  
@@ -177,9 +175,9 @@ public class MessageListItem extends LinearLayout implements
     	}
     	
     	if (mMessageItem.getBoxId() == 1) {
-    		mBodyTextView.setLinkTextColor(sp.getInt(MessagingPreferenceActivity.MSG_IN_LINK_COLOR, 0xffffffff));
     		mMessageBlock.setLayoutDirection(LAYOUT_DIRECTION_LTR);
     		mMessageLayout.setLayoutDirection(LAYOUT_DIRECTION_LTR);
+    		mBodyTextView.setLinkTextColor(sp.getInt(MessagingPreferenceActivity.MSG_IN_LINK_COLOR, 0xffffffff));
     		if (bType.equals("BubbleCall")) {
     		  mMessageBlock.setBackgroundResource(R.drawable.msg_in_bubble_1);
     		  mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.changeColorAlpha(mMsgInBgColor, .32f,0f));
@@ -202,11 +200,11 @@ public class MessageListItem extends LinearLayout implements
     	  		}
 
     	  	} else {
+        		mMessageBlock.setLayoutDirection(LAYOUT_DIRECTION_RTL);
+        		mMessageLayout.setLayoutDirection(LAYOUT_DIRECTION_LTR);
     	    
     	  		mBodyTextView.setLinkTextColor(sp.getInt(MessagingPreferenceActivity.MSG_OUT_LINK_COLOR, 0xffffffff));
-    	  		mMessageBlock.setLayoutDirection(LAYOUT_DIRECTION_RTL);
-    	  		mMessageLayout.setLayoutDirection(LAYOUT_DIRECTION_LTR);
-    	  		if (bType.equals("BubbleCall")) {
+     	  		if (bType.equals("BubbleCall")) {
     	  			mMessageBlock.setBackgroundResource(R.drawable.msg_out_bubble_1);
     	  			mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.changeColorAlpha(mMsgOutBgColor, .32f,0f));
     		
@@ -699,31 +697,30 @@ public class MessageListItem extends LinearLayout implements
         // Junk
         // Set the color of the text for messages
         mColor = 0;
-         if (mMessageItem.getBoxId() == 1) {
-         mColor = sp.getInt(MessagingPreferenceActivity.MSG_IN_TEXT_COLOR, 0xffcecece);
-          } else {
-          mColor = sp.getInt(MessagingPreferenceActivity.MSG_OUT_TEXT_COLOR, 0xffd6d6d6);
-         }
+        if (mMessageItem.getBoxId() == 1) {
+        	mColor = sp.getInt(MessagingPreferenceActivity.MSG_IN_TEXT_COLOR, 0xffcecece);
+        } else {
+        	mColor = sp.getInt(MessagingPreferenceActivity.MSG_OUT_TEXT_COLOR, 0xffd6d6d6);
+        }
     
         buf.setSpan(new ForegroundColorSpan(mColor), contactLength, buf.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);         
  		// End Junk
         
         // Junk  Search Highlight color
         if (highlight != null) {
-				// Junk            
-				if (mMessageItem.getBoxId() == 1) {
-                mColor = sp.getInt(MessagingPreferenceActivity.MSG_IN_SEARCH_COLOR, 0xffffffff);
-                 } else {
-                 mColor = sp.getInt(MessagingPreferenceActivity.MSG_OUT_SEARCH_COLOR, 0xffffffff);
-                }
-				// End Junk
-            Matcher m = highlight.matcher(buf.toString());
-            while (m.find()) {
-                buf.setSpan(new StyleSpan(Typeface.BOLD), m.start(), m.end(), 0);
-				// Junk                
-				buf.setSpan(new ForegroundColorSpan(mColor), m.start(), m.end(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);  
-				// End Junk
+        	if (mMessageItem.getBoxId() == 1) {
+        		mColor = sp.getInt(MessagingPreferenceActivity.MSG_IN_SEARCH_COLOR, 0xffffffff);
+            } else {
+            	mColor = sp.getInt(MessagingPreferenceActivity.MSG_OUT_SEARCH_COLOR, 0xffffffff);
             }
+		// End Junk
+        Matcher m = highlight.matcher(buf.toString());
+        while (m.find()) {
+        	buf.setSpan(new StyleSpan(Typeface.BOLD), m.start(), m.end(), 0);
+			// Junk                
+			buf.setSpan(new ForegroundColorSpan(mColor), m.start(), m.end(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);  
+			// End Junk
+        }
         }
         return buf;
     }

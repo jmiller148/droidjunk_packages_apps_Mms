@@ -45,7 +45,8 @@
             android:label="@string/app_label"
             android:icon="@mipmap/ic_launcher_smsmms"
             android:taskAffinity="android.task.mms"
-            android:allowTaskReparenting="true">
+            android:allowTaskReparenting="true"
+            android:supportsRtl="true">
 
         <service android:name=".transaction.TransactionService"
                  android:exported="true" />
