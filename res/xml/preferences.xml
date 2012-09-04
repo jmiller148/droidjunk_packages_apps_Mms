@@ -527,14 +527,14 @@
 	    				android:layout="?android:attr/preferenceLayoutChild"
     					android:dependency="pref_key_enable_notifications"
 						android:key="mms_led_on_ms"
-						android:title="Led On Seconds (in 10ths)"
+						android:title="Led On Time Adjustment"
 						android:defaultValue="3" />	
 		
 	<DJSeekBarPreference 		
 	    				android:layout="?android:attr/preferenceLayoutChild"
     					android:dependency="pref_key_enable_notifications"
 						android:key="mms_led_off_ms"
-						android:title="Led Off Seconds (in 10ths)"
+						android:title="Led Off Time Adjustment"
 						android:defaultValue="3" />	
 		                        
     <ListPreference     android:layout="?android:attr/preferenceLayoutChild"
