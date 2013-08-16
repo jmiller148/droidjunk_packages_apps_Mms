@@ -24,7 +24,6 @@ import android.test.AndroidTestCase;
 import android.test.suitebuilder.annotation.SmallTest;
 import android.text.SpannableStringBuilder;
 import android.text.style.ImageSpan;
-
 import com.android.internal.widget.Smileys;
 
 /**
@@ -50,8 +49,9 @@ public class SmileyParserUnitTests extends AndroidTestCase {
         SpannableStringBuilder buf = new SpannableStringBuilder();
         
         // Put a string that looks kind of like a smiley in between two valid smileys.
-        buf.append(parser.addSmileySpans(":-):-:-("));
-
+        // Junk
+        // buf.append(parser.addSmileySpans(":-):-:-("), 0xffffffff);
+        // End Junk
         ImageSpan[] spans = buf.getSpans(0, buf.length(), ImageSpan.class);
 
         assertTrue("Smiley (happy) bitmaps aren't equal",

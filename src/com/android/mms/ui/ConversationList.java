@@ -103,18 +103,25 @@ public class ConversationList extends ListActivity implements DraftCache.OnDraft
 
     private ThreadListQueryHandler mQueryHandler;
     private ConversationListAdapter mListAdapter;
-    private SharedPreferences mPrefs;
     private Handler mHandler;
     private boolean mDoOnceAfterFirstQuery;
     private TextView mUnreadConvCount;
     private MenuItem mSearchItem;
     private SearchView mSearchView;
+
     private int mSavedFirstVisiblePosition = AdapterView.INVALID_POSITION;
     private int mSavedFirstItemOffset;
 
     // keys for extras and icicles
     private final static String LAST_LIST_POS = "last_list_pos";
     private final static String LAST_LIST_OFFSET = "last_list_offset";
+
+    
+    // Junk
+    private SharedPreferences sp;
+    private ListView listView;
+    // End Junk
+
 
     static private final String CHECKED_MESSAGE_LIMITS = "checked_message_limits";
 
@@ -125,8 +132,11 @@ public class ConversationList extends ListActivity implements DraftCache.OnDraft
         setContentView(R.layout.conversation_list_screen);
 
         mQueryHandler = new ThreadListQueryHandler(getContentResolver());
-
-        ListView listView = getListView();
+		// Junk        
+		sp = PreferenceManager.getDefaultSharedPreferences(this);
+        // End Junk
+		
+		listView = getListView();
         listView.setOnCreateContextMenuListener(mConvListOnCreateContextMenuListener);
         listView.setOnKeyListener(mThreadListKeyListener);
         listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
@@ -134,6 +144,7 @@ public class ConversationList extends ListActivity implements DraftCache.OnDraft
 
         // Tell the list view which view to display when the list is empty
         listView.setEmptyView(findViewById(R.id.empty));
+        listView.setBackgroundColor(sp.getInt(MessagingPreferenceActivity.CONV_LIST_BG_COLOR, 0xff000000));  // List background    
 
         initListAdapter();
 
@@ -142,8 +153,8 @@ public class ConversationList extends ListActivity implements DraftCache.OnDraft
         setTitle(R.string.app_label);
 
         mHandler = new Handler();
-        mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-        boolean checkedMessageLimits = mPrefs.getBoolean(CHECKED_MESSAGE_LIMITS, false);
+        sp = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean checkedMessageLimits = sp.getBoolean(CHECKED_MESSAGE_LIMITS, false);
         if (DEBUG) Log.v(TAG, "checkedMessageLimits: " + checkedMessageLimits);
         if (!checkedMessageLimits || DEBUG) {
             runOneTimeStorageLimitCheckForLegacyMessages();
@@ -256,7 +267,7 @@ public class ConversationList extends ListActivity implements DraftCache.OnDraft
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            SharedPreferences.Editor editor = mPrefs.edit();
+                            SharedPreferences.Editor editor = sp.edit();
                             editor.putBoolean(MessagingPreferenceActivity.AUTO_DELETE, true);
                             editor.apply();
                         }
@@ -279,7 +290,7 @@ public class ConversationList extends ListActivity implements DraftCache.OnDraft
      */
     private void markCheckedMessageLimit() {
         if (DEBUG) Log.v(TAG, "markCheckedMessageLimit");
-        SharedPreferences.Editor editor = mPrefs.edit();
+        SharedPreferences.Editor editor = sp.edit();
         editor.putBoolean(CHECKED_MESSAGE_LIMITS, true);
         editor.apply();
     }
@@ -356,6 +367,7 @@ public class ConversationList extends ListActivity implements DraftCache.OnDraft
     }
 
     private void startAsyncQuery() {
+    	listView.setBackgroundColor(sp.getInt(MessagingPreferenceActivity.CONV_LIST_BG_COLOR, 0xff000000));  // List background
         try {
             ((TextView)(getListView().getEmptyView())).setText(R.string.loading_conversations);
 

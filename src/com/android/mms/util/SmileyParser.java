@@ -27,6 +27,14 @@ import android.text.style.ImageSpan;
 
 import com.android.mms.R;
 
+
+import droidjunk.colorfitermaker.ColorFilterMaker;
+
+import java.util.HashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+
 /**
  * A class for annotating a CharSequence with spans to convert textual emoticons
  * to graphical ones.
@@ -182,17 +190,21 @@ public class SmileyParser {
      * @return A CharSequence annotated with ImageSpans covering any
      *         recognized emoticons.
      */
-    public CharSequence addSmileySpans(CharSequence text) {
+    // Junk added the color
+    public CharSequence addSmileySpans(CharSequence text, int color) {
         SpannableStringBuilder builder = new SpannableStringBuilder(text);
 
         Matcher matcher = mPattern.matcher(text);
         while (matcher.find()) {
             int resId = mSmileyToRes.get(matcher.group());
-            builder.setSpan(new ImageSpan(mContext, resId),
-                            matcher.start(), matcher.end(),
-                            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            ImageSpan mSpan = new ImageSpan(mContext, resId);
+            mSpan.getDrawable().setColorFilter(ColorFilterMaker.changeColor(color, .32f));
+           // builder.setSpan(new ImageSpan(mContext, resId),
+           //                 matcher.start(), matcher.end(),
+           //                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            builder.setSpan(mSpan, matcher.start(), matcher.end(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
-
+        
         return builder;
     }
 }
