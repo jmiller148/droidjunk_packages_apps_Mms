@@ -682,10 +682,11 @@ public class MessageListItem extends LinearLayout implements
         int contactLength = 0;
         if (mUseContact) {
         	
-        	//try {
-        	//contactLength = contact.length() + 1;
-        	//} catch (NullPointerException e)
-        	//{}
+        	
+        	try {
+        	contactLength = mMessageItem.mContact.length() + 1;
+        	} catch (NullPointerException e)
+        	{}
         	//contactLength = msgItem.mContact.length() + 1;
        	
         	if (mMessageItem.getBoxId() == 1) {
