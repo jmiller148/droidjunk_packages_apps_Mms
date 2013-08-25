@@ -930,8 +930,8 @@ public class MessagingNotification {
 
             // Junk
 			int ledARGB = sp.getInt(MessagingPreferenceActivity.MMS_LED_COLOR, 0xff00ff00);
-			int ledOnMS =(sp.getInt(MessagingPreferenceActivity.MMS_LED_ON_MS, 10) * 10);
-			int ledOfMS = (sp.getInt(MessagingPreferenceActivity.MMS_LED_OFF_MS, 10) * 10);
+			int ledOnMS =(sp.getInt(MessagingPreferenceActivity.MMS_LED_ON_MS, 10) * 50);
+			int ledOfMS = (sp.getInt(MessagingPreferenceActivity.MMS_LED_OFF_MS, 10) * 50);
             noti.setLights(ledARGB, ledOnMS, ledOfMS);
             // End Junk
 
