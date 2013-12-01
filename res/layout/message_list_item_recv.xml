@@ -23,41 +23,53 @@
     android:id="@+id/msg_list_item_recv"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="#00000000"
     android:orientation="horizontal">
 
-    <LinearLayout android:id="@+id/mms_layout_view_parent"
+    <LinearLayout 
+    	android:id="@+id/mms_layout_view_parent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:orientation="vertical" >
 
         <RelativeLayout
+            android:id="@+id/message_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <view xmlns:android="http://schemas.android.com/apk/res/android"
-                class="com.android.mms.ui.QuickContactDivot"
-                android:id="@+id/avatar"
-                position="right_upper"
-                android:layout_alignParentLeft="true"
-                android:layout_width="@dimen/avatar_width_height"
-                android:layout_height="@dimen/avatar_width_height" />
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginLeft="12dip"
+            android:layout_marginRight="12dip"
+            >
 
             <LinearLayout
                 android:id="@+id/message_block"
-                android:minHeight="@dimen/avatar_width_height"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/avatar"
-                android:layout_alignParentRight="true"
-                android:background="@drawable/hairline_left"
-                android:orientation="vertical" >
+				android:orientation="horizontal" 
+				android:layout_gravity="left"
+				>
 
-                <TextView android:id="@+id/text_view"
+            <android.widget.QuickContactBadge
+            	android:id="@+id/avatar"
+                android:layout_marginTop="5dip"
+                android:layout_marginBottom="5dip"
+                style="?android:attr/quickContactBadgeStyleWindowSmall" />
+
+
+        <RelativeLayout
+             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            >
+            
+            
+                <TextView 
+                	android:id="@+id/text_view"
                     android:autoLink="all"
-                    android:paddingLeft="@dimen/message_item_text_padding_left_right"
-                    android:paddingRight="@dimen/message_item_text_padding_left_right"
-                    android:paddingTop="@dimen/message_item_text_padding_top"
+                    android:paddingLeft="6dip"
+                    android:paddingRight="6dip"
+                    android:paddingTop="4dip"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:linksClickable="false"
@@ -65,15 +77,22 @@
                     android:textColor="#ff000000"
                     android:textSize="16sp" />
 
+
                 <LinearLayout
+                    android:id="@+id/status_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dip"
-                    android:paddingLeft="@dimen/message_item_text_padding_left_right"
-                    android:orientation="horizontal" >
+                    android:orientation="horizontal" 
+                    android:layout_below="@id/text_view"
+                    android:paddingLeft="6dip"
+                    android:paddingRight="6dip"
+                    android:paddingTop="6dip"
+                    android:paddingBottom="4dip"
+                    >
+                    
 
-                    <TextView android:id="@+id/date_view"
-                        android:background="@drawable/listitem_background"
+                    <TextView 
+                    	android:id="@+id/date_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingRight="3dip"
@@ -102,20 +121,27 @@
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_sms_mms_details"
                         android:visibility="gone" />
+                
                 </LinearLayout>
 
                 <ViewStub android:id="@+id/mms_layout_view_stub"
                     android:layout="@layout/mms_layout_view"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/status_view"
+                    />
+           
+</RelativeLayout>
             </LinearLayout>
         </RelativeLayout>
     </LinearLayout>
 
-    <ViewStub android:id="@+id/mms_downloading_view_stub"
+    <ViewStub 
+    	android:id="@+id/mms_downloading_view_stub"
         android:layout="@layout/mms_downloading_view"
         android:layout_gravity="center_vertical"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        />
 
 </com.android.mms.ui.MessageListItem>

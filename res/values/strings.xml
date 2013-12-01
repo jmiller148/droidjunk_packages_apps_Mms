@@ -800,5 +800,17 @@
     <string name="banner_sms_promo_title_initial">Messaging is not your SMS app</string>
     <string name="banner_sms_promo_title_application"><xliff:g id="appName">%s</xliff:g> is your SMS app</string>
     <string name="banner_sms_promo_message">You can change this in Settings</string>
+    
+    
+     <!-- ColorPicker -->     
+    <string name="dialog_color_picker">Color Picker</string>
+    <string name="press_color_to_apply">Press on Color to apply</string>  
+    <string name="hex">Hex:</string>
+    <string name="hex_hint">#FF000000</string>
+	<string name="ics_color">Junk</string>
+    <string name="arrow_right">→</string> 
+    <string name="arrow_down">↓</string>
+    
+    
 
 </resources>
