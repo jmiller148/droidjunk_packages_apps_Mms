@@ -86,9 +86,6 @@ public class MessagingPreferenceActivity extends PreferenceActivity
 	private final String RESTORE_MMS = "restore_mms";
 	public static final String MSG_SIGNATURE	        = "msg_signature";
     public static final String MMS_ASSETS_COPIED        = "mms_assets_copied";
-    public static final String MMS_LED_COLOR            = "mms_led_color";
-    public static final String MMS_LED_ON_MS            = "mms_led_on_ms";
-    public static final String MMS_LED_OFF_MS           = "mms_led_off_ms";
     public static final String MSG_TEXT_SIZE		    = "msg_text_size";
     public static final String MSG_PRESET_COLORS	    = "msg_preset_colors";
     public static final String MSG_BUBBLE_TYPE		    = "msg_bubble_type";
@@ -100,9 +97,6 @@ public class MessagingPreferenceActivity extends PreferenceActivity
     public static final String MSG_FULL_DATE		    = "msg_full_date";
     public static final String MSG_IN_BG_COLOR		    = "msg_in_bg_color";
     public static final String MSG_OUT_BG_COLOR		    = "msg_out_bg_color";
-    public static final String MSG_USE_SMILEY		    = "msg_use_smiley";
-    public static final String MSG_IN_SMILEY_COLOR	    = "msg_in_smiley_color";
-    public static final String MSG_OUT_SMILEY_COLOR	    = "msg_out_smiley_color";
     public static final String MSG_IN_CONTACT_COLOR	    = "msg_in_contact_color";
     public static final String MSG_OUT_CONTACT_COLOR	= "msg_out_contact_color";
     public static final String MSG_IN_TEXT_COLOR	    = "msg_in_text_color";
@@ -173,8 +167,6 @@ public class MessagingPreferenceActivity extends PreferenceActivity
 
     
     // Junk
-    private SeekBarPreference mMmsLedOnMs;
-    private SeekBarPreference mMmsLedOffMs;
     private ListPreference mPresetColors;
     private EditTextPreference mSignature;
     private SeekBarPreference mMsgTextSize;
@@ -186,20 +178,14 @@ public class MessagingPreferenceActivity extends PreferenceActivity
     private String mSignatureText;
     private String mMsgBType;
     private boolean mMsgStretch;
-    private boolean mMsgSmiley;
     private boolean mMsgAvatar;
     private boolean mMsgContact;
     private boolean mMsgDate;
-    private int mMsgLedColor;
-    private int mMsgLedOn;
-    private int mMsgLedOff;
     private int mMsgTxtSize;
     private int mMsgDivHeight;
     private int mMsgListBgColor;
     private int mMsgInBgColor;
     private int mMsgOutBgColor;
-    private int mMsgInSmileyColor;
-    private int mMsgOutSmileyColor;
     private int mMsgInContactColor;
     private int mMsgOutContactColor;
     private int mMsgInTextColor;
@@ -748,20 +734,14 @@ public class MessagingPreferenceActivity extends PreferenceActivity
     	mSignatureText = sp.getString(MSG_SIGNATURE, "");
     	mMsgBType = sp.getString(MSG_BUBBLE_TYPE, "BubbleCall");
     	mMsgStretch = sp.getBoolean(MSG_FILL_PARENT, false);
-    	mMsgSmiley = sp.getBoolean(MSG_USE_SMILEY, true);
     	mMsgAvatar = sp.getBoolean(MSG_SHOW_AVATAR, false);
     	mMsgContact = sp.getBoolean(MSG_USE_CONTACT, false);
     	mMsgDate = sp.getBoolean(MSG_FULL_DATE, false);
-    	mMsgLedColor = sp.getInt(MMS_LED_COLOR, 0xff00ff00);
-    	mMsgLedOn = sp.getInt(MMS_LED_ON_MS, 2);
-    	mMsgLedOff = sp.getInt(MMS_LED_OFF_MS, 2);
     	mMsgTxtSize = sp.getInt(MSG_TEXT_SIZE, 14);
     	mMsgListBgColor = sp.getInt(MSG_LIST_BG_COLOR, 0xffffffff);
     	mMsgDivHeight = sp.getInt(MSG_DIVIDER_HEIGHT, 0);
         mMsgInBgColor = sp.getInt(MSG_IN_BG_COLOR, 0xff008ec2);
         mMsgOutBgColor = sp.getInt(MSG_OUT_BG_COLOR, 0xff33b5e5);
-        mMsgInSmileyColor = sp.getInt(MSG_IN_SMILEY_COLOR, 0xffffffff);
-        mMsgOutSmileyColor = sp.getInt(MSG_OUT_SMILEY_COLOR, 0xffffffff);
         mMsgInContactColor = sp.getInt(MSG_IN_CONTACT_COLOR, 0xffffff);
         mMsgOutContactColor = sp.getInt(MSG_OUT_CONTACT_COLOR, 0xffffffff);
         mMsgInTextColor = sp.getInt(MSG_IN_TEXT_COLOR, 0xffcecece);
@@ -804,21 +784,14 @@ public class MessagingPreferenceActivity extends PreferenceActivity
     	mSignature.setText(mSignatureText);
     	editor.putString(MSG_BUBBLE_TYPE, mMsgBType);
     	editor.putBoolean(MSG_FILL_PARENT, mMsgStretch);
-    	editor.putBoolean(MSG_USE_SMILEY, mMsgSmiley);
     	editor.putBoolean(MSG_SHOW_AVATAR, mMsgAvatar);
     	editor.putBoolean(MSG_USE_CONTACT, mMsgContact);
     	editor.putBoolean(MSG_FULL_DATE, mMsgDate);
-    	editor.putInt(MMS_LED_COLOR, mMsgLedColor);
-    	editor.putInt(MMS_LED_COLOR, mMsgLedColor);
-    	editor.putInt(MMS_LED_ON_MS, mMsgLedOn);
-    	editor.putInt(MMS_LED_OFF_MS, mMsgLedOff);
     	editor.putInt(MSG_TEXT_SIZE, mMsgTxtSize);
     	editor.putInt(MSG_DIVIDER_HEIGHT, mMsgDivHeight);
     	editor.putInt(MSG_LIST_BG_COLOR, mMsgListBgColor);
     	editor.putInt(MSG_IN_BG_COLOR, mMsgInBgColor);
     	editor.putInt(MSG_OUT_BG_COLOR, mMsgOutBgColor);
-    	editor.putInt(MSG_IN_SMILEY_COLOR, mMsgInSmileyColor);
-    	editor.putInt(MSG_OUT_SMILEY_COLOR, mMsgOutSmileyColor);
     	editor.putInt(MSG_IN_CONTACT_COLOR, mMsgInContactColor);
     	editor.putInt(MSG_OUT_CONTACT_COLOR, mMsgOutContactColor);
     	editor.putInt(MSG_IN_TEXT_COLOR, mMsgInTextColor);

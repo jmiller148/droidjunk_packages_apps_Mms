@@ -931,18 +931,10 @@ public class MessagingNotification {
 
             Log.d(TAG, "updateNotification: new message, adding sound to the notification");
 
-            // Junk
-			int ledARGB = sp.getInt(MessagingPreferenceActivity.MMS_LED_COLOR, 0xff00ff00);
-			int ledOnMS =(sp.getInt(MessagingPreferenceActivity.MMS_LED_ON_MS, 10) * 50);
-			int ledOfMS = (sp.getInt(MessagingPreferenceActivity.MMS_LED_OFF_MS, 10) * 50);
-            noti.setLights(ledARGB, ledOnMS, ledOfMS);
-            // End Junk
 
         }
 
-        // Junk
-        //defaults |= Notification.DEFAULT_LIGHTS;
-        // End Junk
+        defaults |= Notification.DEFAULT_LIGHTS;
         noti.setDefaults(defaults);
 
         // set up delete intent

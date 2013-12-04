@@ -88,12 +88,6 @@
                  android:defaultValue="false"
                  />                 
 
-        <CheckBoxPreference 
-             android:layout="?android:attr/preferenceLayoutChild"
-        android:key="msg_use_smiley"
-        android:title="Use smiley icons" 
-                 android:defaultValue="true"
-                 />        
 
         <CheckBoxPreference 
              android:layout="?android:attr/preferenceLayoutChild"
@@ -132,14 +126,7 @@
                 android:title="Background Color"
                 android:defaultValue="#ff008ec2" 
                 alphaSlider="true" /> 
-
-        <com.android.mms.util.ColorPickerPreference 
-                android:dependency="msg_use_smiley"         
-                android:layout="?android:attr/preferenceLayoutChild"
-                android:key="msg_in_smiley_color"
-                android:title="Smiley Icon Color"
-                android:defaultValue="#ffffffff" 
-                alphaSlider="false" />                 
+   
 
         <com.android.mms.util.ColorPickerPreference 
                 android:dependency="msg_use_contact"         
@@ -193,14 +180,7 @@
                 android:defaultValue="#ff33b5e5" 
                 alphaSlider="true" />                                         
                 
-        <com.android.mms.util.ColorPickerPreference 
-                android:dependency="msg_use_smiley"         
-                android:layout="?android:attr/preferenceLayoutChild"
-                android:key="msg_out_smiley_color"
-                android:title="Smiley Icon Color"
-                android:defaultValue="#ffffffff" 
-                alphaSlider="false" />                 
-                
+               
         <com.android.mms.util.ColorPickerPreference 
                 android:dependency="msg_use_contact"         
                 android:layout="?android:attr/preferenceLayoutChild"
@@ -431,7 +411,8 @@
   </PreferenceCategory>
 
 
-
+    <PreferenceCategory android:title="SMS DEFAULT"
+                      android:key="pref_key_sms_settings">
     <Preference
         android:key="pref_key_sms_disabled"
         android:title="@string/pref_title_sms_disabled"
@@ -453,6 +434,8 @@
             android:targetPackage="com.android.settings">
         </intent>
     </Preference>
+    </PreferenceCategory>    
+    
     <PreferenceCategory android:title="@string/pref_sms_storage_title"
                       android:key="pref_key_storage_settings">
 <!--
