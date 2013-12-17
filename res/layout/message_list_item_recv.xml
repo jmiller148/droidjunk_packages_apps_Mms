@@ -38,10 +38,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
-            android:layout_marginLeft="12dip"
-            android:layout_marginRight="12dip"
+            android:layout_marginLeft="10dip"
+            android:layout_marginRight="10dip"
             >
 
+            <FrameLayout
+                android:id="@+id/message_area"
+               	android:layout_width="match_parent"
+               	android:layout_height="match_parent"
+				android:orientation="horizontal" >             
+            
             <LinearLayout
                 android:id="@+id/message_block"
                 android:layout_width="wrap_content"
@@ -52,8 +58,11 @@
 
             <android.widget.QuickContactBadge
             	android:id="@+id/avatar"
-                android:layout_marginTop="5dip"
-                android:layout_marginBottom="5dip"
+                android:layout_marginTop="2dip"
+                android:layout_marginBottom="2dip"
+                
+                android:layout_marginRight="8dip"
+
                 style="?android:attr/quickContactBadgeStyleWindowSmall" />
 
 
@@ -131,8 +140,17 @@
                     android:layout_below="@id/status_view"
                     />
            
-</RelativeLayout>
+		</RelativeLayout>
             </LinearLayout>
+
+   	<ImageView
+    	android:id="@+id/message_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+		android:orientation="horizontal" />	  
+    </FrameLayout>	            
+            
+            
         </RelativeLayout>
     </LinearLayout>
 

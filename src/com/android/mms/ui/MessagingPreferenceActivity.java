@@ -89,6 +89,9 @@ public class MessagingPreferenceActivity extends PreferenceActivity
     public static final String MSG_TEXT_SIZE		    = "msg_text_size";
     public static final String MSG_PRESET_COLORS	    = "msg_preset_colors";
     public static final String MSG_BUBBLE_TYPE		    = "msg_bubble_type";
+    public static final String MSG_SHOW_FRAME		    = "msg_show_frame";
+    public static final String MSG_IN_FRAME_COLOR		= "msg_in_frame_color";
+    public static final String MSG_OUT_FRAME_COLOR		= "msg_out_frame_color";
     public static final String MSG_FILL_PARENT		    = "msg_fill_parent";
     public static final String MSG_USE_CONTACT		    = "msg_use_contact";
     public static final String MSG_LIST_BG_COLOR	    = "msg_list_bg_color";
@@ -177,6 +180,9 @@ public class MessagingPreferenceActivity extends PreferenceActivity
 
     private String mSignatureText;
     private String mMsgBType;
+    private boolean mMsgShowFrame;
+    private int mMsgInFrameColor;
+    private int mMsgOutFrameColor;
     private boolean mMsgStretch;
     private boolean mMsgAvatar;
     private boolean mMsgContact;
@@ -732,7 +738,10 @@ public class MessagingPreferenceActivity extends PreferenceActivity
 	// Junk
     private void getValues() {
     	mSignatureText = sp.getString(MSG_SIGNATURE, "");
-    	mMsgBType = sp.getString(MSG_BUBBLE_TYPE, "BubbleCall");
+    	mMsgBType = sp.getString(MSG_BUBBLE_TYPE, "Bubble1");
+    	mMsgShowFrame = sp.getBoolean(MSG_SHOW_FRAME, false);
+    	mMsgInFrameColor = sp.getInt(MSG_IN_FRAME_COLOR, 0xff008ec2);
+    	mMsgOutFrameColor = sp.getInt(MSG_OUT_FRAME_COLOR, 0xff33b5e5);
     	mMsgStretch = sp.getBoolean(MSG_FILL_PARENT, false);
     	mMsgAvatar = sp.getBoolean(MSG_SHOW_AVATAR, false);
     	mMsgContact = sp.getBoolean(MSG_USE_CONTACT, false);
@@ -783,6 +792,9 @@ public class MessagingPreferenceActivity extends PreferenceActivity
     	editor.putString(MSG_SIGNATURE, mSignatureText);
     	mSignature.setText(mSignatureText);
     	editor.putString(MSG_BUBBLE_TYPE, mMsgBType);
+    	editor.putBoolean(MSG_SHOW_FRAME, mMsgShowFrame);
+    	editor.putInt(MSG_IN_FRAME_COLOR, mMsgInFrameColor);
+    	editor.putInt(MSG_OUT_FRAME_COLOR, mMsgOutFrameColor);
     	editor.putBoolean(MSG_FILL_PARENT, mMsgStretch);
     	editor.putBoolean(MSG_SHOW_AVATAR, mMsgAvatar);
     	editor.putBoolean(MSG_USE_CONTACT, mMsgContact);
