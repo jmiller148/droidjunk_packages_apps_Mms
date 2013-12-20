@@ -26,6 +26,8 @@
     android:background="#00000000"
     android:orientation="horizontal">
 
+
+    
     <LinearLayout 
     	android:id="@+id/mms_layout_view_parent"
         android:layout_width="match_parent"
@@ -42,12 +44,7 @@
             android:layout_marginRight="10dip"
             >
 
-            <FrameLayout
-                android:id="@+id/message_area"
-               	android:layout_width="match_parent"
-               	android:layout_height="match_parent"
-				android:orientation="horizontal" >             
-            
+           
             <LinearLayout
                 android:id="@+id/message_block"
                 android:layout_width="wrap_content"
@@ -141,17 +138,21 @@
                     />
            
 		</RelativeLayout>
+		
             </LinearLayout>
 
-   	<ImageView
-    	android:id="@+id/message_frame"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-		android:orientation="horizontal" />	  
-    </FrameLayout>	            
+ 
             
             
         </RelativeLayout>
+        
+        
+           	<ImageView
+    	android:id="@+id/messsage_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:src="@drawable/msg_divider" />	    
+        
     </LinearLayout>
 
     <ViewStub 
@@ -162,4 +163,7 @@
         android:layout_height="wrap_content"
         />
 
+            
+    
+    
 </com.android.mms.ui.MessageListItem>

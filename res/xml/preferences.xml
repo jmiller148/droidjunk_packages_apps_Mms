@@ -63,7 +63,7 @@
         	android:title="Show The Buble Frame" 
             android:defaultValue="false" />                         
         
-        <SeekBarPreference                 
+        <com.android.mms.util.DJSeekBarPreference                 
         	android:layout="?android:attr/preferenceLayoutChild"
             android:key="msg_text_size"
             android:title="Message Text Size"
@@ -76,7 +76,7 @@
             android:defaultValue="#ffffffff" 
             alphaSlider="false" /> 
 
-        <SeekBarPreference 
+        <com.android.mms.util.DJSeekBarPreference 
             android:layout="?android:attr/preferenceLayoutChild"
         	android:key="msg_divider_height"
         	android:title="Distance Between Messages" 

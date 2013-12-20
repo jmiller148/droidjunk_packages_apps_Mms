@@ -110,7 +110,7 @@ public class MessageListItem extends LinearLayout implements
     private String mDefaultCountryIso;
     private TextView mDateView;
     public View mMessageBlock;
-    public ImageView mMessageFrame;
+    public ImageView mMessageDivider;
 
     static private Drawable sDefaultContactImage;
     private Presenter mPresenter;
@@ -124,7 +124,7 @@ public class MessageListItem extends LinearLayout implements
     private QuickContactBadge mAvatar;
     private boolean mMsgFillParent, mUseContact = false;
     private int mMsgInBgColor, mMsgOutBgColor;
-    private int mMsgInFrameColor, mMsgOutFrameColor;
+    private int mMsgDividerHeight;
 	// End Junk
 
     public MessageListItem(Context context) {
@@ -162,7 +162,7 @@ public class MessageListItem extends LinearLayout implements
         mDetailsIndicator = (ImageView) findViewById(R.id.details_indicator);
         mAvatar = (QuickContactBadge) findViewById(R.id.avatar);
         mMessageBlock = findViewById(R.id.message_block);
-        mMessageFrame = (ImageView) findViewById(R.id.message_frame);
+        mMessageDivider = (ImageView) findViewById(R.id.messsage_divider);
         mMessageLayout = findViewById(R.id.message_layout);
     }
     
@@ -171,18 +171,14 @@ public class MessageListItem extends LinearLayout implements
     private void getBubbleType() {
 
     	String bType = sp.getString(MessagingPreferenceActivity.MSG_BUBBLE_TYPE, "Bubble1");
-    	boolean mShowFrame = sp.getBoolean(MessagingPreferenceActivity.MSG_SHOW_FRAME, false);
     	mMsgFillParent = sp.getBoolean(MessagingPreferenceActivity.MSG_FILL_PARENT, false);
+    	mMessageDivider.getLayoutParams().height = mMsgDividerHeight; 
+    	
     	if (mMsgFillParent) {
     		mMessageBlock.getLayoutParams().width = LayoutParams.MATCH_PARENT; // Stretch Bubble
     	} else {
     		mMessageBlock.getLayoutParams().width = LayoutParams.WRAP_CONTENT; // Do Not Stretch Bubble
     	}
-    	if (mShowFrame) {
-    		mMessageFrame.setVisibility(View.VISIBLE);
-    		} else {
-    			mMessageFrame.setVisibility(View.INVISIBLE);
-    		}
     	
     	if (mMessageItem.getBoxId() == 1) {
     		mMessageBlock.setLayoutDirection(LAYOUT_DIRECTION_LTR);
@@ -190,32 +186,24 @@ public class MessageListItem extends LinearLayout implements
     		mBodyTextView.setLinkTextColor(sp.getInt(MessagingPreferenceActivity.MSG_IN_LINK_COLOR, 0xffffffff));
     		if (bType.equals("Bubble1")) {
     		  mMessageBlock.setBackgroundResource(R.drawable.msg_in_bubble_1);
-    		  mMessageFrame.setBackgroundResource(R.drawable.msg_in_bubbleb_1);
     		  
     	  		} else if (bType.equals("Bubble2")) {
     	  			mMessageBlock.setBackgroundResource(R.drawable.msg_in_bubble_2);
-    	  			mMessageFrame.setBackgroundResource(R.drawable.msg_in_bubbleb_2);
         
     	  		} else if (bType.equals("Bubble3")) {
     	  			mMessageBlock.setBackgroundResource(R.drawable.msg_in_bubble_3);
-    	  			mMessageFrame.setBackgroundResource(R.drawable.msg_in_bubbleb_3);
 
     	  		} else if (bType.equals("Bubble4")) {
        	  			mMessageBlock.setBackgroundResource(R.drawable.msg_in_bubble_4);
-       	  			mMessageFrame.setBackgroundResource(R.drawable.msg_in_bubbleb_4);
     	  		
     	  		} else if (bType.equals("Bubble5")) {
        	  			mMessageBlock.setBackgroundResource(R.drawable.msg_in_bubble_5);
-       	  			mMessageFrame.setBackgroundResource(R.drawable.msg_in_bubbleb_5);
     	  		
     	  		} else if (bType.equals("Plain")) {
        	  			mMessageBlock.setBackgroundResource(R.drawable.msg_in_plain);
-       	  			mMessageFrame.setBackgroundResource(R.drawable.msg_in_bubbleb_1);
-       	  			mMessageFrame.setVisibility(View.INVISIBLE);
     	  		}
     		
  	  		mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.changeColorAlpha(mMsgInBgColor, .32f,0f));
- 	  		mMessageFrame.getBackground().setColorFilter(ColorFilterMaker.changeColorAlpha(mMsgInFrameColor, .32f,0f));
     			
 
     	  	} else {
@@ -225,32 +213,24 @@ public class MessageListItem extends LinearLayout implements
     	  		mBodyTextView.setLinkTextColor(sp.getInt(MessagingPreferenceActivity.MSG_OUT_LINK_COLOR, 0xffffffff));
      	  		if (bType.equals("Bubble1")) {
     	  			mMessageBlock.setBackgroundResource(R.drawable.msg_out_bubble_1);
-    	    		mMessageFrame.setBackgroundResource(R.drawable.msg_out_bubbleb_1);
     		
     	  		} else if (bType.equals("Bubble2")) {
     	  			mMessageBlock.setBackgroundResource(R.drawable.msg_out_bubble_2);
-    	  			mMessageFrame.setBackgroundResource(R.drawable.msg_out_bubbleb_2);
     		 
     	  		} else if (bType.equals("Bubble3")) {
     	  			mMessageBlock.setBackgroundResource(R.drawable.msg_out_bubble_3);
-    	  			mMessageFrame.setBackgroundResource(R.drawable.msg_out_bubbleb_3);
     	  		
 				} else if (bType.equals("Bubble4")) {
        	  			mMessageBlock.setBackgroundResource(R.drawable.msg_out_bubble_4);
-       	  			mMessageFrame.setBackgroundResource(R.drawable.msg_out_bubbleb_4);
 
 				} else if (bType.equals("Bubble5")) {
        	  			mMessageBlock.setBackgroundResource(R.drawable.msg_out_bubble_5);
-       	  			mMessageFrame.setBackgroundResource(R.drawable.msg_out_bubbleb_5);
        	  			
     	  		} else if (bType.equals("Plain")) {
        	  			mMessageBlock.setBackgroundResource(R.drawable.msg_out_plain);
-       	  			mMessageFrame.setBackgroundResource(R.drawable.msg_out_bubbleb_1);
-       	  			mMessageFrame.setVisibility(View.INVISIBLE);
    	  			}
      	  		
      	  		mMessageBlock.getBackground().setColorFilter(ColorFilterMaker.changeColorAlpha(mMsgOutBgColor, .32f,0f));
-     	  		mMessageFrame.getBackground().setColorFilter(ColorFilterMaker.changeColorAlpha(mMsgOutFrameColor, .32f,0f));
     	  }
     };    
 	// End Junk
@@ -270,11 +250,11 @@ public class MessageListItem extends LinearLayout implements
 
         mMsgInBgColor = sp.getInt(MessagingPreferenceActivity.MSG_IN_BG_COLOR, 0xff008ec2);
         mMsgOutBgColor = sp.getInt(MessagingPreferenceActivity.MSG_OUT_BG_COLOR, 0xff33b5e5);
-        mMsgInFrameColor = sp.getInt(MessagingPreferenceActivity.MSG_IN_FRAME_COLOR, 0xff008ec2);
-        mMsgOutFrameColor = sp.getInt(MessagingPreferenceActivity.MSG_OUT_FRAME_COLOR, 0xff33b5e5);
-        getBubbleType();
+        mMsgDividerHeight = sp.getInt(MessagingPreferenceActivity.MSG_DIVIDER_HEIGHT, 0);
         mUseContact = sp.getBoolean(MessagingPreferenceActivity.MSG_USE_CONTACT, false);
         mMsgFillParent = sp.getBoolean(MessagingPreferenceActivity.MSG_FILL_PARENT, false);
+        getBubbleType();
+
         // End Junk
 
         setLongClickable(false);

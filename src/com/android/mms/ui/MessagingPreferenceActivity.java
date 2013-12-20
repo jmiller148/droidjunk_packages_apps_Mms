@@ -58,6 +58,7 @@ import android.widget.Toast;
 import com.android.mms.transaction.TransactionService;
 import com.android.mms.util.AssetUtils;
 import com.android.mms.util.BackupUtils;
+import com.android.mms.util.DJSeekBarPreference;
 import com.android.mms.util.Recycler;
 
 /**
@@ -172,8 +173,8 @@ public class MessagingPreferenceActivity extends PreferenceActivity
     // Junk
     private ListPreference mPresetColors;
     private EditTextPreference mSignature;
-    private SeekBarPreference mMsgTextSize;
-    private SeekBarPreference mDividerHeight;
+    private DJSeekBarPreference mMsgTextSize;
+    private DJSeekBarPreference mDividerHeight;
 	Preference mBackupMmsSettings;
 	Preference mRestoreMmsSettings;
     private SharedPreferences sp;
@@ -317,11 +318,13 @@ public class MessagingPreferenceActivity extends PreferenceActivity
         mPresetColors.setOnPreferenceChangeListener(this);
 
 
-        mMsgTextSize = (SeekBarPreference) findPreference(MSG_TEXT_SIZE);
+        mMsgTextSize = (DJSeekBarPreference) findPreference(MSG_TEXT_SIZE);
+        mMsgTextSize.setMin(8);
         mMsgTextSize.setMax(24);
         mMsgTextSize.setProgress(sp.getInt(MSG_TEXT_SIZE, 14 ));
 
-        mDividerHeight = (SeekBarPreference) findPreference(MSG_DIVIDER_HEIGHT);
+        mDividerHeight = (DJSeekBarPreference) findPreference(MSG_DIVIDER_HEIGHT);
+        mDividerHeight.setMin(0);
         mDividerHeight.setMax(100);
         mDividerHeight.setProgress(sp.getInt(MSG_DIVIDER_HEIGHT, 0));
 

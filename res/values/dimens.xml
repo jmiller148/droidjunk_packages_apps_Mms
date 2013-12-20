@@ -21,4 +21,11 @@ All Rights Reserved. -->
     <!-- Bammer item spacing -->
     <dimen name="banner_s_space">4dip</dimen>
     <dimen name="banner_m_space">8dip</dimen>
+    
+    <!-- Preference widget area width (to the left of the text) -->
+    <dimen name="preference_widget_width">48dp</dimen>
+    <!-- Minimum space to allocate to the left of a preference item for an icon.
+    This helps in aligning titles when some items have icons and some don't. When space is
+    at a premium, we don't pre-allocate any space. -->
+    <dimen name="preference_icon_minWidth">0dp</dimen>  
 </resources>
