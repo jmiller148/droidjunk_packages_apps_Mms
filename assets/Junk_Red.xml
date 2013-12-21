@@ -1,26 +1,20 @@
 <?xml version='1.0' encoding='utf-8' standalone='yes' ?>
 <map>
-<boolean name="msg_use_smiley" value="true" />
 <string name="msg_preset_colors">Gray</string>
-<int name="msg_out_smiley_color" value="-1" />
 <int name="msg_in_text_color" value="-1513240" />
 <int name="unread_conv_error_color" value="-16777216" />
 <int name="msg_in_contact_color" value="-855638017" />
-<boolean name="pref_key_mms_auto_retrieval" value="true" />
 <int name="msg_out_date_color" value="-775765310" />
 <int name="msg_in_link_color" value="-16777216" />
 <int name="unread_conv_date_color" value="-16777216" />
 <int name="selected_conv_attach_color" value="-16777216" />
-<boolean name="pref_key_enable_notifications" value="true" />
 <int name="selected_conv_error_color" value="-16777216" />
 <boolean name="msg_show_avatar" value="true" />
 <int name="read_conv_date_color" value="-909901824" />
 <int name="msg_out_text_color" value="-423180602" />
-<boolean name="checked_message_limits" value="true" />
 <int name="read_conv_error_color" value="-36864" />
 <int name="unread_conv_count_color" value="-14514775" />
-<string name="pref_key_vibrateWhen">never</string>
-<string name="msg_bubble_type">FramedArrow</string>
+<string name="msg_bubble_type">Bubble1</string>
 <int name="msg_out_link_color" value="-16777216" />
 <int name="unread_conv_attach_color" value="-16777216" />
 <int name="msg_in_search_color" value="-16777216" />
@@ -31,14 +25,11 @@
 <int name="selected_conv_date_color" value="-16777216" />
 <int name="selected_conv_contact_color" value="-16777216" />
 <int name="unread_conv_subject_color" value="-16777216" />
-<int name="msg_in_smiley_color" value="-1" />
 <int name="selected_conv_subject_color" value="-16777216" />
-<string name="pref_key_ringtone">content://settings/system/notification_sound</string>
 <int name="msg_in_bg_color" value="-9306112" />
 <int name="unread_conv_bg_color" value="-1" />
 <int name="msg_out_search_color" value="-16777216" />
 <int name="read_conv_count_color" value="-419495936" />
-<boolean name="pref_key_auto_delete" value="true" />
 <int name="read_conv_attach_color" value="-3421237" />
 <int name="msg_out_bg_color" value="-4979708" />
 <int name="read_conv_subject_color" value="-5658199" />
