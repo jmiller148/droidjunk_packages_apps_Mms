@@ -208,7 +208,7 @@ public class MessageListItem extends LinearLayout implements
 
     	  	} else {
         		mMessageBlock.setLayoutDirection(LAYOUT_DIRECTION_RTL);
-        		mMessageLayout.setLayoutDirection(LAYOUT_DIRECTION_LTR);
+        		mMessageLayout.setLayoutDirection(LAYOUT_DIRECTION_RTL);
     	    
     	  		mBodyTextView.setLinkTextColor(sp.getInt(MessagingPreferenceActivity.MSG_OUT_LINK_COLOR, 0xffffffff));
      	  		if (bType.equals("Bubble1")) {
