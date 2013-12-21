@@ -39,7 +39,7 @@
 
         <RelativeLayout
             android:id="@+id/message_layout"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
 			android:layout_gravity="right"
             android:layout_marginLeft="10dip"
@@ -51,21 +51,19 @@
             	    android:id="@+id/message_block"
             	    android:layout_width="wrap_content"
             	    android:layout_height="wrap_content"
-					android:orientation="horizontal" >
+					android:orientation="horizontal" 
+					android:layout_gravity="right" >
             
             <android.widget.QuickContactBadge
             	android:id="@+id/avatar"
                 android:layout_marginTop="2dip"
                 android:layout_marginBottom="2dip"
-                
-                android:layout_marginRight="8dip"
-                
-                style="?android:attr/quickContactBadgeStyleWindowSmall"
-                />
+                style="?android:attr/quickContactBadgeStyleWindowSmall" />
 
         <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">                
+            android:layout_height="wrap_content"
+            android:layout_gravity="right" >                
 
                 <TextView 
                 	android:id="@+id/text_view"

@@ -50,24 +50,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 				android:orientation="horizontal" 
-				android:layout_gravity="left"
-				>
+				android:layout_gravity="left" >
 
             <android.widget.QuickContactBadge
             	android:id="@+id/avatar"
                 android:layout_marginTop="2dip"
                 android:layout_marginBottom="2dip"
-                
-                android:layout_marginRight="8dip"
-
                 style="?android:attr/quickContactBadgeStyleWindowSmall" />
 
 
         <RelativeLayout
              android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            >
+            android:layout_gravity="left"  >
             
             
                 <TextView 
