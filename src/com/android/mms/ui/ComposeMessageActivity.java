@@ -3777,7 +3777,11 @@ public class ComposeMessageActivity extends Activity
             ///////////////////////////////////////////////////////////////////////////////////////////////////////
             sp = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
             mSignature = sp.getString(MessagingPreferenceActivity.MSG_SIGNATURE, "");
-            mSignature = "\n" + mSignature;
+            if (mSignature.equals("")) {
+            	// Do not add new line 
+            	} else { 
+            	mSignature = "\n" + mSignature;
+            	}
             mWorkingMessage.setText(mWorkingMessage.getText() + mSignature);
 			// End Junk
             mWorkingMessage.send(mDebugRecipients);
