@@ -45,14 +45,14 @@
 		android:title="Message Settings" >
   
           <PreferenceCategory android:title="MESSAGE LIST"
-            android:key="key_bubbles">
+            android:key="key_bubbles" >
 
 
         <ListPreference
             android:layout="?android:attr/preferenceLayoutChild"
             android:key="msg_bubble_type"
             android:dialogTitle="Message Bubbles"
-            android:title="Choose a bubble"
+            android:title="Bubbley Types"
             android:entries="@array/entries_bubble_type"
             android:entryValues="@array/values_bubble_type"
             android:defaultValue="Bubble1"/>
@@ -60,7 +60,7 @@
         <CheckBoxPreference 
             android:layout="?android:attr/preferenceLayoutChild"
         	android:key="msg_show_frame"
-        	android:title="Show The Buble Frame" 
+        	android:title="Show The Bubble Frame" 
             android:defaultValue="false" />                         
         
         <com.android.mms.util.DJSeekBarPreference                 
